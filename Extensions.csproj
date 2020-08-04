@@ -80,6 +80,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\EnumerableExtensions.cs" />
     <Compile Include="src\DictionaryExtensions.cs" />
     <Compile Include="src\CollectionExtensions.cs" />
     <Compile Include="src\DataGridExtensions.cs" />
