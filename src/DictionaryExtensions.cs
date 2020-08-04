@@ -10,7 +10,6 @@ namespace BudgetExecution
 
     using System;
     using System.Collections.Generic;
-    using System.Collections.Specialized;
     using System.Data.Common;
     using System.Data.OleDb;
     using System.Data.SqlClient;
@@ -28,77 +27,6 @@ namespace BudgetExecution
         // ***************************************************************************************************************************
         // ************************************************  METHODS   ***************************************************************
         // ***************************************************************************************************************************
-
-        /// <summary> Sorts the specified dictionary. </summary>
-        /// <typeparam name = "TKey" > The type of the key. </typeparam>
-        /// <typeparam name = "TValue" > The type of the str. </typeparam>
-        /// <param name = "dict" > The dictionary. </param>
-        /// <returns> </returns>
-        /// <exception cref = "ArgumentNullException" > dict </exception>
-        public static IDictionary<TKey, TValue> Sort<TKey, TValue>( this IDictionary<TKey, TValue> dict )
-        {
-            if( dict == null )
-            {
-                throw new ArgumentNullException( nameof( dict ) );
-            }
-
-            try
-            {
-                return new SortedDictionary<TKey, TValue>( dict );
-            }
-            catch( Exception ex )
-            {
-                Fail( ex );
-                return default;
-            }
-        }
-
-        /// <summary> Sorts the dictionary by str. </summary>
-        /// <typeparam name = "TKey" > The type of the key. </typeparam>
-        /// <typeparam name = "TValue" > The type of the str. </typeparam>
-        /// <param name = "dict" > The dictionary. </param>
-        /// <returns> </returns>
-        public static IDictionary<TKey, TValue> SortByValue<TKey, TValue>( this IDictionary<TKey, TValue> dict )
-        {
-            try
-            {
-                return new SortedDictionary<TKey, TValue>( dict )?.OrderBy( kvp => kvp.Value )
-                    ?.ToDictionary( item => item.Key, item => item.Value );
-            }
-            catch( Exception ex )
-            {
-                Fail( ex );
-                return default;
-            }
-        }
-
-        /// <summary> An IDictionary extension method that converts the @datarow to a name str collection. </summary>
-        /// <param name = "nvc" > The NVC. </param>
-        /// <returns> @datarow as a NameValueCollection. </returns>
-        public static NameValueCollection ToNameValueCollection( this IDictionary<string, string> nvc )
-        {
-            try
-            {
-                if( nvc == null )
-                {
-                    return null;
-                }
-
-                var col = new NameValueCollection();
-
-                foreach( var item in nvc )
-                {
-                    col.Add( item.Key, item.Value );
-                }
-
-                return col;
-            }
-            catch( Exception ex )
-            {
-                Fail( ex );
-                return default;
-            }
-        }
 
         /// <summary> Adds the or update. </summary>
         /// <typeparam name = "TKey" > The type of the key. </typeparam>
@@ -128,6 +56,70 @@ namespace BudgetExecution
             }
 
             return dict[ key ];
+        }
+
+        /// <summary>
+        /// Predicates the specified logic.
+        /// </summary>
+        /// <param name="dict">The dictionary.</param>
+        /// <param name="logic">The logic.</param>
+        /// <returns></returns>
+        public static string Predicate( this IDictionary<string, object> dict, Logic logic = Logic.AND )
+        {
+            if( dict?.Any() == true
+                && Enum.IsDefined( typeof( Logic ), logic ) )
+            {
+                try
+                {
+                    switch( logic )
+                    {
+                        case Logic.AND:
+                        {
+                            var conjuction = logic.ToString();
+                            var sqlstring = "";
+
+                            foreach( var kvp in dict )
+                            {
+                                sqlstring += $"{kvp.Key} = {kvp.Value} {conjuction}";
+                            }
+
+                            var sql = sqlstring.TrimEnd( $" {conjuction}".ToCharArray() );
+
+                            return !string.IsNullOrEmpty( sql )
+                                ? sql
+                                : string.Empty;
+                        }
+
+                        case Logic.OR:
+                        {
+                            var sqlstring = "";
+
+                            foreach( var kvp in dict )
+                            {
+                                sqlstring += $"{kvp.Key} = {kvp.Value} OR";
+                            }
+
+                            var sql = sqlstring.TrimEnd( " OR".ToCharArray() );
+
+                            return !string.IsNullOrEmpty( sql )
+                                ? sql
+                                : string.Empty;
+                        }
+
+                        default:
+                        {
+                            return string.Empty;
+                        }
+                    }
+                }
+                catch( Exception ex )
+                {
+                    Fail( ex );
+                    return string.Empty;
+                }
+            }
+
+            return string.Empty;
         }
 
         /// <summary> Converts to sorteddictionary. </summary>

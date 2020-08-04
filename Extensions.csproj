@@ -80,6 +80,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\DictionaryExtensions.cs" />
     <Compile Include="src\map\ITime.cs" />
     <Compile Include="src\map\Amount.cs" />
     <Compile Include="src\map\AmountBase.cs" />
@@ -89,10 +90,8 @@
     <Compile Include="src\DataRowExtensions.cs" />
     <Compile Include="src\DataTableExtensions.cs" />
     <Compile Include="src\DateTimeExtensions.cs" />
-    <Compile Include="src\DictionaryExtensions.cs" />
     <Compile Include="src\map\Element.cs" />
     <Compile Include="src\map\ElementBase.cs" />
-    <Compile Include="src\EnumerableExtensions.cs" />
     <Compile Include="src\ui\Error.cs">
       <SubType>Form</SubType>
     </Compile>
