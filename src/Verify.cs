@@ -19,7 +19,7 @@ namespace BudgetExecution
     /// 
     /// </summary>
     [ SuppressMessage( "ReSharper", "MemberCanBeInternal" ) ]
-    public class Verify 
+    public class Verify : Validate
     {
         // ***************************************************************************************************************************
         // ****************************************************    METHODS    ********************************************************
@@ -104,6 +104,78 @@ namespace BudgetExecution
         }
 
         /// <summary>
+        /// Maps the specified map.
+        /// </summary>
+        /// <param name="map">The map.</param>
+        /// <returns></returns>
+        public static bool Map( IMap map )
+        {
+            if( map?.Count <= 0 )
+            {
+                Fail( new ArgumentException() );
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// Keys the specified key.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns></returns>
+        public static bool Key( IKey key )
+        {
+            if( key?.GetIndex() <= 0 )
+            {
+                Fail( new ArgumentException() );
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// Amounts the specified amount.
+        /// </summary>
+        /// <param name="amount">The amount.</param>
+        /// <returns></returns>
+        public static bool Amount( IAmount amount )
+        {
+            if( amount?.GetFunding() <= 0 )
+            {
+                Fail( new ArgumentException() );
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// Elements the specified element.
+        /// </summary>
+        /// <param name="element">The element.</param>
+        /// <returns></returns>
+        public static bool Element( IElement element )
+        {
+            if( string.IsNullOrEmpty( element?.GetValue() ) )
+            {
+                Fail( new ArgumentException() );
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        /// <summary>
         /// Maps the specified input.
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -165,6 +237,157 @@ namespace BudgetExecution
         }
 
         /// <summary>
+        /// Determines whether [is image format] [the specified imageformat].
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="imageformat">The imageformat.</param>
+        /// <returns>
+        /// <c> true </c>
+        /// if [is image format] [the specified imageformat]; otherwise,
+        /// <c> false </c>
+        /// .
+        /// </returns>
+        public static bool ImageFormat<T>( T imageformat ) where T : struct
+        {
+            if( !Enum.IsDefined( typeof( ImageFormat ), imageformat ) )
+            {
+                Fail( new ArgumentException() );
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// Determines whether [is image size] [the specified imagesize].
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="imagesize">The imagesize.</param>
+        /// <returns>
+        /// <c> true </c>
+        /// if [is image size] [the specified imagesize]; otherwise,
+        /// <c> false </c>
+        /// .
+        /// </returns>
+        public static bool ImageSize<T>( T imagesize ) where T : struct
+        {
+            if( !Enum.IsDefined( typeof( ImageSizer ), imagesize ) )
+            {
+                Fail( new ArgumentException() );
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// Determines whether [is transfer type] [the specified transfer].
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="transfer">The transfer.</param>
+        /// <returns>
+        /// <c> true </c>
+        /// if [is transfer type] [the specified transfer]; otherwise,
+        /// <c> false </c>
+        /// .
+        /// </returns>
+        public static bool TransferType<T>( T transfer ) where T : struct
+        {
+            if( !Enum.IsDefined( typeof( TransferType ), transfer ) )
+            {
+                Fail( new ArgumentException() );
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// Determines whether the specified source is authority.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source">The source.</param>
+        /// <returns>
+        /// <c> true </c>
+        /// if the specified source is authority; otherwise,
+        /// <c> false </c>
+        /// .
+        /// </returns>
+        public static bool IsAuthority<T>( T source ) where T : struct
+        {
+            var input = (Source)Enum.Parse( typeof( Source ), source.ToString() );
+
+            if( !Enum.IsDefined( typeof( Source ), source )
+                || !Resource.AuthoritySources.Contains( input ) )
+            {
+                Fail( new ArgumentException() );
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// Determines whether the specified source is division.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source">The source.</param>
+        /// <returns>
+        /// <c> true </c>
+        /// if the specified source is division; otherwise,
+        /// <c> false </c>
+        /// .
+        /// </returns>
+        public static bool IsDivision<T>( T source ) where T : struct
+        {
+            var input = (Source)Enum.Parse( typeof( Source ), source.ToString() );
+
+            if( !Enum.IsDefined( typeof( Source ), source )
+                || !Resource.DivisionSources.Contains( input ) )
+            {
+                Fail( new ArgumentException() );
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// Determines whether the specified source is supplemental.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source">The source.</param>
+        /// <returns>
+        /// <c> true </c>
+        /// if the specified source is supplemental; otherwise,
+        /// <c> false </c>
+        /// .
+        /// </returns>
+        public static bool IsSupplemental<T>( T source ) where T : struct
+        {
+            if( Enum.IsDefined( typeof( Source ), source ) )
+            {
+                var input = (Source)Enum.Parse( typeof( Source ), source.ToString() );
+                return Resource.SupplementalSources.Contains( input );
+            }
+            else
+            {
+                Fail( new ArgumentException() );
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Determines whether the specified source is outlay.
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -213,6 +436,48 @@ namespace BudgetExecution
         }
 
         /// <summary>
+        /// Dates the specified date.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="date">The date.</param>
+        /// <returns></returns>
+        public static bool Date<T>( T date ) where T : struct
+        {
+            if( !Enum.IsDefined( typeof( Date ), date ) )
+            {
+                Fail( new ArgumentException() );
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// Determines whether [is time data] [the specified date].
+        /// </summary>
+        /// <param name = "time" > </param>
+        /// <returns>
+        /// <c> true </c>
+        /// if [is time data] [the specified date]; otherwise,
+        /// <c> false </c>
+        /// .
+        /// </returns>
+        public static bool Time( ITime time ) 
+        {
+            if( string.IsNullOrEmpty( time.GetName() ) )
+            {
+                Fail( new ArgumentException() );
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        /// <summary>
         /// Nots the null.
         /// </summary>
         /// <param name="input">The input.</param>
@@ -228,36 +493,6 @@ namespace BudgetExecution
             {
                 return true;
             }
-        }
-
-        /// <summary>
-        /// Providers the specified input.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="input">The input.</param>
-        /// <returns></returns>
-        public static bool Provider<T>( T input ) where T : struct
-        {
-            if( !Enum.IsDefined( typeof( Provider ), input ) )
-            {
-                Fail( new ArgumentException() );
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
-
-        /// <summary>
-        /// Get Error Dialog.
-        /// </summary>
-        /// <param name="ex">The ex.</param>
-        private protected static void Fail( Exception ex )
-        {
-            using var error = new Error( ex );
-            error?.SetText();
-            error?.ShowDialog();
         }
     }
 }

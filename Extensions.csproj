@@ -46,8 +46,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="BudgetEnumerations">
-      <HintPath>..\BudgetEnumerations\bin\Debug\BudgetEnumerations.dll</HintPath>
+    <Reference Include="BudgetEnumerations, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Enumerations\bin\Debug\BudgetEnumerations.dll</HintPath>
     </Reference>
     <Reference Include="EPPlus">
       <HintPath>..\Ninja\lib\EPPlus.dll</HintPath>
@@ -79,26 +80,45 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ITime.cs" />
+    <Compile Include="src\Amount.cs" />
+    <Compile Include="src\AmountBase.cs" />
+    <Compile Include="src\Arg.cs" />
     <Compile Include="src\CollectionExtensions.cs" />
     <Compile Include="src\DataGridExtensions.cs" />
     <Compile Include="src\DataRowExtensions.cs" />
     <Compile Include="src\DataTableExtensions.cs" />
     <Compile Include="src\DateTimeExtensions.cs" />
     <Compile Include="src\DictionaryExtensions.cs" />
+    <Compile Include="src\Element.cs" />
+    <Compile Include="src\ElementBase.cs" />
     <Compile Include="src\EnumerableExtensions.cs" />
     <Compile Include="src\Error.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="src\Error.Designer.cs" />
     <Compile Include="src\FileStreamExtensions.cs" />
+    <Compile Include="src\IAmount.cs" />
+    <Compile Include="src\IElement.cs" />
+    <Compile Include="src\IKey.cs" />
+    <Compile Include="src\IMap.cs" />
+    <Compile Include="src\IUnit.cs" />
+    <Compile Include="src\Key.cs" />
+    <Compile Include="src\KeyBase.cs" />
     <Compile Include="src\LinqExtensions.cs" />
+    <Compile Include="src\Map.cs" />
     <Compile Include="src\Message.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="src\Message.Designer.cs" />
     <Compile Include="src\StringExtensions.cs" />
     <Compile Include="src\TimeSpanExtensions.cs" />
+    <Compile Include="src\Unit.cs" />
+    <Compile Include="src\UnitBase.cs" />
+    <Compile Include="src\Validate.cs" />
     <Compile Include="src\Verify.cs" />
+    <Compile Include="Time.cs" />
+    <Compile Include="TimeBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="src\Error.resx" />
