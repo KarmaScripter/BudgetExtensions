@@ -38,7 +38,7 @@
     <StartupObject />
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>res\logo.ico</ApplicationIcon>
+    <ApplicationIcon>etc\logo.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
@@ -80,53 +80,53 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ITime.cs" />
-    <Compile Include="src\Amount.cs" />
-    <Compile Include="src\AmountBase.cs" />
-    <Compile Include="src\Arg.cs" />
+    <Compile Include="src\map\ITime.cs" />
+    <Compile Include="src\map\Amount.cs" />
+    <Compile Include="src\map\AmountBase.cs" />
+    <Compile Include="src\map\Arg.cs" />
     <Compile Include="src\CollectionExtensions.cs" />
     <Compile Include="src\DataGridExtensions.cs" />
     <Compile Include="src\DataRowExtensions.cs" />
     <Compile Include="src\DataTableExtensions.cs" />
     <Compile Include="src\DateTimeExtensions.cs" />
     <Compile Include="src\DictionaryExtensions.cs" />
-    <Compile Include="src\Element.cs" />
-    <Compile Include="src\ElementBase.cs" />
+    <Compile Include="src\map\Element.cs" />
+    <Compile Include="src\map\ElementBase.cs" />
     <Compile Include="src\EnumerableExtensions.cs" />
-    <Compile Include="src\Error.cs">
+    <Compile Include="src\ui\Error.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="src\Error.Designer.cs" />
+    <Compile Include="src\ui\Error.Designer.cs" />
     <Compile Include="src\FileStreamExtensions.cs" />
-    <Compile Include="src\IAmount.cs" />
-    <Compile Include="src\IElement.cs" />
-    <Compile Include="src\IKey.cs" />
-    <Compile Include="src\IMap.cs" />
-    <Compile Include="src\IUnit.cs" />
-    <Compile Include="src\Key.cs" />
-    <Compile Include="src\KeyBase.cs" />
+    <Compile Include="src\map\IAmount.cs" />
+    <Compile Include="src\map\IElement.cs" />
+    <Compile Include="src\map\IKey.cs" />
+    <Compile Include="src\map\IMap.cs" />
+    <Compile Include="src\map\IUnit.cs" />
+    <Compile Include="src\map\Key.cs" />
+    <Compile Include="src\map\KeyBase.cs" />
     <Compile Include="src\LinqExtensions.cs" />
-    <Compile Include="src\Map.cs" />
-    <Compile Include="src\Message.cs">
+    <Compile Include="src\map\Map.cs" />
+    <Compile Include="src\ui\Message.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="src\Message.Designer.cs" />
+    <Compile Include="src\ui\Message.Designer.cs" />
     <Compile Include="src\StringExtensions.cs" />
     <Compile Include="src\TimeSpanExtensions.cs" />
-    <Compile Include="src\Unit.cs" />
-    <Compile Include="src\UnitBase.cs" />
-    <Compile Include="src\Validate.cs" />
-    <Compile Include="src\Verify.cs" />
-    <Compile Include="Time.cs" />
-    <Compile Include="TimeBase.cs" />
+    <Compile Include="src\map\Unit.cs" />
+    <Compile Include="src\map\UnitBase.cs" />
+    <Compile Include="src\static\Validate.cs" />
+    <Compile Include="src\static\Verify.cs" />
+    <Compile Include="src\map\Time.cs" />
+    <Compile Include="src\map\TimeBase.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="src\Error.resx" />
-    <EmbeddedResource Include="src\Message.resx" />
+    <EmbeddedResource Include="src\ui\Error.resx" />
+    <EmbeddedResource Include="src\ui\Message.resx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
-    <Content Include="res\logo.ico" />
+    <Content Include="etc\logo.ico" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
