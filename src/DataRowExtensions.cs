@@ -42,8 +42,8 @@ namespace BudgetExecution
                     typeof( Provider ) );
             }
 
-            if( Verify.Input( datarow.ItemArray )
-                && Verify.Provider( provider ) )
+            if( datarow?.ItemArray.Length > 0 
+                && Enum.IsDefined( typeof( Provider ), provider ) )
             {
                 try
                 {
@@ -157,7 +157,7 @@ namespace BudgetExecution
         {
             try
             {
-                if( Verify.Input( datarow?.ItemArray ) )
+                if( datarow?.ItemArray.Length > 0 )
                 {
                     var dict = new Dictionary<string, object>();
                     var table = datarow?.Table;
@@ -166,7 +166,7 @@ namespace BudgetExecution
 
                     for( var i = 0; i < column?.Count; i++ )
                     {
-                        if( Verify.Input( column[ i ]?.ColumnName ) )
+                        if( !string.IsNullOrEmpty( column[ i ]?.ColumnName ) )
                         {
                             dict?.Add( column[ i ].ColumnName, items[ i ] ?? default );
                         }
@@ -195,7 +195,7 @@ namespace BudgetExecution
         {
             try
             {
-                if( Verify.Input( datarow?.ItemArray ) )
+                if( datarow?.ItemArray.Length > 0 )
                 {
                     var sortedlist = new SortedList<string, object>();
                     var table = datarow?.Table;
@@ -204,7 +204,7 @@ namespace BudgetExecution
 
                     for( var i = 0; i < column?.Count; i++ )
                     {
-                        if( Verify.Input( column[ i ]?.ColumnName ) )
+                        if( !string.IsNullOrEmpty( column[ i ]?.ColumnName ) )
                         {
                             sortedlist?.Add( column[ i ].ColumnName, items[ i ] ?? default );
                         }

@@ -281,7 +281,7 @@ namespace BudgetExecution
         /// </returns>
         public static bool HasPrimaryKey( this IDictionary<string, object> dict )
         {
-            if( Verify.Input( dict ) )
+            if( dict?.Any() == true )
             {
                 try
                 {
@@ -318,7 +318,7 @@ namespace BudgetExecution
         /// <returns></returns>
         public static KeyValuePair<string, object> GetPrimaryKey( this IDictionary<string, object> dict )
         {
-            if( Verify.Input( dict ) 
+            if( dict?.Any() == true
                 && dict.HasPrimaryKey() )
             {
                 try

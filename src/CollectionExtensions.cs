@@ -194,7 +194,9 @@ namespace BudgetExecution
             {
                 try
                 {
-                    var list = collection?.Where( child => predicate( child ) )?.ToList();
+                    var list = collection
+                        ?.Where( child => predicate( child ) )
+                        ?.ToList();
 
                     if( list?.Any() == true )
                     {

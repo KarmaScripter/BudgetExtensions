@@ -104,7 +104,7 @@ namespace BudgetExecution
         /// </returns>
         public static string JoinPascal( this string str )
         {
-            if( Verify.Input( str )
+            if( !string.IsNullOrEmpty( str )
                 && str.Contains( " " ) )
             {
                 try
@@ -134,14 +134,14 @@ namespace BudgetExecution
         [ SuppressMessage( "ReSharper", "UnusedMethodReturnValue.Global" ) ]
         public static string ToProperCase( this string str )
         {
-            if( Verify.Input( str ) )
+            if( !string.IsNullOrEmpty( str ) )
             {
                 try
                 {
                     var cultureinfo = Thread.CurrentThread.CurrentCulture;
                     var textinfo = cultureinfo.TextInfo;
 
-                    return Verify.Input( textinfo.ToTitleCase( str ) )
+                    return !string.IsNullOrEmpty( textinfo.ToTitleCase( str ) )
                         ? textinfo.ToTitleCase( str )
                         : default;
                 }
@@ -271,7 +271,7 @@ namespace BudgetExecution
         {
             try
             {
-                if( Verify.Input( str ) )
+                if( !string.IsNullOrEmpty( str ) )
                 {
                     var letters = str.ToCharArray();
                     letters[ 0 ] = char.ToUpper( letters[ 0 ] );
@@ -298,15 +298,11 @@ namespace BudgetExecution
         /// <returns>
         /// The <see/>
         /// </returns>
-        public static DateTime? ToDateTime( this string str )
+        public static DateTime ToDateTime( this string str )
         {
             try
             {
-                var datetime = DateTime.Parse( str );
-
-                return Verify.DateTime( datetime )
-                    ? datetime 
-                    : new DateTime?();
+                return DateTime.Parse( str );
             }
             catch( Exception ex )
             {
@@ -380,7 +376,7 @@ namespace BudgetExecution
         {
             try
             {
-                return Verify.Input( str )
+                return !string.IsNullOrEmpty( str )
                     ? new StreamReader( str )
                     : default;
             }
@@ -402,8 +398,8 @@ namespace BudgetExecution
         /// </param>
         public static void WriteToFile( this string str, string filetext )
         {
-            if( Verify.Input( str )
-                && Verify.Input( filetext ) )
+            if( !string.IsNullOrEmpty( str )
+                && !string.IsNullOrEmpty( filetext ) )
             {
                 try
                 {
@@ -470,7 +466,7 @@ namespace BudgetExecution
         /// </param>
         public static string RemoveSpaces( this string s )
         {
-            if( Verify.Input( s )
+            if( !string.IsNullOrEmpty( s )
                 && s.Contains( " " ) )
             {
                 try

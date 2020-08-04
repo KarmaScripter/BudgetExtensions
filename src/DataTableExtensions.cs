@@ -102,7 +102,7 @@ namespace BudgetExecution
                 for( var i = 0; i < table?.Columns?.Count; i++ )
                 {
                     if( worksheet != null
-                        && Verify.Input( table.Columns[ i ]?.ColumnName ) )
+                        && !string.IsNullOrEmpty( table.Columns[ i ]?.ColumnName ) )
                     {
                         worksheet.Cells[ 1, i + 1 ].Value = table.Columns[ i ]?.ColumnName;
                     }
@@ -119,7 +119,7 @@ namespace BudgetExecution
                     }
                 }
 
-                if( Verify.Input( filepath ) )
+                if( !string.IsNullOrEmpty( filepath ) )
                 {
                     try
                     {
@@ -151,8 +151,8 @@ namespace BudgetExecution
             if( table != null
                 && table.Columns.Count > 0
                 && table.Rows.Count > 0
-                && Verify.Input( filepath )
-                && Verify.Input( sheetname ) )
+                && !string.IsNullOrEmpty( filepath )
+                && !string.IsNullOrEmpty( sheetname ) )
             {
                 try
                 {
@@ -193,7 +193,7 @@ namespace BudgetExecution
                 {
                     foreach( DataColumn k in table.Columns )
                     {
-                        if( Verify.Input( k.ColumnName )
+                        if( !string.IsNullOrEmpty( k.ColumnName )
                             && Enum.GetNames( typeof( Numeric ) )?.Contains( k?.ColumnName ) == true )
                         {
                             return true;
@@ -289,7 +289,7 @@ namespace BudgetExecution
         public static string[] GetUniqueValues( this DataTable table, string column )
         {
             if( table.Rows.Count > 0
-                && Verify.Input( column ) )
+                && !string.IsNullOrEmpty( column ) )
             {
                 try
                 {
@@ -357,7 +357,7 @@ namespace BudgetExecution
             if( table != null
                 && table.Columns.Count > 0
                 && Enum.IsDefined( typeof( Field ), field )
-                && Verify.Input( filter )
+                && !string.IsNullOrEmpty( filter )
                 && table.Columns.Contains( $"{field}" ) )
             {
                 try

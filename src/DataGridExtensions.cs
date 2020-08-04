@@ -254,7 +254,7 @@ namespace BudgetExecution
                                     Array.ConvertAll( ( (DataGridViewRow)row )?.Cells?.Cast<DataGridViewCell>()?.ToArray(),
                                         c => c.Value?.ToString() ?? string.Empty ) );
 
-                                if( Verify.Input( rowitem ) )
+                                if( !string.IsNullOrEmpty( rowitem ) )
                                 {
                                     list?.Add( rowitem );
                                 }
@@ -285,14 +285,14 @@ namespace BudgetExecution
         /// <see cref="string" /></param>
         public static void ExportToCommaDelimitedFile( this DataGridView datagridview, string filename )
         {
-            if( Verify.Input( filename )
+            if( !string.IsNullOrEmpty( filename )
                 && datagridview != null )
             {
                 try
                 {
                     var path = Path.Combine( AppDomain.CurrentDomain.BaseDirectory, filename );
 
-                    if( Verify.Input( path ) )
+                    if( !string.IsNullOrEmpty( path ) )
                     {
                         File.WriteAllLines( path, datagridview.CommaDelimitedRows() );
                     }
@@ -341,7 +341,7 @@ namespace BudgetExecution
                 {
                     foreach( DataGridViewColumn column in datagridview.Columns )
                     {
-                        if( Verify.Input( datatable.Columns[ column.Name ].Caption ) )
+                        if( !string.IsNullOrEmpty( datatable.Columns[ column.Name ].Caption ) )
                         {
                             column.HeaderText = datatable.Columns[ column.Name ].Caption;
                         }
@@ -371,7 +371,7 @@ namespace BudgetExecution
                     {
                         foreach( DataGridViewColumn col in datagridview.Columns )
                         {
-                            if( Verify.Input( table.Columns[ col.Name ].Caption ) )
+                            if( !string.IsNullOrEmpty( table.Columns[ col.Name ].Caption ) )
                             {
                                 col.HeaderText = table.Columns[ col.Name ].Caption;
                             }
