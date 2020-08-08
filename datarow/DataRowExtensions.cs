@@ -19,7 +19,6 @@ namespace BudgetExecution
     using System.Data.SqlServerCe;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using System.Threading;
 
     /// <summary> </summary>
     [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
@@ -455,7 +454,7 @@ namespace BudgetExecution
         /// <param name="ex">The ex.</param>
         private static void Fail( Exception ex )
         {
-            using var error = new Error( ex );
+            using var error = new ExtensionError( ex );
             error?.SetText();
             error?.ShowDialog();
         }

@@ -6,20 +6,20 @@ namespace BudgetExecution
 {
     using System;
 
-    public partial class Error
+    public partial class ExtensionError
     {
-        public Error()
+        public ExtensionError()
         {
             InitializeComponent();
         }
 
-        public Error( Exception ext )
+        public ExtensionError( Exception ext )
         {
             InitializeComponent();
             Exception = ext;
         }
 
-        public Error( string message )
+        public ExtensionError( string message )
         {
             InitializeComponent();
             Text = message;

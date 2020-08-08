@@ -2,7 +2,7 @@
 
 namespace BudgetExecution
 {
-    partial class Error : MetroForm
+    partial class ExtensionError : MetroForm
     {
         /// <summary>
         /// Required designer variable.
@@ -31,7 +31,7 @@ namespace BudgetExecution
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Error));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExtensionError));
             this.Info = new VisualPlus.Toolkit.Controls.Interactivity.VisualLabel();
             this.SuspendLayout();
             // 
@@ -78,7 +78,7 @@ namespace BudgetExecution
             this.ForeColor = System.Drawing.Color.LightGray;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MetroColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(5)))), ((int)(((byte)(5)))));
-            this.Name = "Error";
+            this.Name = "ExtensionError";
             this.Text = "Error";
             this.ResumeLayout(false);
 
