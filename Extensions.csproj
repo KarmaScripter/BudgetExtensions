@@ -42,8 +42,8 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
-    <None Include="etc\App.config" />
-    <None Include="etc\packages.config" />
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="BudgetBadger">
