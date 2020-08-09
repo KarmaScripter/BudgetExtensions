@@ -10,7 +10,6 @@ namespace BudgetExecution
 
     using System;
     using System;
-    using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using System.Net;
@@ -26,46 +25,6 @@ namespace BudgetExecution
         // ***************************************************************************************************************************
         // ************************************************  METHODS   ***************************************************************
         // ***************************************************************************************************************************
-
-        /// <summary>
-        /// The SplitPascalCase
-        /// </summary>
-        /// <param name = "str" >
-        /// The str <see cref = "string"/>
-        /// </param>
-        /// <returns>
-        /// The <see cref = "IEnumerable{str}"/>
-        /// </returns>
-        public static IEnumerable<string> SplitPascalCase( this string str )
-        {
-            var sb = new StringBuilder();
-            using var reader = new StringReader( str );
-
-            while( reader.Peek() != -1 )
-            {
-                var c = (char)reader.Read();
-
-                if( char.IsUpper( c )
-                    && sb.Length > 0 )
-                {
-                    yield return sb.ToString();
-
-                    sb.Length = 0;
-                }
-
-                sb.Append( c );
-            }
-
-            if( sb.Length < 5 )
-            {
-                yield return sb.ToString().ToUpper();
-            }
-
-            if( sb.Length >= 5 )
-            {
-                yield return sb.ToString();
-            }
-        }
 
         /// <summary>
         /// The SplitPascal
@@ -91,35 +50,6 @@ namespace BudgetExecution
                 Fail( ex );
                 return default;
             }
-        }
-
-        /// <summary>
-        /// The JoinPascal
-        /// </summary>
-        /// <param name = "str" >
-        /// The str <see cref = "string"/>
-        /// </param>
-        /// <returns>
-        /// The <see cref = "string"/>
-        /// </returns>
-        public static string JoinPascal( this string str )
-        {
-            if( !string.IsNullOrEmpty( str )
-                && str.Contains( " " ) )
-            {
-                try
-                {
-                    str.ToProperCase();
-                    return str.Replace( " ", "" );
-                }
-                catch( Exception ex )
-                {
-                    Fail( ex );
-                    return default;
-                }
-            }
-
-            return str;
         }
 
         /// <summary>

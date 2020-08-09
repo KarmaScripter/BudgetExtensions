@@ -38,13 +38,9 @@
     <StartupObject />
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>etc\logo.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
-  <ItemGroup>
-    <None Include=".editorconfig" />
-    <None Include="etc\App.config" />
-    <None Include="etc\packages.config" />
-  </ItemGroup>
   <ItemGroup>
     <Reference Include="BudgetBadger">
       <HintPath>..\Badger\bin\Debug\BudgetBadger.dll</HintPath>
@@ -89,20 +85,16 @@
     <Compile Include="linq\LinqExtensions.cs" />
     <Compile Include="string\StringExtensions.cs" />
     <Compile Include="timespan\TimeSpanExtensions.cs" />
-    <Compile Include="src\ui\ExtensionError.cs">
+    <Compile Include="ui\ExtensionError.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="src\ui\ExtensionError.Designer.cs">
+    <Compile Include="ui\ExtensionError.Designer.cs">
       <DependentUpon>ExtensionError.cs</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Content Include=".gitignore" />
-    <Content Include="etc\logo.ico" />
-  </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <EmbeddedResource Include="src\ui\ExtensionError.resx">
+    <EmbeddedResource Include="ui\ExtensionError.resx">
       <DependentUpon>ExtensionError.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
