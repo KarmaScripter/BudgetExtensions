@@ -89,6 +89,7 @@
   <ItemGroup>
     <None Include=".editorconfig" />
     <None Include="App.config" />
+    <None Include="BudgetExecution.DotSettings" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
