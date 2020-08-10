@@ -1,6 +1,6 @@
-﻿// <copyright file = "DataRowExt.cs" company = "Terry D. Eppler">
-// Copyright (c) Terry D. Eppler. All rights reserved.
-// </copyright>
+﻿// // <copyright file = "DataRowExtensions.cs" company = "Terry D. Eppler">
+// // Copyright (c) Terry D. Eppler. All rights reserved.
+// // </copyright>
 
 namespace BudgetExecution
 {
@@ -41,7 +41,7 @@ namespace BudgetExecution
                     typeof( Provider ) );
             }
 
-            if( datarow?.ItemArray.Length > 0 
+            if( datarow?.ItemArray.Length > 0
                 && Enum.IsDefined( typeof( Provider ), provider ) )
             {
                 try

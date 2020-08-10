@@ -74,19 +74,27 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="enumerable\EnumerableExtensions.cs" />
-    <Compile Include="dictionary\DictionaryExtensions.cs" />
     <Compile Include="collection\CollectionExtensions.cs" />
     <Compile Include="datagrid\DataGridExtensions.cs" />
     <Compile Include="datarow\DataRowExtensions.cs" />
     <Compile Include="datatable\DataTableExtensions.cs" />
     <Compile Include="datetime\DateTimeExtensions.cs" />
+    <Compile Include="dictionary\DictionaryExtensions.cs" />
+    <Compile Include="enumerable\EnumerableExtensions.cs" />
     <Compile Include="filestream\FileStreamExtensions.cs" />
     <Compile Include="linq\LinqExtensions.cs" />
     <Compile Include="string\StringExtensions.cs" />
     <Compile Include="timespan\TimeSpanExtensions.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include=".editorconfig" />
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include=".gitattributes" />
+    <Content Include=".gitignore" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

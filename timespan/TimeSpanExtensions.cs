@@ -1,6 +1,6 @@
-﻿// <copyright file="TimeSpanExt.cs" company="Terry D. Eppler">
-// Copyright (c) Terry Eppler. All rights reserved.
-// </copyright>
+﻿// // <copyright file = "TimeSpanExtensions.cs" company = "Terry D. Eppler">
+// // Copyright (c) Terry D. Eppler. All rights reserved.
+// // </copyright>
 
 namespace BudgetExecution
 {
@@ -68,7 +68,9 @@ namespace BudgetExecution
         /// </returns>
         public static int GetMonths( this TimeSpan timespan )
         {
-            return (int)( timespan.TotalDays % AvgDaysInAYear / AvgDaysInAMonth );
+            return (int)( timespan.TotalDays
+                % AvgDaysInAYear
+                / AvgDaysInAMonth );
         }
 
         /// <summary>
@@ -96,7 +98,10 @@ namespace BudgetExecution
         /// </returns>
         public static int GetWeeks( this TimeSpan timespan )
         {
-            return (int)( timespan.TotalDays % AvgDaysInAYear % AvgDaysInAMonth / 7d );
+            return (int)( timespan.TotalDays
+                % AvgDaysInAYear
+                % AvgDaysInAMonth
+                / 7d );
         }
 
         /// <summary>

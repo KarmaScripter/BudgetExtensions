@@ -1,6 +1,8 @@
-﻿// <copyright file="{ClassName}.cs" company="Terry D. Eppler">
-// Copyright (c) Eppler. All rights reserved.
-// </copyright>
+﻿// // <copyright file = "EnumerableExtensions.cs" company = "Terry D. Eppler">
+// // Copyright (c) Terry D. Eppler. All rights reserved.
+// // </copyright>
+
+using OfficeOpenXml.Table;
 
 namespace BudgetExecution
 {
@@ -16,7 +18,7 @@ namespace BudgetExecution
     using System.Linq;
     using System.Threading;
     using OfficeOpenXml;
-    using TableStyles = OfficeOpenXml.Table.TableStyles;
+    using TableStyles = TableStyles;
 
     [ SuppressMessage( "ReSharper", "MergeCastWithTypeCheck" ) ]
     [ SuppressMessage( "ReSharper", "AssignNullToNotNullAttribute" ) ]
@@ -238,10 +240,11 @@ namespace BudgetExecution
         /// or
         /// No data to export.
         /// </exception>
-        public static ExcelPackage ToExcel<T>( this IEnumerable<T> data, string path, TableStyles style = TableStyles.Light1 )
+        public static ExcelPackage ToExcel<T>( this IEnumerable<T> data, string path,
+            TableStyles style = TableStyles.Light1 )
         {
-            if( string.IsNullOrEmpty( path ) 
-                && data?.Any() == true 
+            if( string.IsNullOrEmpty( path )
+                && data?.Any() == true
                 && Enum.IsDefined( typeof( TableStyles ), style ) )
             {
                 throw new ArgumentException();
@@ -273,8 +276,8 @@ namespace BudgetExecution
         /// <returns></returns>
         public static IEnumerable<T> LazySlice<T>( this IEnumerable<T> data, int start, int end )
         {
-            if( data?.Any() == true 
-                && start > 0 
+            if( data?.Any() == true
+                && start > 0
                 && end > 0 )
             {
                 var index = 0;

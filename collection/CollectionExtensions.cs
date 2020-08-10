@@ -1,6 +1,6 @@
-﻿// <copyright file="CollectionExt.cs" company="Terry D. Eppler">
-// Copyright (c) Terry Eppler. All rights reserved.
-// </copyright>
+﻿// // <copyright file = "CollectionExtensions.cs" company = "Terry D. Eppler">
+// // Copyright (c) Terry D. Eppler. All rights reserved.
+// // </copyright>
 
 namespace BudgetExecution
 {
@@ -194,9 +194,7 @@ namespace BudgetExecution
             {
                 try
                 {
-                    var list = collection
-                        ?.Where( child => predicate( child ) )
-                        ?.ToList();
+                    var list = collection?.Where( child => predicate( child ) )?.ToList();
 
                     if( list?.Any() == true )
                     {
