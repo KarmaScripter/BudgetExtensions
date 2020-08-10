@@ -85,19 +85,8 @@
     <Compile Include="linq\LinqExtensions.cs" />
     <Compile Include="string\StringExtensions.cs" />
     <Compile Include="timespan\TimeSpanExtensions.cs" />
-    <Compile Include="ui\ExtensionError.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ui\ExtensionError.Designer.cs">
-      <DependentUpon>ExtensionError.cs</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <EmbeddedResource Include="ui\ExtensionError.resx">
-      <DependentUpon>ExtensionError.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>
