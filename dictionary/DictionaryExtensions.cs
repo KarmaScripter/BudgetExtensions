@@ -71,45 +71,41 @@ namespace BudgetExecution
             {
                 try
                 {
-                    switch( logic )
+                    var conjuction = logic.ToString();
+                    var sqlstring = "";
+
+                    if( dict.HasPrimaryKey() )
                     {
-                        case Logic.AND:
-                        {
-                            var conjuction = logic.ToString();
-                            var sqlstring = "";
+                        var pk = dict.GetPrimaryKey();
 
+                        if( !string.IsNullOrEmpty( pk.Key )
+                            & int.Parse( pk.Value.ToString() ) > -1 ) 
+                        {
                             foreach( var kvp in dict )
                             {
-                                sqlstring += $"{kvp.Key} = {kvp.Value} {conjuction}";
+                                sqlstring += $"{kvp.Key} = {kvp.Value}  {conjuction} ";
                             }
 
-                            var sql = sqlstring.TrimEnd( $" {conjuction}".ToCharArray() );
+                            var sql = sqlstring.TrimEnd( $"  {conjuction} ".ToCharArray() );
+                            sql += $" WHERE {pk.Key} = {int.Parse( pk.Value.ToString() )};";
 
                             return !string.IsNullOrEmpty( sql )
                                 ? sql
                                 : string.Empty;
                         }
-
-                        case Logic.OR:
+                    }
+                    else if( !dict.HasPrimaryKey() )
+                    {
+                        foreach( var kvp in dict )
                         {
-                            var sqlstring = "";
-
-                            foreach( var kvp in dict )
-                            {
-                                sqlstring += $"{kvp.Key} = {kvp.Value} OR";
-                            }
-
-                            var sql = sqlstring.TrimEnd( " OR".ToCharArray() );
-
-                            return !string.IsNullOrEmpty( sql )
-                                ? sql
-                                : string.Empty;
+                            sqlstring += $"{kvp.Key} = {kvp.Value} {conjuction} ";
                         }
 
-                        default:
-                        {
-                            return string.Empty;
-                        }
+                        var sql = sqlstring.TrimEnd( $" {conjuction} ".ToCharArray() );
+
+                        return !string.IsNullOrEmpty( sql )
+                            ? sql
+                            : string.Empty;
                     }
                 }
                 catch( Exception ex )
@@ -165,7 +161,7 @@ namespace BudgetExecution
         public static IEnumerable<DbParameter> ToSqlDbParameters( this IDictionary<string, object> dict,
             Provider provider )
         {
-            if( dict.Keys.Count > 0
+            if( dict?.Keys?.Count > 0
                 && Enum.IsDefined( typeof( Provider ), provider ) )
             {
                 try
@@ -175,7 +171,7 @@ namespace BudgetExecution
 
                     switch( provider )
                     {
-                        case Provider.None:
+                        case Provider.NS:
                         case Provider.SQLite:
                         {
                             var sqlite = new List<SQLiteParameter>();

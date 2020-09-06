@@ -41,7 +41,7 @@ namespace BudgetExecution
                     typeof( Provider ) );
             }
 
-            if( datarow?.ItemArray.Length > 0
+            if( datarow?.ItemArray?.Length > 0
                 && Enum.IsDefined( typeof( Provider ), provider ) )
             {
                 try
