@@ -204,11 +204,15 @@ namespace BudgetExecution
                 try
                 {
                     var datarow = data?.First();
-                    var columns = datarow?.Table?.Columns;
+
+                    var columns = datarow
+                        ?.Table
+                        ?.Columns;
 
                     if( columns?.Contains( column?.ColumnName ) == true )
                     {
-                        var query = data?.Where( p => p.Field<string>( column.ColumnName ).Equals( filter ) )
+                        var query = data
+                            ?.Where( p => p.Field<string>( column.ColumnName ).Equals( filter ) )
                             ?.Select( p => p );
 
                         return query?.Any() == true
