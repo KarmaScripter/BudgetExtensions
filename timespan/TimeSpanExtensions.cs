@@ -174,7 +174,8 @@ namespace BudgetExecution
             MidpointRounding roundingtype = MidpointRounding.ToEven )
         {
             return new TimeSpan( Convert.ToInt64( Math.Round( time.Ticks / (double)roundinginterval.Ticks,
-                roundingtype ) ) * roundinginterval.Ticks );
+                    roundingtype ) )
+                * roundinginterval.Ticks );
         }
     }
 }
