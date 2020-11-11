@@ -39,8 +39,7 @@
     <StartupObject />
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>DbNinja.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BudgetBadger, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -108,7 +107,7 @@
     <Compile Include="linq\LinqExtensions.cs" />
     <Compile Include="string\StringExtensions.cs" />
     <Compile Include="timespan\TimeSpanExtensions.cs" />
-    <Compile Include="typeobject\TypeObject.cs" />
+    <Compile Include="type\TypeObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
@@ -119,6 +118,7 @@
   <ItemGroup>
     <Content Include=".gitattributes" />
     <Content Include=".gitignore" />
+    <Content Include="DbNinja.ico" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
