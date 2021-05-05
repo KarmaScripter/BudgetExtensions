@@ -77,8 +77,10 @@ namespace BudgetExecution
             {
                 try
                 {
-                    foreach( var value in values )
+                    for( var i = 0; i < values.Length; i++ )
                     {
+                        var value = values[ i ];
+
                         if( value != null )
                         {
                             collection.Add( value );
