@@ -50,10 +50,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\BudgetEnumerations\bin\Debug\BudgetEnumerations.dll</HintPath>
     </Reference>
-    <Reference Include="BudgetExtensions, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\BudgetExtensions.dll</HintPath>
-    </Reference>
     <Reference Include="BudgetStatic, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\BudgetStatic.dll</HintPath>
