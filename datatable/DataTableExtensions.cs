@@ -18,10 +18,10 @@ namespace BudgetExecution
     /// <summary>
     /// 
     /// </summary>
-    [SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" )]
-    [SuppressMessage( "ReSharper", "MemberCanBeInternal" )]
-    [SuppressMessage( "ReSharper", "FunctionComplexityOverflow" )]
-    [SuppressMessage( "ReSharper", "UseObjectOrCollectionInitializer" )]
+    [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
+    [ SuppressMessage( "ReSharper", "MemberCanBeInternal" ) ]
+    [ SuppressMessage( "ReSharper", "FunctionComplexityOverflow" ) ]
+    [ SuppressMessage( "ReSharper", "UseObjectOrCollectionInitializer" ) ]
     [ SuppressMessage( "ReSharper", "StringIndexOfIsCultureSpecific.1" ) ]
     public static class DataTableExtensions
     {
@@ -48,13 +48,16 @@ namespace BudgetExecution
 
                 _xml.Add( new XElement( rootName ) );
 
-                foreach( DataRow _row in dataTable.Rows )
+                foreach( DataRow _dataRow in dataTable.Rows )
                 {
                     var _element = new XElement( dataTable.TableName );
 
                     foreach( DataColumn col in dataTable.Columns )
                     {
-                        _element.Add( new XElement( col.ColumnName, _row?[ col ]?.ToString()?.Trim( ' ' ) ) );
+                        var _row = _dataRow?[ col ]?.ToString()?.Trim( ' ' );
+                        var _node = new XElement( col.ColumnName, _row );
+
+                        _element.Add( new XElement( _node ) );
                     }
 
                     _xml.Root?.Add( _element );
@@ -174,7 +177,7 @@ namespace BudgetExecution
         /// <returns>
         ///   <c>true</c> if [has numeric column] [the specified dataTable]; otherwise, <c>false</c>.
         /// </returns>
-        [SuppressMessage( "ReSharper", "UnusedVariable" )]
+        [ SuppressMessage( "ReSharper", "UnusedVariable" ) ]
         public static bool HasNumericColumn( this DataTable dataTable )
         {
             try
