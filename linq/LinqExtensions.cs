@@ -4,6 +4,10 @@
 
 namespace BudgetExecution
 {
+    // ******************************************************************************************************************************
+    // ******************************************************   ASSEMBLIES   ********************************************************
+    // ******************************************************************************************************************************
+
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -15,9 +19,12 @@ namespace BudgetExecution
     /// 
     /// </summary>
     [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
-    [ SuppressMessage( "ReSharper", "UnusedVariable" ) ]
     public static class LinqExtensions
     {
+        // ***************************************************************************************************************************
+        // ************************************************  METHODS   ***************************************************************
+        // ***************************************************************************************************************************
+
         /// <summary>
         /// Determines whether none of the elements of a sequence satisfy a condition.
         /// </summary>
@@ -113,16 +120,18 @@ namespace BudgetExecution
             if( source is ICollection sequence
                 && sequence.Count < mincount )
             {
+                // If the collection doesn't even contain as many elements
+                // as expected to match the predicate, we can stop here
                 return false;
             }
 
-            var _matches = 0;
+            var matches = 0;
 
-            foreach( var _unused in source.Where( predicate ) )
+            foreach( var unused in source.Where( predicate ) )
             {
-                _matches++;
+                matches++;
 
-                if( _matches >= mincount )
+                if( matches >= mincount )
                 {
                     return true;
                 }
@@ -136,9 +145,9 @@ namespace BudgetExecution
         /// of elements.
         /// </summary>
         /// <typeparam name = "TSource" >
-        /// The type of the elements of <paramref name = "enumerable"/> .
+        /// The type of the elements of <paramref name = "source"/> .
         /// </typeparam>
-        /// <param name = "enumerable" >
+        /// <param name = "source" >
         /// The <see cref = "IEnumerable{TSource}"/> to count.
         /// </param>
         /// <param name = "count" >
@@ -148,18 +157,18 @@ namespace BudgetExecution
         /// <c>
         /// true
         /// </c>
-        /// if <paramref name = "enumerable"/> contains exactly <paramref name = "count"/>
+        /// if <paramref name = "source"/> contains exactly <paramref name = "count"/>
         /// elements; otherwise,
         /// <c>
         /// false
         /// </c>
         /// .
         /// </returns>
-        public static bool HasExactly<TSource>( this IEnumerable<TSource> enumerable, int count )
+        public static bool HasExactly<TSource>( this IEnumerable<TSource> source, int count )
         {
-            return enumerable is ICollection _sequence
-                ? _sequence.Count == count
-                : enumerable.HasExactly( count, _ => true );
+            return source is ICollection sequence
+                ? sequence.Count == count
+                : source.HasExactly( count, _ => true );
         }
 
         /// <summary>
@@ -167,9 +176,9 @@ namespace BudgetExecution
         /// of elements satisfying the specified condition.
         /// </summary>
         /// <typeparam name = "TSource" >
-        /// The type of the elements of <paramref name = "enumerable"/> .
+        /// The type of the elements of <paramref name = "source"/> .
         /// </typeparam>
-        /// <param name = "enumerable" >
+        /// <param name = "source" >
         /// The <see cref = "IEnumerable{TSource}"/> to count satisfying elements.
         /// </param>
         /// <param name = "count" >
@@ -182,25 +191,27 @@ namespace BudgetExecution
         /// <c>
         /// true
         /// </c>
-        /// if <paramref name = "enumerable"/> contains exactly <paramref name = "count"/>
+        /// if <paramref name = "source"/> contains exactly <paramref name = "count"/>
         /// elements satisfying the condition; otherwise,
         /// <c>
         /// false
         /// </c>
         /// .
         /// </returns>
-        public static bool HasExactly<TSource>( this IEnumerable<TSource> enumerable, int count,
+        public static bool HasExactly<TSource>( this IEnumerable<TSource> source, int count,
             Func<TSource, bool> predicate )
         {
-            if( enumerable is ICollection sequence
+            if( source is ICollection sequence
                 && sequence.Count < count )
             {
+                // If the collection doesn't even contain as many elements
+                // as expected to match the predicate, we can stop here
                 return false;
             }
 
             var matches = 0;
 
-            foreach( var unused in enumerable.Where( predicate ) )
+            foreach( var unused in source.Where( predicate ) )
             {
                 ++matches;
 
@@ -218,9 +229,9 @@ namespace BudgetExecution
         /// <paramref name = "limit"/> .
         /// </summary>
         /// <typeparam name = "TSource" >
-        /// The type of the elements of <paramref name = "enumerable"/> .
+        /// The type of the elements of <paramref name = "source"/> .
         /// </typeparam>
-        /// <param name = "enumerable" >
+        /// <param name = "source" >
         /// The <see cref = "IEnumerable{TSource}"/> whose elements to count.
         /// </param>
         /// <param name = "limit" >
@@ -230,16 +241,16 @@ namespace BudgetExecution
         /// <c>
         /// true
         /// </c>
-        /// if the element count of <paramref name = "enumerable"/> is equal to or lower than
+        /// if the element count of <paramref name = "source"/> is equal to or lower than
         /// <paramref name = "limit"/> ; otherwise,
         /// <c>
         /// false
         /// </c>
         /// .
         /// </returns>
-        public static bool HasAtMost<TSource>( this IEnumerable<TSource> enumerable, int limit )
+        public static bool HasAtMost<TSource>( this IEnumerable<TSource> source, int limit )
         {
-            return enumerable.HasAtMost( limit, _ => true );
+            return source.HasAtMost( limit, _ => true );
         }
 
         /// <summary>
@@ -247,9 +258,9 @@ namespace BudgetExecution
         /// <paramref name = "limit"/> elements satisfying a condition.
         /// </summary>
         /// <typeparam name = "TSource" >
-        /// The type of the elements of <paramref name = "enumerable"/> .
+        /// The type of the elements of <paramref name = "source"/> .
         /// </typeparam>
-        /// <param name = "enumerable" >
+        /// <param name = "source" >
         /// The <see cref = "IEnumerable{TSource}"/> whose elements to count.
         /// </param>
         /// <param name = "limit" >
@@ -270,22 +281,24 @@ namespace BudgetExecution
         /// </c>
         /// .
         /// </returns>
-        public static bool HasAtMost<TSource>( this IEnumerable<TSource> enumerable, int limit,
+        public static bool HasAtMost<TSource>( this IEnumerable<TSource> source, int limit,
             Func<TSource, bool> predicate )
         {
-            if( enumerable is ICollection _sequence
-                && _sequence.Count <= limit )
+            if( source is ICollection sequence
+                && sequence.Count <= limit )
             {
+                // If the collection doesn't contain more elements
+                // than expected to match the predicate, we can stop here
                 return true;
             }
 
-            var _matches = 0;
+            var matches = 0;
 
-            foreach( var _unused in enumerable.Where( predicate ) )
+            foreach( var unused in source.Where( predicate ) )
             {
-                _matches++;
+                matches++;
 
-                if( _matches > limit )
+                if( matches > limit )
                 {
                     return false;
                 }

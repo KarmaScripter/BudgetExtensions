@@ -4,6 +4,10 @@
 
 namespace BudgetExecution
 {
+    // ******************************************************************************************************************************
+    // ******************************************************   ASSEMBLIES   ********************************************************
+    // ******************************************************************************************************************************
+
     using System;
     using System.Collections.Generic;
     using System.Data;
@@ -16,116 +20,121 @@ namespace BudgetExecution
     /// </summary>
     public static class DataGridExtensions
     {
+        // ***************************************************************************************************************************
+        // ************************************************  METHODS   ***************************************************************
+        // ***************************************************************************************************************************
+
         /// <summary>
         /// The GetCurrentDataRow
         /// </summary>
-        /// <param name="bindingSource">The bindingSource
+        /// <param name="bindingsource">The bindingSource
         /// <see cref="BindingSource" /></param>
         /// <returns>
         /// The
         /// <see cref="System.Data.DataRow" />
         /// </returns>
-        public static DataRow GetCurrentDataRow( this BindingSource bindingSource )
+        public static DataRow GetCurrentDataRow( this BindingSource bindingsource )
         {
             try
             {
-                return ( (DataRowView)bindingSource?.Current )?.Row;
+                return ( (DataRowView)bindingsource?.Current )?.Row;
             }
             catch( Exception ex )
             {
                 Fail( ex );
-                return default( DataRow );
+                return default;
             }
         }
 
         /// <summary>
         /// The GetDataTable
         /// </summary>
-        /// <param name="dataGridView">The dataGridView
+        /// <param name="datagridview">The datagridview
         /// <see cref="DataGridView" /></param>
         /// <returns>
         /// The
         /// <see cref="System.Data.DataTable" />
         /// </returns>
-        public static DataTable GetDataTable( this DataGridView dataGridView )
+        public static DataTable GetDataTable( this DataGridView datagridview )
         {
             try
             {
-                var _table = new DataTable();
+                var dt = new DataTable();
 
-                foreach( DataGridViewColumn _column in dataGridView.Columns )
+                foreach( DataGridViewColumn column in datagridview.Columns )
                 {
-                    _table.Columns.Add( new DataColumn
+                    dt.Columns.Add( new DataColumn
                     {
-                        ColumnName = _column.Name,
-                        DataType = _column.ValueType
+                        ColumnName = column.Name,
+                        DataType = column.ValueType
                     } );
                 }
 
-                foreach( DataGridViewRow row in dataGridView.Rows )
+                foreach( DataGridViewRow row in datagridview.Rows )
                 {
-                    var _cellvalues = new object[ row.Cells.Count ];
+                    var cellvalues = new object[ row.Cells.Count ];
 
-                    for( var i = 0; i < _cellvalues.Length; i++ )
+                    for( var i = 0; i < cellvalues.Length; i++ )
                     {
-                        _cellvalues[ i ] = row.Cells[ i ].Value;
+                        cellvalues[ i ] = row.Cells[ i ].Value;
                     }
 
-                    _table.Rows.Add( _cellvalues );
+                    dt.Rows.Add( cellvalues );
                 }
 
-                return _table;
+                return dt;
             }
             catch( Exception ex )
             {
                 Fail( ex );
-                return default( DataTable );
+                return default;
             }
         }
 
         /// <summary>
         /// The SetColumns
         /// </summary>
-        /// <param name="dataGridView">The dataGridView</param>
+        /// <param name="datagridview">The datagridview</param>
         /// <param name="columns">The fields
         /// <see><cref> string[] </cref></see></param>
         /// <returns>
         /// The
         /// <see cref="System.Data.DataTable" />
         /// </returns>
-        public static DataTable SetColumns( this DataGridView dataGridView, string[ ] columns )
+        public static DataTable SetColumns( this DataGridView datagridview, string[] columns )
         {
-            if( dataGridView?.DataSource != null 
-                && columns?.Length > 0 )
+            if( datagridview?.DataSource != null
+                && columns != null
+                && columns.Length > 0 )
             {
                 try
                 {
-                    using var _grid = dataGridView.GetDataTable();
-                    using var _view = new DataView( _grid );
+                    using var gridviewdatatable = datagridview.GetDataTable();
+                    using var view = new DataView( gridviewdatatable );
 
-                    if( _grid?.Columns.Count > 0 )
+                    if( gridviewdatatable?.Columns.Count > 0 )
                     {
-                        var _table = _view.ToTable( true, columns );
+                        var table = view.ToTable( true, columns );
 
-                        return _table?.Columns?.Count > 0
-                            ? _table
-                            : default( DataTable );
+                        return table?.Columns?.Count > 0
+                            ? table
+                            : default;
                     }
                 }
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default( DataTable );
+                    return default;
                 }
             }
 
-            return default( DataTable );
+            return default;
         }
 
         /// <summary>
         /// The SetColumns
         /// </summary>
-        /// <param name="dataGridView">The dataGridView
+        /// <param name="datagridview">The datagridview
         /// <see cref="DataGridView" /></param>
         /// <param name="fields">The fields
         /// <see /></param>
@@ -133,40 +142,42 @@ namespace BudgetExecution
         /// The
         /// <see cref="System.Data.DataTable" />
         /// </returns>
-        public static DataTable SetColumns( this DataGridView dataGridView, Field[ ] fields )
+        public static DataTable SetColumns( this DataGridView datagridview, Field[] fields )
         {
-            if( dataGridView?.DataSource != null
-                && fields?.Length > 0 )
+            if( datagridview?.DataSource != null
+                && fields != null
+                && fields.Length > 0 )
             {
                 try
                 {
-                    using var _grid = dataGridView.GetDataTable();
-                    using var _view = new DataView( _grid );
+                    using var dstable = datagridview.GetDataTable();
+                    using var view = new DataView( dstable );
+                    using var dgvtable = datagridview.GetDataTable();
 
-                    if( _grid?.Columns?.Count > 0 )
+                    if( dgvtable?.Columns?.Count > 0 )
                     {
-                        var _columns = fields?.Select( f => f.ToString() )?.ToArray();
-                        var _table = _view?.ToTable( true, _columns );
+                        var columns = fields?.Select( f => f.ToString() )?.ToArray();
+                        var table = view?.ToTable( true, columns );
 
-                        return _table?.Columns?.Count > 0
-                            ? _table
-                            : default( DataTable );
+                        return table?.Columns?.Count > 0
+                            ? table
+                            : default;
                     }
                 }
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default( DataTable );
+                    return default;
                 }
             }
 
-            return default( DataTable );
+            return default;
         }
 
         /// <summary>
         /// The SetColumns
         /// </summary>
-        /// <param name="dataGridView">The dataGridView
+        /// <param name="datagridview">The datagridview
         /// <see cref="DataGridView" /></param>
         /// <param name="index">The index
         /// <see /></param>
@@ -174,119 +185,114 @@ namespace BudgetExecution
         /// The
         /// <see cref="System.Data.DataTable" />
         /// </returns>
-        public static DataTable SetColumns( this DataGridView dataGridView, int[ ] index )
+        public static DataTable SetColumns( this DataGridView datagridview, int[] index )
         {
             try
             {
-                using var _table = dataGridView?.GetDataTable();
+                using var datatable = datagridview?.GetDataTable();
 
-                if( _table?.Columns?.Count > 0
+                if( datatable?.Columns?.Count > 0
                     && index?.Length > 0 )
                 {
-                    var _columns = _table.Columns;
-                    var _names = new string[ index.Length ];
+                    var datacolumns = datatable.Columns;
+                    var columns = new string[ index.Length ];
 
-                    if( _columns?.Count > 0
-                        && _names?.Length > 0 )
+                    if( datacolumns?.Count > 0
+                        && columns?.Length > 0 )
                     {
                         for( var i = 0; i < index.Length; i++ )
                         {
-                            _names[ i ] = _columns[ index[ i ] ].ColumnName;
+                            columns[ i ] = datacolumns[ index[ i ] ].ColumnName;
                         }
                     }
 
-                    using var _view = new DataView( _table );
-                    var _viewtable = _view?.ToTable( true, _names );
+                    using var view = new DataView( datatable );
+                    var viewtable = view?.ToTable( true, columns );
 
-                    return _viewtable.Columns.Count > 0
-                        ? _viewtable
-                        : default( DataTable );
+                    return viewtable.Columns.Count > 0
+                        ? viewtable
+                        : default;
                 }
             }
             catch( Exception ex )
             {
                 Fail( ex );
-                return default( DataTable );
+                return default;
             }
 
-            return default( DataTable );
+            return default;
         }
 
         /// <summary>
         /// The CommaDelimitedRows
         /// </summary>
-        /// <param name="dataGridView">The dataGridView
+        /// <param name="datagridview">The datagridview
         /// <see cref="DataGridView" /></param>
         /// <returns>
         /// The
         /// <see />
         /// </returns>
-        public static string[ ] CommaDelimitedRows( this DataGridView dataGridView )
+        public static string[] CommaDelimitedRows( this DataGridView datagridview )
         {
-            if( dataGridView?.RowCount > 0 )
+            if( datagridview?.RowCount > 0 )
             {
                 try
                 {
-                    var _list = new List<string>();
+                    var list = new List<string>();
 
-                    foreach( var row in dataGridView.Rows )
+                    foreach( var row in datagridview.Rows )
                     {
                         if( !( (DataGridViewRow)row )?.IsNewRow == true )
                         {
-                            var _cells = ( (DataGridViewRow)row )
-                                ?.Cells
-                                ?.Cast<DataGridViewCell>()?.ToArray();
+                            var cells = ( (DataGridViewRow)row )?.Cells?.Cast<DataGridViewCell>()?.ToArray();
 
-                            if( _cells?.Any() == true )
+                            if( cells?.Any() == true )
                             {
-                                var _array = ( (DataGridViewRow)row )
-                                    ?.Cells.Cast<DataGridViewCell>()
-                                    ?.ToArray();
+                                var rowitem = string.Join( ",",
+                                    Array.ConvertAll( ( (DataGridViewRow)row )?.Cells?.Cast<DataGridViewCell>()?.ToArray(),
+                                        c => c.Value?.ToString() ?? string.Empty ) );
 
-                                var _item = 
-                                    string.Join( ",", Array.ConvertAll( _array, c => c.Value?.ToString() ) );
-
-                                if( !string.IsNullOrEmpty( _item ) )
+                                if( !string.IsNullOrEmpty( rowitem ) )
                                 {
-                                    _list?.Add( _item );
+                                    list?.Add( rowitem );
                                 }
                             }
                         }
                     }
 
-                    return _list?.Any() == true
-                        ? _list.ToArray()
-                        : default( string[ ] );
+                    return list?.Any() == true
+                        ? list.ToArray()
+                        : default;
                 }
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default( string[ ] );
+                    return default;
                 }
             }
 
-            return default( string[ ] );
+            return default;
         }
 
         /// <summary>
         /// The ExportToCommaDelimitedFile
         /// </summary>
-        /// <param name="dataGridView">The dataGridView
+        /// <param name="datagridview">The datagridview
         /// <see cref="DataGridView" /></param>
-        /// <param name="fileName">The fileName
+        /// <param name="filename">The filename
         /// <see cref="string" /></param>
-        public static void ExportToCommaDelimitedFile( this DataGridView dataGridView, string fileName )
+        public static void ExportToCommaDelimitedFile( this DataGridView datagridview, string filename )
         {
-            if( !string.IsNullOrEmpty( fileName )
-                && dataGridView != null )
+            if( !string.IsNullOrEmpty( filename )
+                && datagridview != null )
             {
                 try
                 {
-                    var _path = Path.Combine( AppDomain.CurrentDomain.BaseDirectory, fileName );
+                    var path = Path.Combine( AppDomain.CurrentDomain.BaseDirectory, filename );
 
-                    if( !string.IsNullOrEmpty( _path ) )
+                    if( !string.IsNullOrEmpty( path ) )
                     {
-                        File.WriteAllLines( _path, dataGridView.CommaDelimitedRows() );
+                        File.WriteAllLines( path, datagridview.CommaDelimitedRows() );
                     }
                 }
                 catch( Exception ex )
@@ -299,15 +305,15 @@ namespace BudgetExecution
         /// <summary>
         /// The ExpandColumns
         /// </summary>
-        /// <param name="dataGridView">The dataGridView
+        /// <param name="datagridview">The datagridview
         /// <see cref="DataGridView" /></param>
-        public static void ExpandColumns( this DataGridView dataGridView )
+        public static void ExpandColumns( this DataGridView datagridview )
         {
             try
             {
-                foreach( DataGridViewColumn _column in dataGridView.Columns )
+                foreach( DataGridViewColumn col in datagridview.Columns )
                 {
-                    _column.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+                    col.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
                 }
             }
             catch( Exception ex )
@@ -319,22 +325,23 @@ namespace BudgetExecution
         /// <summary>
         /// The PascalizeHeaders
         /// </summary>
-        /// <param name="dataGridView">The dataGridView
+        /// <param name="datagridview">The datagridview
         /// <see cref="DataGridView" /></param>
         /// <param name="datatable">The datatable
         /// <see cref="System.Data.DataTable" /></param>
-        public static void PascalizeHeaders( this DataGridView dataGridView, DataTable datatable )
+        public static void PascalizeHeaders( this DataGridView datagridview, DataTable datatable )
         {
-            if( dataGridView != null
+            if( datagridview != null
+                && datatable != null
                 && datatable?.Columns?.Count > 0 )
             {
                 try
                 {
-                    foreach( DataGridViewColumn _column in dataGridView.Columns )
+                    foreach( DataGridViewColumn column in datagridview.Columns )
                     {
-                        if( !string.IsNullOrEmpty( datatable.Columns[ _column.Name ].Caption ) )
+                        if( !string.IsNullOrEmpty( datatable.Columns[ column.Name ].Caption ) )
                         {
-                            _column.HeaderText = datatable.Columns[ _column.Name ].Caption;
+                            column.HeaderText = datatable.Columns[ column.Name ].Caption;
                         }
                     }
                 }
@@ -348,23 +355,23 @@ namespace BudgetExecution
         /// <summary>
         /// The PascalizeHeaders
         /// </summary>
-        /// <param name="dataGridView">The dataGridView
+        /// <param name="datagridview">The datagridview
         /// <see cref="DataGridView" /></param>
-        public static void PascalizeHeaders( this DataGridView dataGridView )
+        public static void PascalizeHeaders( this DataGridView datagridview )
         {
-            if( dataGridView?.DataSource != null )
+            if( datagridview?.DataSource != null )
             {
                 try
                 {
-                    using var _table = dataGridView.GetDataTable();
+                    using var table = datagridview.GetDataTable();
 
-                    if( _table?.Columns?.Count > 0 )
+                    if( table?.Columns?.Count > 0 )
                     {
-                        foreach( DataGridViewColumn _column in dataGridView.Columns )
+                        foreach( DataGridViewColumn col in datagridview.Columns )
                         {
-                            if( !string.IsNullOrEmpty( _table.Columns[ _column.Name ].Caption ) )
+                            if( !string.IsNullOrEmpty( table.Columns[ col.Name ].Caption ) )
                             {
-                                _column.HeaderText = _table.Columns[ _column.Name ].Caption;
+                                col.HeaderText = table.Columns[ col.Name ].Caption;
                             }
                         }
                     }
@@ -382,9 +389,9 @@ namespace BudgetExecution
         /// <param name="ex">The ex.</param>
         private static void Fail( Exception ex )
         {
-            using var _error = new Error( ex );
-            _error?.SetText();
-            _error?.ShowDialog();
+            using var error = new Error( ex );
+            error?.SetText();
+            error?.ShowDialog();
         }
     }
 }

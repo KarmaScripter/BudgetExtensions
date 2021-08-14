@@ -18,6 +18,10 @@ namespace BudgetExecution
     [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
     public static class FileStreamExtensions
     {
+        // ***************************************************************************************************************************
+        // ************************************************  METHODS   ***************************************************************
+        // ***************************************************************************************************************************
+
         /// <summary>
         /// The method provides an iterator through all lines of the str reader.
         /// </summary>
@@ -47,9 +51,9 @@ namespace BudgetExecution
         /// </param>
         public static void IterateLines( this TextReader reader, Action<string> action )
         {
-            foreach( var _line in reader.IterateLines() )
+            foreach( var line in reader.IterateLines() )
             {
-                action( _line );
+                action( line );
             }
         }
 
@@ -155,8 +159,8 @@ namespace BudgetExecution
         /// </returns>
         public static string ReadToEnd( this Stream stream, Encoding encoding )
         {
-            using var _reader = stream.GetReader( encoding );
-            return _reader.ReadToEnd();
+            using var reader = stream.GetReader( encoding );
+            return reader.ReadToEnd();
         }
 
         /// <summary>
@@ -226,12 +230,12 @@ namespace BudgetExecution
                 throw new InvalidOperationException( "Target stream does not support writing." );
             }
 
-            var _buffer = new byte[ buffersize ];
-            int _count;
+            var buffer = new byte[ buffersize ];
+            int bytesread;
 
-            while( ( _count = stream.Read( _buffer, 0, buffersize ) ) > 0 )
+            while( ( bytesread = stream.Read( buffer, 0, buffersize ) ) > 0 )
             {
-                targetstream.Write( _buffer, 0, _count );
+                targetstream.Write( buffer, 0, bytesread );
             }
 
             return stream;
@@ -248,9 +252,9 @@ namespace BudgetExecution
         /// </returns>
         public static MemoryStream CopyToMemory( this Stream stream )
         {
-            using var _memory = new MemoryStream( (int)stream.Length );
-            stream.CopyTo( _memory );
-            return _memory;
+            using var memorystream = new MemoryStream( (int)stream.Length );
+            stream.CopyTo( memorystream );
+            return memorystream;
         }
 
         /// <summary>
@@ -264,8 +268,8 @@ namespace BudgetExecution
         /// </returns>
         public static IEnumerable<byte> ReadAllBytes( this Stream stream )
         {
-            using var _memory = stream.CopyToMemory();
-            return _memory.ToArray();
+            using var memorystream = stream.CopyToMemory();
+            return memorystream.ToArray();
         }
 
         /// <summary>
@@ -282,23 +286,23 @@ namespace BudgetExecution
         /// </returns>
         public static IEnumerable<byte> ReadFixedbuffersize( this Stream stream, int bufsize )
         {
-            var _buffer = new byte[ bufsize ];
-            var _offset = 0;
+            var buf = new byte[ bufsize ];
+            var offset = 0;
 
             do
             {
-                var _reader = stream.Read( _buffer, _offset, bufsize - _offset );
+                var cnt = stream.Read( buf, offset, bufsize - offset );
 
-                if( _reader == 0 )
+                if( cnt == 0 )
                 {
                     return null;
                 }
 
-                _offset += _reader;
+                offset += cnt;
             }
-            while( _offset < bufsize );
+            while( offset < bufsize );
 
-            return _buffer;
+            return buf;
         }
 
         /// <summary>
@@ -310,7 +314,7 @@ namespace BudgetExecution
         /// <param name = "bytes" >
         /// The byte array / buffer.
         /// </param>
-        public static void Write( this Stream stream, byte[ ] bytes )
+        public static void Write( this Stream stream, byte[] bytes )
         {
             stream.Write( bytes, 0, bytes.Length );
         }

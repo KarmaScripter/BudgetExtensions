@@ -6,6 +6,10 @@ using OfficeOpenXml.Table;
 
 namespace BudgetExecution
 {
+    // ********************************************************************************************************************************
+    // *********************************************************  ASSEMBLIES   ********************************************************
+    // ********************************************************************************************************************************
+
     using System;
     using System.Collections.Generic;
     using System.Data;
@@ -20,29 +24,33 @@ namespace BudgetExecution
     [ SuppressMessage( "ReSharper", "AssignNullToNotNullAttribute" ) ]
     public static class EnumerableExtensions
     {
+        // ***************************************************************************************************************************
+        // ****************************************************     METHODS   ********************************************************
+        // ***************************************************************************************************************************
+
         /// <summary>
         /// Determines whether this instance has numeric.
         /// </summary>
-        /// <param name="dataRow">The dataRow.</param>
+        /// <param name="data">The data.</param>
         /// <returns>
-        ///   <c>true</c> if the specified dataRow has numeric; otherwise, <c>false</c>.
+        ///   <c>true</c> if the specified data has numeric; otherwise, <c>false</c>.
         /// </returns>
-        public static bool HasNumeric( this IEnumerable<DataRow> dataRow )
+        public static bool HasNumeric( this IEnumerable<DataRow> data )
         {
-            if( dataRow?.Any() == true )
+            if( data?.Any() == true )
             {
                 try
                 {
-                    var _row = dataRow?.First();
-                    var _dictionary = _row?.ToDictionary();
-                    var _array = _dictionary?.Keys.ToArray();
-                    var _names = Enum.GetNames( typeof( Numeric ) );
+                    var row = data?.First();
+                    var dict = row?.ToDictionary();
+                    var key = dict?.Keys.ToArray();
+                    var names = Enum.GetNames( typeof( Numeric ) );
 
-                    if( _array != null )
+                    if( key != null )
                     {
-                        foreach( var _key in _array )
+                        foreach( var k in key )
                         {
-                            if( _names?.Contains( _key ) == true )
+                            if( names?.Contains( k ) == true )
                             {
                                 return true;
                             }
@@ -54,7 +62,7 @@ namespace BudgetExecution
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default( bool );
+                    return default;
                 }
             }
 
@@ -64,27 +72,27 @@ namespace BudgetExecution
         /// <summary>
         /// Determines whether [has primary key].
         /// </summary>
-        /// <param name="dataRow">The dataRow.</param>
+        /// <param name="data">The data.</param>
         /// <returns>
-        ///   <c>true</c> if [has primary key] [the specified dataRow]; otherwise, <c>false</c>.
+        ///   <c>true</c> if [has primary key] [the specified data]; otherwise, <c>false</c>.
         /// </returns>
-        public static bool HasPrimaryKey( this IEnumerable<DataRow> dataRow )
+        public static bool HasPrimaryKey( this IEnumerable<DataRow> data )
         {
-            if( dataRow?.Any() == true )
+            if( data?.Any() == true )
             {
                 try
                 {
-                    var _row = dataRow?.First();
-                    var _dictionary = _row?.ToDictionary();
-                    var _array = _dictionary?.Keys.ToArray();
-                    var _names = Enum.GetNames( typeof( PrimaryKey ) );
+                    var row = data?.First();
+                    var dict = row?.ToDictionary();
+                    var key = dict?.Keys.ToArray();
+                    var names = Enum.GetNames( typeof( PrimaryKey ) );
 
-                    if( _array != null )
+                    if( key != null )
                     {
-                        foreach( var _key in _array )
+                        foreach( var k in key )
                         {
-                            if( !string.IsNullOrEmpty( _key )
-                                && _names?.Contains( _key ) == true )
+                            if( !string.IsNullOrEmpty( k )
+                                && names?.Contains( k ) == true )
                             {
                                 return true;
                             }
@@ -96,7 +104,7 @@ namespace BudgetExecution
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default( bool );
+                    return default;
                 }
             }
 
@@ -106,142 +114,141 @@ namespace BudgetExecution
         /// <summary>
         /// Gets the primary key values.
         /// </summary>
-        /// <param name="dataRow">The dataRow.</param>
+        /// <param name="data">The data.</param>
         /// <returns></returns>
-        public static IEnumerable<int> GetPrimaryKeyValues( this IEnumerable<DataRow> dataRow )
+        public static IEnumerable<int> GetPrimaryKeyValues( this IEnumerable<DataRow> data )
         {
-            if( dataRow?.Any() == true
-                && dataRow.HasPrimaryKey() )
+            if( data?.Any() == true
+                && data.HasPrimaryKey() )
             {
                 try
                 {
-                    var _list = new List<int>();
+                    var list = new List<int>();
 
-                    foreach( var _row in dataRow )
+                    foreach( var row in data )
                     {
-                        if( _row?.ItemArray[ 0 ] != null )
+                        if( row?.ItemArray[ 0 ] != null )
                         {
-                            _list?.Add( int.Parse( _row.ItemArray[ 0 ]?.ToString() ) );
+                            list?.Add( int.Parse( row.ItemArray[ 0 ]?.ToString() ) );
                         }
                     }
 
-                    return _list?.Any() == true
-                        ? _list.ToArray()
-                        : default( int[ ] );
+                    return list?.Any() == true
+                        ? list.ToArray()
+                        : default;
                 }
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default( IEnumerable<int> );
+                    return default;
                 }
             }
 
-            return default( IEnumerable<int> );
+            return default;
         }
 
         /// <summary>
-        /// Filters the specified columnName.
+        /// Filters the specified columnname.
         /// </summary>
-        /// <param name="dataRow">The dataRow.</param>
-        /// <param name="columnName">The columnName.</param>
+        /// <param name="data">The data.</param>
+        /// <param name="columnname">The columnname.</param>
         /// <param name="filter">The filter.</param>
         /// <returns></returns>
-        public static IEnumerable<DataRow> Filter( this IEnumerable<DataRow> dataRow, string columnName,
+        public static IEnumerable<DataRow> Filter( this IEnumerable<DataRow> data, string columnname,
             string filter )
         {
-            if( dataRow?.Any() == true
-                && !string.IsNullOrEmpty( columnName )
+            if( data?.Any() == true
+                && !string.IsNullOrEmpty( columnname )
                 && !string.IsNullOrEmpty( filter ) )
             {
                 try
                 {
-                    var _row = dataRow?.First();
-                    var _dictionary = _row.ToDictionary();
-                    var _array = _dictionary.Keys.ToArray();
+                    var datarow = data?.First();
+                    var dict = datarow.ToDictionary();
+                    var columns = dict.Keys.ToArray();
 
-                    if( _array?.Contains( columnName ) == true )
+                    if( columns?.Contains( columnname ) == true )
                     {
-                        var _select = dataRow
-                            ?.Where( p => p.Field<string>( columnName ).Equals( filter ) )
+                        var query = data?.Where( p => p.Field<string>( columnname ).Equals( filter ) )
                             ?.Select( p => p );
 
-                        return _select?.Any() == true
-                            ? _select
-                            : default( IEnumerable<DataRow> );
+                        return query?.Any() == true
+                            ? query
+                            : default;
                     }
                 }
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default( IEnumerable<DataRow> );
+                    return default;
                 }
             }
 
-            return default( IEnumerable<DataRow> );
+            return default;
         }
 
         /// <summary>
         /// Filters the specified column.
         /// </summary>
-        /// <param name="dataRow">The dataRow.</param>
+        /// <param name="data">The data.</param>
         /// <param name="column">The column.</param>
         /// <param name="filter">The filter.</param>
         /// <returns></returns>
-        public static IEnumerable<DataRow> Filter( this IEnumerable<DataRow> dataRow, DataColumn column,
+        public static IEnumerable<DataRow> Filter( this IEnumerable<DataRow> data, DataColumn column,
             string filter )
         {
-            if( dataRow?.Any() == true
+            if( data?.Any() == true
                 && column != null
                 && !string.IsNullOrEmpty( filter ) )
             {
                 try
                 {
-                    var _row = dataRow?.First();
+                    var datarow = data?.First();
 
-                    var _columns = _row
+                    var columns = datarow
                         ?.Table
                         ?.Columns;
 
-                    if( _columns?.Contains( column?.ColumnName ) == true )
+                    if( columns?.Contains( column?.ColumnName ) == true )
                     {
-                        var _select = dataRow
+                        var query = data
                             ?.Where( p => p.Field<string>( column.ColumnName ).Equals( filter ) )
                             ?.Select( p => p );
 
-                        return _select?.Any() == true
-                            ? _select.ToArray()
-                            : default( DataRow[ ] );
+                        return query?.Any() == true
+                            ? query.ToArray()
+                            : default;
                     }
                 }
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default( IEnumerable<DataRow> );
+                    return default;
                 }
             }
 
-            return default( IEnumerable<DataRow> );
+            return default;
         }
 
         /// <summary>
         /// Converts to excel.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="type">The dataRow.</param>
-        /// <param name="filePath">The filePath.</param>
+        /// <param name="data">The data.</param>
+        /// <param name="path">The path.</param>
         /// <param name = "style" > </param>
         /// <exception cref="Exception">
-        /// Invalid file filePath.
+        /// Invalid file path.
         /// or
-        /// Invalid file filePath.
+        /// Invalid file path.
         /// or
-        /// No dataRow to export.
+        /// No data to export.
         /// </exception>
-        public static ExcelPackage ToExcel<T>( this IEnumerable<T> type, string filePath,
+        public static ExcelPackage ToExcel<T>( this IEnumerable<T> data, string path,
             TableStyles style = TableStyles.Light1 )
         {
-            if( string.IsNullOrEmpty( filePath )
-                && type?.Any() == true
+            if( string.IsNullOrEmpty( path )
+                && data?.Any() == true
                 && Enum.IsDefined( typeof( TableStyles ), style ) )
             {
                 throw new ArgumentException();
@@ -249,17 +256,17 @@ namespace BudgetExecution
 
             try
             {
-                using var _excel = new ExcelPackage( new FileInfo( filePath ) );
-                var _workbook = _excel.Workbook;
-                var _worksheet = _workbook.Worksheets[ 0 ];
-                var _range = _worksheet.Cells;
-                _range?.LoadFromCollection( type, true, style );
-                return _excel;
+                using var excel = new ExcelPackage( new FileInfo( path ) );
+                var workbook = excel.Workbook;
+                var worksheet = workbook.Worksheets[ 0 ];
+                var range = worksheet.Cells;
+                range?.LoadFromCollection( data, true, style );
+                return excel;
             }
             catch( Exception ex )
             {
                 Fail( ex );
-                return default( ExcelPackage );
+                return default;
             }
         }
 
@@ -267,31 +274,31 @@ namespace BudgetExecution
         /// Slices the specified start.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="type">The dataRow.</param>
+        /// <param name="data">The data.</param>
         /// <param name="start">The start.</param>
         /// <param name="end">The end.</param>
         /// <returns></returns>
-        public static IEnumerable<T> LazySlice<T>( this IEnumerable<T> type, int start, int end )
+        public static IEnumerable<T> LazySlice<T>( this IEnumerable<T> data, int start, int end )
         {
-            if( type?.Any() == true
+            if( data?.Any() == true
                 && start > 0
                 && end > 0 )
             {
-                var _index = 0;
+                var index = 0;
 
-                foreach( var item in type )
+                foreach( var item in data )
                 {
-                    if( _index >= end )
+                    if( index >= end )
                     {
                         yield break;
                     }
 
-                    if( _index >= start )
+                    if( index >= start )
                     {
                         yield return item;
                     }
 
-                    ++_index;
+                    ++index;
                 }
             }
         }
@@ -302,9 +309,9 @@ namespace BudgetExecution
         /// <param name="ex">The ex.</param>
         private static void Fail( Exception ex )
         {
-            using var _error = new Error( ex );
-            _error?.SetText();
-            _error?.ShowDialog();
+            using var error = new Error( ex );
+            error?.SetText();
+            error?.ShowDialog();
         }
     }
 }

@@ -203,25 +203,25 @@ namespace BudgetExecution
         /// <summary>
         /// Counts the number of weekends between two dates.
         /// </summary>
-        /// <param name = "startDate" >
+        /// <param name = "startdate" >
         /// The start time.
         /// </param>
-        /// <param name = "endDate" >
+        /// <param name = "enddate" >
         /// The end time.
         /// </param>
         /// <returns>
         /// </returns>
-        public static int CountWeekEnds( this DateTime startDate, DateTime endDate )
+        public static int CountWeekEnds( this DateTime startdate, DateTime enddate )
         {
-            var _span = endDate - startDate;
-            Console.WriteLine( _span.Days );
+            var ts = enddate - startdate;
+            Console.WriteLine( ts.Days );
             var cnt = 0;
 
-            for( var i = 0; i < _span.Days; i++ )
+            for( var i = 0; i < ts.Days; i++ )
             {
-                var _time = startDate.AddDays( i );
+                var dt = startdate.AddDays( i );
 
-                if( _time.IsWeekEnd() )
+                if( dt.IsWeekEnd() )
                 {
                     cnt++;
                 }
@@ -233,45 +233,7 @@ namespace BudgetExecution
         /// <summary>
         /// Diffs the specified date.
         /// </summary>
-        /// <param name = "firstDate" >
-        /// The date one.
-        /// </param>
-        /// <param name = "secondDate" >
-        /// The date two.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        public static TimeSpan Diff( this DateTime firstDate, DateTime secondDate )
-        {
-            var _span = firstDate.Subtract( secondDate );
-            return _span;
-        }
-
-        /// <summary>
-        /// Returns a double indicating the number of days between two dates (past is
-        /// negative)
-        /// </summary>
-        /// <param name = "firstDate" >
-        /// The date one.
-        /// </param>
-        /// <param name = "secondDate" >
-        /// The date two.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        public static double DiffDays( this string firstDate, string secondDate )
-        {
-            return DateTime.TryParse( firstDate, out var dtone ) 
-                && DateTime.TryParse( secondDate, out var dttwo )
-                    ? dtone.Diff( dttwo ).TotalDays
-                    : 0;
-        }
-
-        /// <summary>
-        /// Returns a double indicating the number of days between two dates (past is
-        /// negative)
-        /// </summary>
-        /// <param name = "firstDate" >
+        /// <param name = "dateone" >
         /// The date one.
         /// </param>
         /// <param name = "datetwo" >
@@ -279,16 +241,17 @@ namespace BudgetExecution
         /// </param>
         /// <returns>
         /// </returns>
-        public static double DiffDays( this DateTime firstDate, DateTime datetwo )
+        public static TimeSpan Diff( this DateTime dateone, DateTime datetwo )
         {
-            return firstDate.Diff( datetwo ).TotalDays;
+            var t = dateone.Subtract( datetwo );
+            return t;
         }
 
         /// <summary>
         /// Returns a double indicating the number of days between two dates (past is
         /// negative)
         /// </summary>
-        /// <param name = "firstDate" >
+        /// <param name = "dateone" >
         /// The date one.
         /// </param>
         /// <param name = "datetwo" >
@@ -296,9 +259,45 @@ namespace BudgetExecution
         /// </param>
         /// <returns>
         /// </returns>
-        public static double DiffHours( this string firstDate, string datetwo )
+        public static double DiffDays( this string dateone, string datetwo )
         {
-            return DateTime.TryParse( firstDate, out var dtone ) && DateTime.TryParse( datetwo, out var dttwo )
+            return DateTime.TryParse( dateone, out var dtone ) && DateTime.TryParse( datetwo, out var dttwo )
+                ? dtone.Diff( dttwo ).TotalDays
+                : 0;
+        }
+
+        /// <summary>
+        /// Returns a double indicating the number of days between two dates (past is
+        /// negative)
+        /// </summary>
+        /// <param name = "dateone" >
+        /// The date one.
+        /// </param>
+        /// <param name = "datetwo" >
+        /// The date two.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static double DiffDays( this DateTime dateone, DateTime datetwo )
+        {
+            return dateone.Diff( datetwo ).TotalDays;
+        }
+
+        /// <summary>
+        /// Returns a double indicating the number of days between two dates (past is
+        /// negative)
+        /// </summary>
+        /// <param name = "dateone" >
+        /// The date one.
+        /// </param>
+        /// <param name = "datetwo" >
+        /// The date two.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static double DiffHours( this string dateone, string datetwo )
+        {
+            return DateTime.TryParse( dateone, out var dtone ) && DateTime.TryParse( datetwo, out var dttwo )
                 ? dtone.Diff( dttwo ).TotalHours
                 : 0;
         }
@@ -307,7 +306,7 @@ namespace BudgetExecution
         /// Returns a double indicating the number of days between two dates (past is
         /// negative)
         /// </summary>
-        /// <param name = "firstDate" >
+        /// <param name = "dateone" >
         /// The date one.
         /// </param>
         /// <param name = "datetwo" >
@@ -315,16 +314,16 @@ namespace BudgetExecution
         /// </param>
         /// <returns>
         /// </returns>
-        public static double DiffHours( this DateTime firstDate, DateTime datetwo )
+        public static double DiffHours( this DateTime dateone, DateTime datetwo )
         {
-            return firstDate.Diff( datetwo ).TotalHours;
+            return dateone.Diff( datetwo ).TotalHours;
         }
 
         /// <summary>
         /// Returns a double indicating the number of days between two dates (past is
         /// negative)
         /// </summary>
-        /// <param name = "firstDate" >
+        /// <param name = "dateone" >
         /// The date one.
         /// </param>
         /// <param name = "datetwo" >
@@ -332,9 +331,9 @@ namespace BudgetExecution
         /// </param>
         /// <returns>
         /// </returns>
-        public static double DiffMinutes( this string firstDate, string datetwo )
+        public static double DiffMinutes( this string dateone, string datetwo )
         {
-            return DateTime.TryParse( firstDate, out var dtone ) && DateTime.TryParse( datetwo, out var dttwo )
+            return DateTime.TryParse( dateone, out var dtone ) && DateTime.TryParse( datetwo, out var dttwo )
                 ? dtone.Diff( dttwo ).TotalMinutes
                 : 0;
         }
@@ -343,7 +342,7 @@ namespace BudgetExecution
         /// Returns a double indicating the number of days between two dates (past is
         /// negative)
         /// </summary>
-        /// <param name = "firstDate" >
+        /// <param name = "dateone" >
         /// The date one.
         /// </param>
         /// <param name = "datetwo" >
@@ -351,9 +350,9 @@ namespace BudgetExecution
         /// </param>
         /// <returns>
         /// </returns>
-        public static double DiffMinutes( this DateTime firstDate, DateTime datetwo )
+        public static double DiffMinutes( this DateTime dateone, DateTime datetwo )
         {
-            return firstDate.Diff( datetwo ).TotalMinutes;
+            return dateone.Diff( datetwo ).TotalMinutes;
         }
 
         /// <summary>
@@ -368,52 +367,52 @@ namespace BudgetExecution
         public static bool IsFederalHoliday( this DateTime date )
         {
             // to ease typing
-            var _nthDay = (int)Math.Ceiling( date.Day / 7.0d );
-            var _dayOfWeek = date.DayOfWeek;
-            var _thursday = _dayOfWeek == DayOfWeek.Thursday;
-            var _friday = _dayOfWeek == DayOfWeek.Friday;
-            var _monday = _dayOfWeek == DayOfWeek.Monday;
-            var _weekend = _dayOfWeek == DayOfWeek.Saturday || _dayOfWeek == DayOfWeek.Sunday;
+            var nthweekday = (int)Math.Ceiling( date.Day / 7.0d );
+            var dayname = date.DayOfWeek;
+            var isthursday = dayname == DayOfWeek.Thursday;
+            var isfriday = dayname == DayOfWeek.Friday;
+            var ismonday = dayname == DayOfWeek.Monday;
+            var isweekend = dayname == DayOfWeek.Saturday || dayname == DayOfWeek.Sunday;
 
             switch( date.Month )
             {
                 // New Years Day (Jan 1, or preceding Friday/following Monday if weekend)
-                case 12 when date.Day == 31 && _friday:
-                case 1 when date.Day == 1 && !_weekend:
-                case 1 when date.Day == 2 && _monday:
+                case 12 when date.Day == 31 && isfriday:
+                case 1 when date.Day == 1 && !isweekend:
+                case 1 when date.Day == 2 && ismonday:
 
                 // MLK day (3rd monday in January)
-                case 1 when _monday && _nthDay == 3:
+                case 1 when ismonday && nthweekday == 3:
 
                 // President’s Day (3rd Monday in February)
-                case 2 when _monday && _nthDay == 3:
+                case 2 when ismonday && nthweekday == 3:
 
                 // Memorial Day (Last Monday in May)
-                case 5 when _monday && date.AddDays( 7 ).Month == 6:
+                case 5 when ismonday && date.AddDays( 7 ).Month == 6:
 
                 // Independence Day (July 4, or preceding Friday/following Monday if weekend)
-                case 7 when date.Day == 3 && _friday:
-                case 7 when date.Day == 4 && !_weekend:
-                case 7 when date.Day == 5 && _monday:
+                case 7 when date.Day == 3 && isfriday:
+                case 7 when date.Day == 4 && !isweekend:
+                case 7 when date.Day == 5 && ismonday:
 
                 // Labor Day (1st Monday in September)
-                case 9 when _monday && _nthDay == 1:
+                case 9 when ismonday && nthweekday == 1:
 
                 // Columbus Day (2nd Monday in October)
-                case 10 when _monday && _nthDay == 2:
+                case 10 when ismonday && nthweekday == 2:
 
                 // Veteran’s Day (November 11, or preceding Friday/following Monday if weekend))
-                case 11 when date.Day == 10 && _friday:
-                case 11 when date.Day == 11 && !_weekend:
-                case 11 when date.Day == 12 && _monday:
+                case 11 when date.Day == 10 && isfriday:
+                case 11 when date.Day == 11 && !isweekend:
+                case 11 when date.Day == 12 && ismonday:
 
                 // Thanksgiving Day (4th Thursday in November)
-                case 11 when _thursday && _nthDay == 4:
+                case 11 when isthursday && nthweekday == 4:
 
                 // Christmas Day (December 25, or preceding Friday/following Monday if weekend))
-                case 12 when date.Day == 24 && _friday:
-                case 12 when date.Day == 25 && !_weekend:
-                case 12 when date.Day == 26 && _monday:
+                case 12 when date.Day == 24 && isfriday:
+                case 12 when date.Day == 25 && !isweekend:
+                case 12 when date.Day == 26 && ismonday:
                     return true;
 
                 default:
