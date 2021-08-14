@@ -5,12 +5,6 @@ VisualStudioVersion = 16.0.30309.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extensions", "Extensions.csproj", "{77BFDEC9-2043-4D15-8D63-184A10BDBB3C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{030EFAC1-87A0-4415-9F25-0D04ED86C326}"
-	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-		E:\settings\resharper\computer\BudgetExecution.DotSettings = E:\settings\resharper\computer\BudgetExecution.DotSettings
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -1,23 +1,18 @@
-﻿// <copyright file="{ClassName}.cs" company="Terry D. Eppler">
+﻿// <copyright file="TypeExtensions.cs" company="Terry D. Eppler">
 // Copyright (c) Eppler. All rights reserved.
 // </copyright>
 
-using System.Diagnostics.CodeAnalysis;
-using System.Runtime.Serialization.Json;
-using System.Text;
-using System.Xml.Serialization;
-
 namespace BudgetExecution
 {
-    // ********************************************************************************************************************************
-    // *********************************************************  ASSEMBLIES   ********************************************************
-    // ********************************************************************************************************************************
-
     using System;
     using System.IO;
     using System.Runtime.Serialization;
     using System.Runtime.Serialization.Formatters.Binary;
     using System.Web.Script.Serialization;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Runtime.Serialization.Json;
+    using System.Text;
+    using System.Xml.Serialization;
 
     /// <summary>
     /// 
@@ -25,10 +20,6 @@ namespace BudgetExecution
     [ SuppressMessage( "ReSharper", "CompareNonConstrainedGenericWithNull" ) ]
     public static class TypeObject
     {
-        // ***************************************************************************************************************************
-        // ****************************************************    MEMBERS    ********************************************************
-        // ***************************************************************************************************************************
-
         /// <summary>
         /// Copies the specified input.
         /// </summary>
@@ -41,20 +32,20 @@ namespace BudgetExecution
             {
                 try
                 {
-                    using var stream = new MemoryStream();
-                    var formatter = new BinaryFormatter();
-                    formatter.Serialize( stream, input );
-                    stream.Position = 0;
-                    return (T)formatter.Deserialize( stream );
+                    using var _stream = new MemoryStream();
+                    var _formatter = new BinaryFormatter();
+                    _formatter.Serialize( _stream, input );
+                    _stream.Position = 0;
+                    return (T)_formatter.Deserialize( _stream );
                 }
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default;
+                    return default( T );
                 }
             }
 
-            return default;
+            return default( T );
         }
 
         /// <summary>
@@ -65,12 +56,12 @@ namespace BudgetExecution
         /// <returns></returns>
         public static string ToJson<T>( this T item )
         {
-            var encoding = Encoding.Default;
-            var serializer = new DataContractJsonSerializer( typeof( T ) );
+            var _encoding = Encoding.Default;
+            var _serializer = new DataContractJsonSerializer( typeof( T ) );
             using var stream = new MemoryStream();
-            serializer.WriteObject( stream, item );
-            var json = encoding.GetString( stream.ToArray() );
-            return json;
+            _serializer.WriteObject( stream, item );
+            var _json = _encoding.GetString( stream.ToArray() );
+            return _json;
         }
 
         /// <summary>
@@ -83,10 +74,10 @@ namespace BudgetExecution
         /// </returns>
         public static string SerializeBinary<T>( this T @this )
         {
-            var write = new BinaryFormatter();
-            using var stream = new MemoryStream();
-            write.Serialize( stream, @this );
-            return Encoding.Default.GetString( stream.ToArray() );
+            var _formatter = new BinaryFormatter();
+            using var _stream = new MemoryStream();
+            _formatter.Serialize( _stream, @this );
+            return Encoding.Default.GetString( _stream.ToArray() );
         }
 
         /// <summary>
@@ -100,10 +91,10 @@ namespace BudgetExecution
         /// </returns>
         public static string SerializeBinary<T>( this T @this, Encoding encoding )
         {
-            var write = new BinaryFormatter();
-            using var stream = new MemoryStream();
-            write.Serialize( stream, @this );
-            return encoding.GetString( stream.ToArray() );
+            var _formatter = new BinaryFormatter();
+            using var _stream = new MemoryStream();
+            _formatter.Serialize( _stream, @this );
+            return encoding.GetString( _stream.ToArray() );
         }
 
         /// <summary>
@@ -115,11 +106,11 @@ namespace BudgetExecution
         /// </returns>
         public static string SerializeXml( this object @this )
         {
-            var serializer = new XmlSerializer( @this.GetType() );
-            using var writer = new StringWriter();
-            serializer.Serialize( writer, @this );
-            using var reader = new StringReader( writer.GetStringBuilder().ToString() );
-            return reader.ReadToEnd();
+            var _serializer = new XmlSerializer( @this.GetType() );
+            using var _writer = new StringWriter();
+            _serializer.Serialize( _writer, @this );
+            using var _reader = new StringReader( _writer.GetStringBuilder().ToString() );
+            return _reader.ReadToEnd();
         }
 
         /// <summary>
@@ -130,8 +121,8 @@ namespace BudgetExecution
         /// <returns>A string.</returns>
         public static string SerializeJavaScript<T>( this T @this )
         {
-            var serializer = new JavaScriptSerializer();
-            return serializer.Serialize( @this );
+            var _serializer = new JavaScriptSerializer();
+            return _serializer.Serialize( @this );
         }
 
         /// <summary>
@@ -140,9 +131,9 @@ namespace BudgetExecution
         /// <param name="ex">The ex.</param>
         private static void Fail( Exception ex )
         {
-            using var error = new Error( ex );
-            error?.SetText();
-            error?.ShowDialog();
+            using var _error = new Error( ex );
+            _error?.SetText();
+            _error?.ShowDialog();
         }
     }
 }

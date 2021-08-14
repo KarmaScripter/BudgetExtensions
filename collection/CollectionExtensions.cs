@@ -4,10 +4,6 @@
 
 namespace BudgetExecution
 {
-    // ******************************************************************************************************************************
-    // ******************************************************   ASSEMBLIES   ********************************************************
-    // ******************************************************************************************************************************
-
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -15,30 +11,19 @@ namespace BudgetExecution
     using System.Linq;
     using System.Threading;
 
-    [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
-    [ SuppressMessage( "ReSharper", "CompareNonConstrainedGenericWithNull" ) ]
+    /// <summary>
+    /// 
+    /// </summary>
+    [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" )]
+    [ SuppressMessage( "ReSharper", "CompareNonConstrainedGenericWithNull" )]
     public static class CollectionExtensions
     {
-        // ***************************************************************************************************************************
-        // ************************************************  METHODS   ***************************************************************
-        // ***************************************************************************************************************************
-
-        /// <summary>
-        /// Adds if.
-        /// </summary>
-        /// <typeparam name = "T" >
-        /// </typeparam>
-        /// <param name = "collection" >
-        /// The collection.
-        /// </param>
-        /// <param name = "predicate" >
-        /// The predicate.
-        /// </param>
-        /// <param name = "value" >
-        /// The value.
-        /// </param>
-        /// <returns>
-        /// </returns>
+        /// <summary>Adds if.</summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="collection">The collection.</param>
+        /// <param name="predicate">The predicate.</param>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
         public static bool AddIf<T>( this ICollection<T> collection, Func<T, bool> predicate, T value )
         {
             if( collection?.Count > 0
@@ -59,18 +44,11 @@ namespace BudgetExecution
             return false;
         }
 
-        /// <summary>
-        /// Adds the range.
-        /// </summary>
-        /// <typeparam name = "T" >
-        /// </typeparam>
-        /// <param name = "collection" >
-        /// The collection.
-        /// </param>
-        /// <param name = "values" >
-        /// The values.
-        /// </param>
-        public static void AddRange<T>( this ICollection<T> collection, params T[] values )
+        /// <summary>Adds the range.</summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="collection">The collection.</param>
+        /// <param name="values">The values.</param>
+        public static void AddRange<T>( this ICollection<T> collection, params T[ ] values )
         {
             if( values?.Length > 0
                 && collection?.Any() == true )
@@ -79,11 +57,11 @@ namespace BudgetExecution
                 {
                     for( var i = 0; i < values.Length; i++ )
                     {
-                        var value = values[ i ];
+                        var _value = values[ i ];
 
-                        if( value != null )
+                        if( _value != null )
                         {
-                            collection.Add( value );
+                            collection.Add( _value );
                         }
                     }
                 }
@@ -94,23 +72,11 @@ namespace BudgetExecution
             }
         }
 
-        /// <summary>
-        /// Determines whether this instance is empty.
-        /// </summary>
-        /// <typeparam name = "T" >
-        /// </typeparam>
-        /// <param name = "collection" >
-        /// The collection.
-        /// </param>
+        /// <summary>Determines whether this instance is empty.</summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="collection">The collection.</param>
         /// <returns>
-        /// <c>
-        /// true
-        /// </c>
-        /// if the specified collection is empty; otherwise,
-        /// <c>
-        /// false
-        /// </c>
-        /// .
+        ///   <c>true</c> if the specified collection is empty; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsEmpty<T>( this ICollection<T> collection )
         {
@@ -125,17 +91,10 @@ namespace BudgetExecution
             }
         }
 
-        /// <summary>
-        /// Removes if contains.
-        /// </summary>
-        /// <typeparam name = "T" >
-        /// </typeparam>
-        /// <param name = "collection" >
-        /// The collection.
-        /// </param>
-        /// <param name = "value" >
-        /// The value.
-        /// </param>
+        /// <summary>Removes if contains.</summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="collection">The collection.</param>
+        /// <param name="value">The value.</param>
         public static void RemoveIfContains<T>( this ICollection<T> collection, T value )
         {
             if( collection?.Contains( value ) == true )
@@ -151,18 +110,11 @@ namespace BudgetExecution
             }
         }
 
-        /// <summary>
-        /// Removes the range.
-        /// </summary>
-        /// <typeparam name = "T" >
-        /// </typeparam>
-        /// <param name = "collection" >
-        /// The collection.
-        /// </param>
-        /// <param name = "values" >
-        /// The values.
-        /// </param>
-        public static void RemoveRange<T>( this ICollection<T> collection, params T[] values )
+        /// <summary>Removes the range.</summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="collection">The collection.</param>
+        /// <param name="values">The values.</param>
+        public static void RemoveRange<T>( this ICollection<T> collection, params T[ ] values )
         {
             if( collection?.Any() == true
                 && values?.Any() == true )
@@ -181,15 +133,10 @@ namespace BudgetExecution
             }
         }
 
-        /// <summary>
-        /// Remove an item from the collection with predicate
-        /// </summary>
-        /// <typeparam name = "T" >
-        /// </typeparam>
-        /// <param name = "collection" >
-        /// </param>
-        /// <param name = "predicate" >
-        /// </param>
+        /// <summary>Removes the where.</summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="collection">The collection.</param>
+        /// <param name="predicate">The predicate.</param>
         public static void RemoveWhere<T>( this ICollection<T> collection, Predicate<T> predicate )
         {
             if( collection?.Any() == true )
@@ -212,14 +159,10 @@ namespace BudgetExecution
             }
         }
 
-        /// <summary>
-        /// Tests if the collection is empty.
-        /// </summary>
-        /// <param name = "collection" >
-        /// The collection to test.
-        /// </param>
+        /// <summary>Determines whether this instance is empty.</summary>
+        /// <param name="collection">The collection.</param>
         /// <returns>
-        /// True if the collection is empty.
+        ///   <c>true</c> if the specified collection is empty; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsEmpty( this ICollection collection )
         {
@@ -234,15 +177,13 @@ namespace BudgetExecution
             }
         }
 
-        /// <summary>
-        /// Get Error Dialog.
-        /// </summary>
+        /// <summary>Fails the specified ex.</summary>
         /// <param name="ex">The ex.</param>
         private static void Fail( Exception ex )
         {
-            using var error = new Error( ex );
-            error?.SetText();
-            error?.ShowDialog();
+            using var _error = new Error( ex );
+            _error?.SetText();
+            _error?.ShowDialog();
         }
     }
 }

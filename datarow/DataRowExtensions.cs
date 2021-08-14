@@ -4,10 +4,6 @@
 
 namespace BudgetExecution
 {
-    // ******************************************************************************************************************************
-    // ******************************************************   ASSEMBLIES   ********************************************************
-    // ******************************************************************************************************************************
-
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
@@ -25,15 +21,11 @@ namespace BudgetExecution
     [ SuppressMessage( "ReSharper", "MemberCanBeInternal" ) ]
     public static class DataRowExtensions
     {
-        // ***************************************************************************************************************************
-        // ************************************************  METHODS   ***************************************************************
-        // ***************************************************************************************************************************
-
         /// <summary> Converts to DataRow into Database Parameters. </summary>
-        /// <param name = "datarow" > The datarow. </param>
+        /// <param name = "dataRow" > The dataRow. </param>
         /// <param name = "provider" > The provider. </param>
         /// <returns> </returns>
-        public static IEnumerable<DbParameter> ToSqlDbParameters( this DataRow datarow, Provider provider )
+        public static IEnumerable<DbParameter> ToSqlDbParameters( this DataRow dataRow, Provider provider )
         {
             if( !Enum.IsDefined( typeof( Provider ), provider ) )
             {
@@ -41,207 +33,207 @@ namespace BudgetExecution
                     typeof( Provider ) );
             }
 
-            if( datarow?.ItemArray?.Length > 0
+            if( dataRow?.ItemArray?.Length > 0
                 && Enum.IsDefined( typeof( Provider ), provider ) )
             {
                 try
                 {
                     {
-                        var table = datarow.Table;
-                        var columns = table?.Columns;
-                        var values = datarow.ItemArray;
+                        var _table = dataRow.Table;
+                        var _columns = _table?.Columns;
+                        var _values = dataRow.ItemArray;
 
                         switch( provider )
                         {
                             case Provider.SQLite:
                             {
-                                var sqlite = new List<SQLiteParameter>();
+                                var _sqlite = new List<SQLiteParameter>();
 
-                                for( var i = 0; i < columns?.Count; i++ )
+                                for( var i = 0; i < _columns?.Count; i++ )
                                 {
-                                    var parameter = new SQLiteParameter
+                                    var _parameter = new SQLiteParameter
                                     {
-                                        SourceColumn = columns[ i ].ColumnName,
-                                        Value = values[ i ]
+                                        SourceColumn = _columns[ i ].ColumnName,
+                                        Value = _values[ i ]
                                     };
 
-                                    sqlite.Add( parameter );
+                                    _sqlite.Add( _parameter );
                                 }
 
-                                return sqlite?.Any() == true
-                                    ? sqlite
-                                    : default;
+                                return _sqlite?.Any() == true
+                                    ? _sqlite
+                                    : default( List<SQLiteParameter> );
                             }
 
                             case Provider.SqlCe:
                             {
-                                var sqlce = new List<SqlCeParameter>();
+                                var _sqlce = new List<SqlCeParameter>();
 
-                                for( var i = 0; i < columns?.Count; i++ )
+                                for( var i = 0; i < _columns?.Count; i++ )
                                 {
-                                    var parameter = new SqlCeParameter
+                                    var _parameter = new SqlCeParameter
                                     {
-                                        SourceColumn = columns[ i ].ColumnName,
-                                        Value = values[ i ]
+                                        SourceColumn = _columns[ i ].ColumnName,
+                                        Value = _values[ i ]
                                     };
 
-                                    sqlce.Add( parameter );
+                                    _sqlce.Add( _parameter );
                                 }
 
-                                return sqlce?.Any() == true
-                                    ? sqlce
-                                    : default;
+                                return _sqlce?.Any() == true
+                                    ? _sqlce
+                                    : default( List<SqlCeParameter> );
                             }
 
                             case Provider.OleDb:
                             case Provider.Excel:
                             case Provider.Access:
                             {
-                                var oledb = new List<OleDbParameter>();
+                                var _oledb = new List<OleDbParameter>();
 
-                                for( var i = 0; i < columns?.Count; i++ )
+                                for( var i = 0; i < _columns?.Count; i++ )
                                 {
                                     var parameter = new OleDbParameter
                                     {
-                                        SourceColumn = columns[ i ].ColumnName,
-                                        Value = values[ i ]
+                                        SourceColumn = _columns[ i ].ColumnName,
+                                        Value = _values[ i ]
                                     };
 
-                                    oledb.Add( parameter );
+                                    _oledb.Add( parameter );
                                 }
 
-                                return oledb.Any()
-                                    ? oledb
-                                    : default;
+                                return _oledb.Any()
+                                    ? _oledb
+                                    : default( List<OleDbParameter> );
                             }
 
                             case Provider.SqlServer:
                             {
-                                var sqlserver = new List<SqlParameter>();
+                                var _sqlserver = new List<SqlParameter>();
 
-                                for( var i = 0; i < columns?.Count; i++ )
+                                for( var i = 0; i < _columns?.Count; i++ )
                                 {
-                                    var parameter = new SqlParameter
+                                    var _parameter = new SqlParameter
                                     {
-                                        SourceColumn = columns[ i ].ColumnName,
-                                        Value = values[ i ]
+                                        SourceColumn = _columns[ i ].ColumnName,
+                                        Value = _values[ i ]
                                     };
 
-                                    sqlserver.Add( parameter );
+                                    _sqlserver.Add( _parameter );
                                 }
 
-                                return sqlserver?.Any() == true
-                                    ? sqlserver
-                                    : default;
+                                return _sqlserver?.Any() == true
+                                    ? _sqlserver
+                                    : default( List<SqlParameter> );
                             }
                         }
 
-                        return default;
+                        return default( IEnumerable<DbParameter> );
                     }
                 }
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default;
+                    return default( IEnumerable<DbParameter> );
                 }
             }
 
-            return default;
+            return default( IEnumerable<DbParameter> );
         }
 
         /// <summary> Converts DataRow to Dictionary. </summary>
-        /// <param name = "datarow" > The DataRow. </param>
+        /// <param name = "dataRow" > The DataRow. </param>
         /// <returns> Dictionary </returns>
-        public static IDictionary<string, object> ToDictionary( this DataRow datarow )
+        public static IDictionary<string, object> ToDictionary( this DataRow dataRow )
         {
             try
             {
-                if( datarow?.ItemArray.Length > 0 )
+                if( dataRow?.ItemArray.Length > 0 )
                 {
-                    var dict = new Dictionary<string, object>();
-                    var table = datarow?.Table;
-                    var column = table?.Columns;
-                    var items = datarow?.ItemArray;
+                    var _dictionary = new Dictionary<string, object>();
+                    var _table = dataRow?.Table;
+                    var _column = _table?.Columns;
+                    var _items = dataRow?.ItemArray;
 
-                    for( var i = 0; i < column?.Count; i++ )
+                    for( var i = 0; i < _column?.Count; i++ )
                     {
-                        if( !string.IsNullOrEmpty( column[ i ]?.ColumnName ) )
+                        if( !string.IsNullOrEmpty( _column[ i ]?.ColumnName ) )
                         {
-                            dict?.Add( column[ i ].ColumnName, items[ i ] ?? default );
+                            _dictionary?.Add( _column[ i ].ColumnName, _items[ i ] ?? default( object ) );
                         }
                     }
 
-                    return dict?.Keys?.Count > 0
-                        ? dict
-                        : default;
+                    return _dictionary?.Keys?.Count > 0
+                        ? _dictionary
+                        : default( Dictionary<string, object> );
                 }
 
-                return default;
+                return default( IDictionary<string, object> );
             }
             catch( Exception ex )
             {
                 Fail( ex );
-                return default;
+                return default( IDictionary<string, object> );
             }
         }
 
         /// <summary>
         /// Converts to sortedlist.
         /// </summary>
-        /// <param name="datarow">The datarow.</param>
+        /// <param name="dataRow">The dataRow.</param>
         /// <returns></returns>
-        public static SortedList<string, object> ToSortedList( this DataRow datarow )
+        public static SortedList<string, object> ToSortedList( this DataRow dataRow )
         {
             try
             {
-                if( datarow?.ItemArray.Length > 0 )
+                if( dataRow?.ItemArray.Length > 0 )
                 {
-                    var sortedlist = new SortedList<string, object>();
-                    var table = datarow?.Table;
-                    var column = table?.Columns;
-                    var items = datarow?.ItemArray;
+                    var _sortedlist = new SortedList<string, object>();
+                    var _table = dataRow?.Table;
+                    var _column = _table?.Columns;
+                    var _items = dataRow?.ItemArray;
 
-                    for( var i = 0; i < column?.Count; i++ )
+                    for( var i = 0; i < _column?.Count; i++ )
                     {
-                        if( !string.IsNullOrEmpty( column[ i ]?.ColumnName ) )
+                        if( !string.IsNullOrEmpty( _column[ i ]?.ColumnName ) )
                         {
-                            sortedlist?.Add( column[ i ].ColumnName, items[ i ] ?? default );
+                            _sortedlist?.Add( _column[ i ].ColumnName, _items[ i ] ?? default( object ) );
                         }
                     }
 
-                    return sortedlist?.Count > 0
-                        ? sortedlist
-                        : default;
+                    return _sortedlist?.Count > 0
+                        ? _sortedlist
+                        : default( SortedList<string, object> );
                 }
 
-                return default;
+                return default( SortedList<string, object> );
             }
             catch( Exception ex )
             {
                 Fail( ex );
-                return default;
+                return default( SortedList<string, object> );
             }
         }
 
         /// <summary> Gets the record str casted as byte array. </summary>
-        /// <param name = "row" > The data row. </param>
+        /// <param name = "dataRow" > The data dataRow. </param>
         /// <param name = "field" > The name of the record field. </param>
         /// <returns> The record str </returns>
-        public static IEnumerable<byte> GetBytes( this DataRow row, string field )
+        public static IEnumerable<byte> GetBytes( this DataRow dataRow, string field )
         {
             try
             {
-                return row[ field ] as byte[];
+                return dataRow[ field ] as byte[ ];
             }
             catch( Exception ex )
             {
                 Fail( ex );
-                return default;
+                return default( IEnumerable<byte> );
             }
         }
 
         /// <summary> Gets the field. </summary>
-        /// <param name = "datarow" > The datarow. </param>
+        /// <param name = "datarow" > The dataRow. </param>
         /// <param name = "field" > The field. </param>
         /// <returns> </returns>
         public static string GetField( this DataRow datarow, Field field )
@@ -249,10 +241,10 @@ namespace BudgetExecution
             if( datarow != null
                 && Enum.IsDefined( typeof( Field ), field ) )
             {
-                var columns = datarow.Table?.GetColumnNames();
+                var _columns = datarow.Table?.GetColumnNames();
 
-                if( columns?.Any() == true
-                    && columns.Contains( $"{field}" ) )
+                if( _columns?.Any() == true
+                    && _columns.Contains( $"{field}" ) )
                 {
                     try
                     {
@@ -261,30 +253,30 @@ namespace BudgetExecution
                     catch( Exception ex )
                     {
                         Fail( ex );
-                        return default;
+                        return default( string );
                     }
                 }
             }
 
-            return default;
+            return default( string );
         }
 
         /// <summary> Gets the numeric. </summary>
-        /// <param name = "datarow" > The datarow. </param>
+        /// <param name = "dataRow" > The dataRow. </param>
         /// <param name = "numeric" > The numeric. </param>
         /// <returns> </returns>
-        public static double GetNumeric( this DataRow datarow, Numeric numeric )
+        public static double GetNumeric( this DataRow dataRow, Numeric numeric )
         {
-            if( datarow != null & Enum.IsDefined( typeof( Numeric ), numeric ) )
+            if( dataRow != null & Enum.IsDefined( typeof( Numeric ), numeric ) )
             {
-                var columns = datarow.Table?.GetColumnNames();
+                var _columns = dataRow.Table?.GetColumnNames();
 
-                if( columns?.Any() == true
-                    && columns.Contains( $"{numeric}" ) )
+                if( _columns?.Any() == true
+                    && _columns.Contains( $"{numeric}" ) )
                 {
                     try
                     {
-                        return double.Parse( datarow[ $"{numeric}" ].ToString() );
+                        return double.Parse( dataRow[ $"{numeric}" ].ToString() );
                     }
                     catch( Exception ex )
                     {
@@ -298,58 +290,58 @@ namespace BudgetExecution
         }
 
         /// <summary> Gets the date. </summary>
-        /// <param name = "datarow" > The datarow. </param>
+        /// <param name = "dataRow" > The dataRow. </param>
         /// <param name = "field" > The field. </param>
         /// <returns> </returns>
-        public static DateTime GetDate( this DataRow datarow, Field field )
+        public static DateTime GetDate( this DataRow dataRow, Field field )
         {
-            if( datarow != null & Enum.IsDefined( typeof( Field ), field ) )
+            if( dataRow != null & Enum.IsDefined( typeof( Field ), field ) )
             {
-                var columns = datarow.Table?.GetColumnNames();
+                var _columns = dataRow.Table?.GetColumnNames();
 
-                if( columns != null
-                    && columns?.Any() == true & columns.Contains( $"{field}" ) )
+                if( _columns != null
+                    && _columns?.Any() == true & _columns.Contains( $"{field}" ) )
                 {
                     try
                     {
-                        return DateTime.Parse( datarow[ $"{field}" ].ToString() );
+                        return DateTime.Parse( dataRow[ $"{field}" ].ToString() );
                     }
                     catch( Exception ex )
                     {
                         Fail( ex );
-                        return default;
+                        return default( DateTime );
                     }
                 }
             }
 
-            return default;
+            return default( DateTime );
         }
 
         /// <summary> Determines whether this instance has numeric. </summary>
-        /// <param name = "row" > The row. </param>
+        /// <param name = "dataRow" > The dataRow. </param>
         /// <returns>
         /// <c> true </c>
-        /// if the specified row has numeric; otherwise,
+        /// if the specified dataRow has numeric; otherwise,
         /// <c> false </c>
         /// .
         /// </returns>
-        public static bool HasNumeric( this DataRow row )
+        public static bool HasNumeric( this DataRow dataRow )
         {
-            if( row != null )
+            if( dataRow != null )
             {
                 try
                 {
-                    var colums = row.Table?.GetColumnNames();
-                    var names = Enum.GetNames( typeof( Numeric ) );
+                    var _colums = dataRow.Table?.GetColumnNames();
+                    var _names = Enum.GetNames( typeof( Numeric ) );
 
-                    for( var i = 1; i < colums?.Length; i++ )
+                    for( var i = 1; i < _colums?.Length; i++ )
                     {
-                        if( names.Contains( colums[ i ] ) )
+                        if( _names.Contains( _colums[ i ] ) )
                         {
                             return true;
                         }
 
-                        if( !names.Contains( colums[ i ] ) )
+                        if( !_names.Contains( _colums[ i ] ) )
                         {
                             return false;
                         }
@@ -358,7 +350,7 @@ namespace BudgetExecution
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default;
+                    return default( bool );
                 }
             }
 
@@ -366,36 +358,35 @@ namespace BudgetExecution
         }
 
         /// <summary> Determines whether [has a primary key]. </summary>
-        /// <param name = "row" > The row. </param>
+        /// <param name = "row" > The dataRow. </param>
         /// <returns>
         /// <c> true </c>
-        /// if [has primary key] [the specified row]; otherwise,
+        /// if [has primary key] [the specified dataRow]; otherwise,
         /// <c> false </c>
         /// .
         /// </returns>
         public static bool HasPrimaryKey( this DataRow row )
         {
-            if( row != null
-                && row.ItemArray?.Length > 0 )
+            if( row?.ItemArray?.Length > 0 )
             {
                 try
                 {
-                    var dict = row.ToDictionary();
-                    var key = dict.Keys?.ToArray();
-                    var names = Enum.GetNames( typeof( PrimaryKey ) );
-                    var count = 0;
+                    var _dictionary = row.ToDictionary();
+                    var _key = _dictionary.Keys?.ToArray();
+                    var _names = Enum.GetNames( typeof( PrimaryKey ) );
+                    var _count = 0;
 
-                    for( var i = 1; i < key.Length; i++ )
+                    for( var i = 1; i < _key.Length; i++ )
                     {
-                        var name = key[ i ];
+                        var name = _key[ i ];
 
-                        if( names.Contains( name ) )
+                        if( _names.Contains( name ) )
                         {
-                            count++;
+                            _count++;
                         }
                     }
 
-                    return count > 0;
+                    return _count > 0;
                 }
                 catch( Exception ex )
                 {
@@ -408,7 +399,7 @@ namespace BudgetExecution
         }
 
         /// <summary> Gets the key. </summary>
-        /// <param name = "row" > The row. </param>
+        /// <param name = "row" > The dataRow. </param>
         /// <returns> </returns>
         public static IDictionary<string, object> GetPrimaryKey( this DataRow row )
         {
@@ -416,36 +407,36 @@ namespace BudgetExecution
             {
                 try
                 {
-                    var dict = row.ToDictionary();
-                    var key = dict.Keys?.ToArray();
-                    var names = Enum.GetNames( typeof( PrimaryKey ) );
+                    var _dictionary = row.ToDictionary();
+                    var _key = _dictionary.Keys?.ToArray();
+                    var _names = Enum.GetNames( typeof( PrimaryKey ) );
 
-                    for( var i = 1; i < key?.Length; i++ )
+                    for( var i = 1; i < _key?.Length; i++ )
                     {
-                        var name = key[ i ];
+                        var _name = _key[ i ];
 
-                        if( names.Contains( name ) )
+                        if( _names.Contains( _name ) )
                         {
                             return new Dictionary<string, object>
                             {
-                                [ name ] = int.Parse( dict[ name ].ToString() )
+                                [ _name ] = int.Parse( _dictionary[ _name ].ToString() )
                             };
                         }
 
-                        if( !names.Contains( name ) )
+                        if( !_names.Contains( _name ) )
                         {
-                            return default;
+                            return default( IDictionary<string, object> );
                         }
                     }
                 }
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default;
+                    return default( IDictionary<string, object> );
                 }
             }
 
-            return default;
+            return default( IDictionary<string, object> );
         }
 
         /// <summary>
@@ -454,9 +445,9 @@ namespace BudgetExecution
         /// <param name="ex">The ex.</param>
         private static void Fail( Exception ex )
         {
-            using var error = new Error( ex );
-            error?.SetText();
-            error?.ShowDialog();
+            using var _error = new Error( ex );
+            _error?.SetText();
+            _error?.ShowDialog();
         }
     }
 }
