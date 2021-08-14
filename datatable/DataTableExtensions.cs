@@ -2,6 +2,7 @@
 // Copyright (c) Terry D. Eppler. All rights reserved.
 // </copyright>
 
+// ReSharper disable All
 namespace BudgetExecution
 {
     // ******************************************************************************************************************************
@@ -28,10 +29,6 @@ namespace BudgetExecution
     [ SuppressMessage( "ReSharper", "UseObjectOrCollectionInitializer" ) ]
     public static class DataTableExtensions
     {
-        // ***************************************************************************************************************************
-        // ************************************************  METHODS   ***************************************************************
-        // ***************************************************************************************************************************
-
         /// <summary>
         /// The connection string
         /// </summary>
@@ -41,89 +38,89 @@ namespace BudgetExecution
         /// <summary>
         /// Converts to xml.
         /// </summary>
-        /// <param name="dt">The dt.</param>
-        /// <param name="rootname">The rootname.</param>
+        /// <param name="dataTable">The dataTable.</param>
+        /// <param name="rootName">The rootName.</param>
         /// <returns></returns>
-        public static XDocument ToXml( this DataTable dt, string rootname )
+        public static XDocument ToXml( this DataTable dataTable, string rootName )
         {
             try
             {
-                var xdoc = new XDocument
+                var _xml = new XDocument
                 {
                     Declaration = new XDeclaration( "1.0", "utf-8", "" )
                 };
 
-                xdoc.Add( new XElement( rootname ) );
+                _xml.Add( new XElement( rootName ) );
 
-                foreach( DataRow row in dt.Rows )
+                foreach( DataRow row in dataTable.Rows )
                 {
-                    var element = new XElement( dt.TableName );
+                    var element = new XElement( dataTable.TableName );
 
-                    foreach( DataColumn col in dt.Columns )
+                    foreach( DataColumn col in dataTable.Columns )
                     {
                         element.Add( new XElement( col.ColumnName, row?[ col ]?.ToString()?.Trim( ' ' ) ) );
                     }
 
-                    xdoc.Root?.Add( element );
+                    _xml.Root?.Add( element );
                 }
 
-                return xdoc;
+                return _xml;
             }
             catch( Exception ex )
             {
                 Fail( ex );
-                return default;
+                return default( XDocument );
             }
         }
 
         /// <summary>
         /// Converts to excel.
         /// </summary>
-        /// <param name="table">The table.</param>
-        /// <param name="filepath">The filepath.</param>
+        /// <param name="dataTable">The dataTable.</param>
+        /// <param name="filePath">The filePath.</param>
         /// <exception cref="Exception">
         /// OSExportToExcelFile: Null or empty input datatable!\n
         /// or
         /// OSExportToExcelFile: Excel file could not be saved.\n"
         ///                             + ex.Message
         /// </exception>
-        public static void ToExcel( this DataTable table, string filepath = null )
+        public static void ToExcel( this DataTable dataTable, string filePath = null )
         {
             try
             {
-                if( table == null )
+                if( dataTable == null )
                 {
                     throw new Exception( "OSExportToExcelFile: Null or empty input datatable!\n" );
                 }
 
-                var excel = new ExcelPackage();
-                var worksheet = excel?.Workbook?.Worksheets[ 0 ];
+                var _excel = new ExcelPackage();
+                var _worksheet = _excel?.Workbook?.Worksheets[ 0 ];
 
-                for( var i = 0; i < table?.Columns?.Count; i++ )
+                for( var i = 0; i < dataTable?.Columns?.Count; i++ )
                 {
-                    if( worksheet != null
-                        && !string.IsNullOrEmpty( table.Columns[ i ]?.ColumnName ) )
+                    if( _worksheet != null
+                        && !string.IsNullOrEmpty( dataTable.Columns[ i ]?.ColumnName ) )
                     {
-                        worksheet.Cells[ 1, i + 1 ].Value = table.Columns[ i ]?.ColumnName;
+                        _worksheet.Cells[ 1, i + 1 ].Value = dataTable.Columns[ i ]?.ColumnName;
                     }
                 }
 
-                for( var i = 0; i < table.Rows?.Count; i++ )
+                for( var i = 0; i < dataTable.Rows?.Count; i++ )
                 {
-                    for( var j = 0; j < table.Columns?.Count; j++ )
+                    for( var j = 0; j < dataTable.Columns?.Count; j++ )
                     {
-                        if( worksheet != null )
+                        if( _worksheet != null )
                         {
-                            worksheet.Cells[ i + 2, j + 1 ].Value = table.Rows[ i ][ j ];
+                            _worksheet.Cells[ i + 2, j + 1 ].Value = dataTable.Rows[ i ][ j ];
                         }
                     }
                 }
 
-                if( !string.IsNullOrEmpty( filepath ) )
+                if( !string.IsNullOrEmpty( filePath ) )
                 {
                     try
                     {
-                        excel.Save( filepath );
+                        _excel.Save( filePath );
                         MessageBox.Show( "Excel file saved!" );
                     }
                     catch( Exception ex )
@@ -142,59 +139,57 @@ namespace BudgetExecution
         /// <summary>
         /// Froms the excel.
         /// </summary>
-        /// <param name="table">The table.</param>
-        /// <param name="filepath">The filepath.</param>
-        /// <param name="sheetname">The sheetname.</param>
+        /// <param name="dataTable">The dataTable.</param>
+        /// <param name="filePath">The filePath.</param>
+        /// <param name="sheetName">The sheetName.</param>
         /// <returns></returns>
-        public static DataTable FromExcel( this DataTable table, string filepath, string sheetname )
+        public static DataTable FromExcel( this DataTable dataTable, string filePath, string sheetName )
         {
-            if( table != null
-                && table.Columns.Count > 0
-                && table.Rows.Count > 0
-                && !string.IsNullOrEmpty( filepath )
-                && !string.IsNullOrEmpty( sheetname ) )
+            if( dataTable?.Columns.Count > 0
+                && dataTable.Rows.Count > 0 
+                && !string.IsNullOrEmpty( filePath ) 
+                && !string.IsNullOrEmpty( sheetName ) )
             {
                 try
                 {
-                    var connection = ConnectionString[ "Excel" ].ConnectionString;
-                    var sql = "SELECT * FROM [" + sheetname + "$]";
-                    using var adapter = new OleDbDataAdapter( sql, connection );
-                    var datatable = new DataTable();
-                    datatable.TableName = sheetname;
-                    adapter?.FillSchema( datatable, SchemaType.Source );
-                    adapter.Fill( datatable, datatable.TableName );
-                    return datatable;
+                    var _connection = ConnectionString[ "Excel" ].ConnectionString;
+                    var _sql = "SELECT * FROM [" + sheetName + "$]";
+                    using var _adapter = new OleDbDataAdapter( _sql, _connection );
+                    var _dataTable = new DataTable();
+                    _dataTable.TableName = sheetName;
+                    _adapter?.FillSchema( _dataTable, SchemaType.Source );
+                    _adapter.Fill( _dataTable, _dataTable.TableName );
+                    return _dataTable;
                 }
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default;
+                    return default( DataTable );
                 }
             }
 
-            return default;
+            return default( DataTable );
         }
 
         /// <summary>
         /// Determines whether [has numeric column].
         /// </summary>
-        /// <param name="table">The table.</param>
+        /// <param name="dataTable">The dataTable.</param>
         /// <returns>
-        ///   <c>true</c> if [has numeric column] [the specified table]; otherwise, <c>false</c>.
+        ///   <c>true</c> if [has numeric column] [the specified dataTable]; otherwise, <c>false</c>.
         /// </returns>
         [ SuppressMessage( "ReSharper", "UnusedVariable" ) ]
-        public static bool HasNumericColumn( this DataTable table )
+        public static bool HasNumericColumn( this DataTable dataTable )
         {
             try
             {
-                if( table != null
-                    && table?.Rows?.Count > 0
-                    && table.Columns?.Count > 0 )
+                if( dataTable?.Rows?.Count > 0
+                    && dataTable.Columns?.Count > 0 )
                 {
-                    foreach( DataColumn k in table.Columns )
+                    foreach( DataColumn _column in dataTable.Columns )
                     {
-                        if( !string.IsNullOrEmpty( k.ColumnName )
-                            && Enum.GetNames( typeof( Numeric ) )?.Contains( k?.ColumnName ) == true )
+                        if( !string.IsNullOrEmpty( _column.ColumnName )
+                            && Enum.GetNames( typeof( Numeric ) )?.Contains( _column?.ColumnName ) == true )
                         {
                             return true;
                         }
@@ -213,19 +208,18 @@ namespace BudgetExecution
         /// <summary>
         /// Determines whether [has primary key].
         /// </summary>
-        /// <param name="table">The table.</param>
+        /// <param name="dataTable">The dataTable.</param>
         /// <returns>
-        ///   <c>true</c> if [has primary key] [the specified table]; otherwise, <c>false</c>.
+        ///   <c>true</c> if [has primary key] [the specified dataTable]; otherwise, <c>false</c>.
         /// </returns>
-        public static bool HasPrimaryKey( this DataTable table )
+        public static bool HasPrimaryKey( this DataTable dataTable )
         {
             try
             {
-                if( table != null
-                    && table?.Rows?.Count > 0
-                    && table.Columns?.Count > 0 )
+                if( dataTable?.Rows?.Count > 0
+                    && dataTable.Columns?.Count > 0 )
                 {
-                    foreach( DataColumn column in table.Columns )
+                    foreach( DataColumn column in dataTable.Columns )
                     {
                         if( Enum.GetNames( typeof( PrimaryKey ) )?.Contains( column?.ColumnName ) == true )
                         {
@@ -246,193 +240,197 @@ namespace BudgetExecution
         /// <summary>
         /// Gets the primary key values.
         /// </summary>
-        /// <param name="table">The table.</param>
+        /// <param name="dataTable">The dataTable.</param>
         /// <returns></returns>
-        public static IEnumerable<int> GetPrimaryKeyValues( this DataTable table )
+        public static IEnumerable<int> GetPrimaryKeyValues( this DataTable dataTable )
         {
             try
             {
-                if( table != null
-                    && table.Rows?.Count > 0
-                    && table.Columns?.Count > 0 )
+                if( dataTable?.Rows?.Count > 0 
+                    && dataTable.Columns?.Count > 0 )
                 {
-                    var list = new List<int>();
+                    var _list = new List<int>();
 
-                    foreach( var row in table.AsEnumerable() )
+                    foreach( var _row in dataTable.AsEnumerable() )
                     {
-                        if( row?.HasPrimaryKey() == true )
+                        if( _row?.HasPrimaryKey() == true )
                         {
-                            list.Add( int.Parse( row[ 0 ].ToString() ) );
+                            _list.Add( int.Parse( _row[ 0 ].ToString() ) );
                         }
                     }
 
-                    return list?.Any() == true
-                        ? list
-                        : default;
+                    return _list?.Any() == true
+                        ? _list
+                        : default( List<int> );
                 }
 
-                return default;
+                return default( IEnumerable<int> );
             }
             catch( Exception ex )
             {
                 Fail( ex );
-                return default;
+                return default( IEnumerable<int> );
             }
         }
 
         /// <summary>
         /// Gets the unique values.
         /// </summary>
-        /// <param name="table">The table.</param>
+        /// <param name="dataTable">The dataTable.</param>
         /// <param name="column">The column.</param>
         /// <returns></returns>
-        public static string[] GetUniqueValues( this DataTable table, string column )
+        public static string[] GetUniqueValues( this DataTable dataTable, string column )
         {
-            if( table.Rows.Count > 0
+            if( dataTable.Rows.Count > 0
                 && !string.IsNullOrEmpty( column ) )
             {
                 try
                 {
-                    var query = table?.AsEnumerable()?.Select( p => p.Field<string>( column ) )?.Distinct();
-                    var enumerable = query as string[] ?? query.ToArray();
+                    var _query = dataTable
+                        ?.AsEnumerable()
+                        ?.Select( p => p.Field<string>( column ) )
+                        ?.Distinct();
 
-                    return enumerable.Any()
-                        ? enumerable
-                        : default;
+                    var _enumerable = _query as string[] ?? _query.ToArray();
+
+                    return _enumerable.Any()
+                        ? _enumerable
+                        : default( string[ ] );
                 }
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default;
+                    return default( string[ ] );
                 }
             }
 
-            return default;
+            return default( string[ ] );
         }
 
         /// <summary>
         /// Gets the unique values.
         /// </summary>
-        /// <param name="table">The table.</param>
+        /// <param name="dataTable">The dataTable.</param>
         /// <param name="field">The field.</param>
         /// <returns></returns>
-        public static string[] GetUniqueValues( this DataTable table, Field field )
+        public static string[] GetUniqueValues( this DataTable dataTable, Field field )
         {
-            if( table != null
-                && table.Rows.Count > 0
-                && Enum.IsDefined( typeof( Field ), field )
-                && table.Columns.Contains( $"{field}" ) )
+            if( dataTable?.Rows.Count > 0 
+                && Enum.IsDefined( typeof( Field ), field ) 
+                && dataTable.Columns.Contains( $"{field}" ) )
             {
                 try
                 {
-                    var query = table?.AsEnumerable()
+                    var _query = dataTable?.AsEnumerable()
                         ?.Select( p => p.Field<string>( $"{field}" ) )
                         ?.Distinct();
 
-                    var enumerable = query as string[] ?? query.ToArray();
+                    var _enumerable = _query as string[] ?? _query.ToArray();
 
-                    return enumerable.Any()
-                        ? enumerable
-                        : default;
+                    return _enumerable.Any()
+                        ? _enumerable
+                        : default( string[ ] );
                 }
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default;
+                    return default( string[ ] );
                 }
             }
 
-            return default;
+            return default( string[ ] );
         }
 
         /// <summary>
         /// Filters the specified field.
         /// </summary>
-        /// <param name="table">The table.</param>
+        /// <param name="dataTable">The dataTable.</param>
         /// <param name="field">The field.</param>
         /// <param name="filter">The filter.</param>
         /// <returns></returns>
-        public static IEnumerable<DataRow> Filter( this DataTable table, Field field, string filter )
+        public static IEnumerable<DataRow> Filter( this DataTable dataTable, Field field, string filter )
         {
-            if( table != null
-                && table.Columns.Count > 0
-                && Enum.IsDefined( typeof( Field ), field )
-                && !string.IsNullOrEmpty( filter )
-                && table.Columns.Contains( $"{field}" ) )
+            if( dataTable?.Columns.Count > 0 
+                && Enum.IsDefined( typeof( Field ), field ) 
+                && !string.IsNullOrEmpty( filter ) 
+                && dataTable.Columns.Contains( $"{field}" ) )
             {
                 try
                 {
-                    var query = table?.AsEnumerable()
+                    var _select = dataTable
+                        ?.AsEnumerable()
                         ?.Where( p => p.Field<string>( $"{field}" ).Equals( filter ) )
                         ?.Select( p => p );
 
-                    return query?.Any() == true
-                        ? query
-                        : default;
+                    return _select?.Any() == true
+                        ? _select
+                        : default( EnumerableRowCollection<DataRow> );
                 }
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default;
+                    return default( IEnumerable<DataRow> );
                 }
             }
 
-            return default;
+            return default( IEnumerable<DataRow> );
         }
 
         /// <summary>
         /// Gets the column names.
         /// </summary>
-        /// <param name="table">The table.</param>
+        /// <param name="table">The dataTable.</param>
         /// <returns></returns>
         public static string[] GetColumnNames( this DataTable table )
         {
             try
             {
-                var fields = new string[ table.Columns.Count ];
+                var _fields = new string[ table.Columns.Count ];
 
                 for( var i = 0; i < table.Columns.Count; i++ )
                 {
-                    fields[ i ] = table.Columns[ i ].ColumnName;
+                    _fields[ i ] = table.Columns[ i ].ColumnName;
                 }
 
-                var cols = fields?.OrderBy( f => f.IndexOf( f ) )?.Select( f => f )?.ToArray();
+                var _names = _fields
+                    ?.OrderBy( f => f.IndexOf( f ) )
+                    ?.Select( f => f )?.ToArray();
 
-                return cols.Any()
-                    ? cols
-                    : default;
+                return _names.Any()
+                    ? _names
+                    : default( string[ ] );
             }
             catch( Exception ex )
             {
                 Fail( ex );
-                return default;
+                return default( string[ ] );
             }
         }
 
         /// <summary>
         /// Gets the index of the column name and.
         /// </summary>
-        /// <param name="table">The table.</param>
+        /// <param name="dataTable">The dataTable.</param>
         /// <returns></returns>
-        public static Dictionary<string, int> GetColumnNameAndIndex( this DataTable table )
+        public static Dictionary<string, int> GetColumnNameAndIndex( this DataTable dataTable )
         {
             try
             {
-                var namindex = new Dictionary<string, int>();
+                var _index = new Dictionary<string, int>();
 
-                for( var i = 0; i < table.Columns.Count; i++ )
+                for( var i = 0; i < dataTable.Columns.Count; i++ )
                 {
-                    namindex.Add( table.Columns[ i ].ColumnName, i );
+                    _index.Add( dataTable.Columns[ i ].ColumnName, i );
                 }
 
-                return namindex.Count > 0
-                    ? namindex
-                    : default;
+                return _index.Count > 0
+                    ? _index
+                    : default( Dictionary<string, int> );
             }
             catch( Exception ex )
             {
                 Fail( ex );
-                return default;
+                return default( Dictionary<string, int> );
             }
         }
 
@@ -442,9 +440,9 @@ namespace BudgetExecution
         /// <param name="ex">The ex.</param>
         private static void Fail( Exception ex )
         {
-            using var error = new Error( ex );
-            error?.SetText();
-            error?.ShowDialog();
+            using var _error = new Error( ex );
+            _error?.SetText();
+            _error?.ShowDialog();
         }
     }
 }

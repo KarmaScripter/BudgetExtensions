@@ -4,10 +4,6 @@
 
 namespace BudgetExecution
 {
-    // ******************************************************************************************************************************
-    // ******************************************************   ASSEMBLIES   ********************************************************
-    // ******************************************************************************************************************************
-
     using System;
     using System.Collections.Generic;
     using System.Data.Common;
@@ -24,10 +20,6 @@ namespace BudgetExecution
     [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
     public static class DictionaryExtensions
     {
-        // ***************************************************************************************************************************
-        // ************************************************  METHODS   ***************************************************************
-        // ***************************************************************************************************************************
-
         /// <summary> Adds the or update. </summary>
         /// <typeparam name = "TKey" > The type of the key. </typeparam>
         /// <typeparam name = "TValue" > The type of the value. </typeparam>
@@ -47,7 +39,7 @@ namespace BudgetExecution
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default;
+                    return default( TValue );
                 }
             }
             else
@@ -71,26 +63,26 @@ namespace BudgetExecution
             {
                 try
                 {
-                    var conjuction = logic.ToString();
-                    var sqlstring = "";
+                    var _conjuction = logic.ToString();
+                    var _sqlstring = "";
 
                     if( dict.HasPrimaryKey() )
                     {
-                        var pk = dict.GetPrimaryKey();
+                        var _key = dict.GetPrimaryKey();
 
-                        if( !string.IsNullOrEmpty( pk.Key )
-                            & int.Parse( pk.Value.ToString() ) > -1 ) 
+                        if( !string.IsNullOrEmpty( _key.Key )
+                            & int.Parse( _key.Value.ToString() ) > -1 ) 
                         {
-                            foreach( var kvp in dict )
+                            foreach( var _kvp in dict )
                             {
-                                sqlstring += $"{kvp.Key} = {kvp.Value}  {conjuction} ";
+                                _sqlstring += $"{_kvp.Key} = {_kvp.Value}  {_conjuction} ";
                             }
 
-                            var sql = sqlstring.TrimEnd( $"  {conjuction} ".ToCharArray() );
-                            sql += $" WHERE {pk.Key} = {int.Parse( pk.Value.ToString() )};";
+                            var _sql = _sqlstring.TrimEnd( $"  {_conjuction} ".ToCharArray() );
+                            _sql += $" WHERE {_key.Key} = {int.Parse( _key.Value.ToString() )};";
 
-                            return !string.IsNullOrEmpty( sql )
-                                ? sql
+                            return !string.IsNullOrEmpty( _sql )
+                                ? _sql
                                 : string.Empty;
                         }
                     }
@@ -98,13 +90,13 @@ namespace BudgetExecution
                     {
                         foreach( var kvp in dict )
                         {
-                            sqlstring += $"{kvp.Key} = {kvp.Value} {conjuction} ";
+                            _sqlstring += $"{kvp.Key} = {kvp.Value} {_conjuction} ";
                         }
 
-                        var sql = sqlstring.TrimEnd( $" {conjuction} ".ToCharArray() );
+                        var _sql = _sqlstring.TrimEnd( $" {_conjuction} ".ToCharArray() );
 
-                        return !string.IsNullOrEmpty( sql )
-                            ? sql
+                        return !string.IsNullOrEmpty( _sql )
+                            ? _sql
                             : string.Empty;
                     }
                 }
@@ -121,18 +113,18 @@ namespace BudgetExecution
         /// <summary> Converts to sorteddictionary. </summary>
         /// <typeparam name = "TKey" > The type of the key. </typeparam>
         /// <typeparam name = "TValue" > The type of the value. </typeparam>
-        /// <param name = "nvc" > The this. </param>
+        /// <param name = "dict" > The this. </param>
         /// <returns> </returns>
-        public static SortedDictionary<TKey, TValue> ToSortedDictionary<TKey, TValue>( this IDictionary<TKey, TValue> nvc )
+        public static SortedDictionary<TKey, TValue> ToSortedDictionary<TKey, TValue>( this IDictionary<TKey, TValue> dict )
         {
             try
             {
-                return new SortedDictionary<TKey, TValue>( nvc );
+                return new SortedDictionary<TKey, TValue>( dict );
             }
             catch( Exception ex )
             {
                 Fail( ex );
-                return default;
+                return default( SortedDictionary<TKey, TValue> );
             }
         }
 
@@ -150,7 +142,7 @@ namespace BudgetExecution
             catch( Exception ex )
             {
                 Fail( ex );
-                return default;
+                return default( SortedList<TKey, TValue> );
             }
         }
 
@@ -166,105 +158,105 @@ namespace BudgetExecution
             {
                 try
                 {
-                    var columns = dict.Keys.ToArray();
-                    var values = dict.Values.ToArray();
+                    var _columns = dict.Keys.ToArray();
+                    var _values = dict.Values.ToArray();
 
                     switch( provider )
                     {
                         case Provider.NS:
                         case Provider.SQLite:
                         {
-                            var sqlite = new List<SQLiteParameter>();
+                            var _sqlite = new List<SQLiteParameter>();
 
-                            for( var i = 0; i < columns.Length; i++ )
+                            for( var i = 0; i < _columns.Length; i++ )
                             {
-                                var parameter = new SQLiteParameter
+                                var _parameter = new SQLiteParameter
                                 {
-                                    SourceColumn = columns[ i ],
-                                    Value = values[ i ]
+                                    SourceColumn = _columns[ i ],
+                                    Value = _values[ i ]
                                 };
 
-                                sqlite.Add( parameter );
+                                _sqlite.Add( _parameter );
                             }
 
-                            return sqlite.Any()
-                                ? sqlite.ToArray()
-                                : default;
+                            return _sqlite.Any()
+                                ? _sqlite.ToArray()
+                                : default( SQLiteParameter[ ] );
                         }
 
                         case Provider.SqlCe:
                         {
-                            var sqlce = new List<SqlCeParameter>();
+                            var _sqlce = new List<SqlCeParameter>();
 
-                            for( var i = 0; i < columns.Length; i++ )
+                            for( var i = 0; i < _columns.Length; i++ )
                             {
-                                var parameter = new SqlCeParameter
+                                var _parameter = new SqlCeParameter
                                 {
-                                    SourceColumn = columns[ i ],
-                                    Value = values[ i ]
+                                    SourceColumn = _columns[ i ],
+                                    Value = _values[ i ]
                                 };
 
-                                sqlce.Add( parameter );
+                                _sqlce.Add( _parameter );
                             }
 
-                            return sqlce.Any()
-                                ? sqlce.ToArray()
-                                : default;
+                            return _sqlce.Any()
+                                ? _sqlce.ToArray()
+                                : default( SqlCeParameter[ ] );
                         }
 
                         case Provider.OleDb:
                         case Provider.Excel:
                         case Provider.Access:
                         {
-                            var oledb = new List<OleDbParameter>();
+                            var _oledb = new List<OleDbParameter>();
 
-                            for( var i = 0; i < columns.Length; i++ )
+                            for( var i = 0; i < _columns.Length; i++ )
                             {
-                                var parameter = new OleDbParameter
+                                var _parameter = new OleDbParameter
                                 {
-                                    SourceColumn = columns[ i ],
-                                    Value = values[ i ]
+                                    SourceColumn = _columns[ i ],
+                                    Value = _values[ i ]
                                 };
 
-                                oledb.Add( parameter );
+                                _oledb.Add( _parameter );
                             }
 
-                            return oledb.Any()
-                                ? oledb.ToArray()
-                                : default;
+                            return _oledb.Any()
+                                ? _oledb.ToArray()
+                                : default( OleDbParameter[ ] );
                         }
 
                         case Provider.SqlServer:
                         {
-                            var sqlserver = new List<SqlParameter>();
+                            var _sqlserver = new List<SqlParameter>();
 
-                            for( var i = 0; i < columns.Length; i++ )
+                            for( var i = 0; i < _columns.Length; i++ )
                             {
                                 var parameter = new SqlParameter
                                 {
-                                    SourceColumn = columns[ i ],
-                                    Value = values[ i ]
+                                    SourceColumn = _columns[ i ],
+                                    Value = _values[ i ]
                                 };
 
-                                sqlserver.Add( parameter );
+                                _sqlserver.Add( parameter );
                             }
 
-                            return sqlserver?.Any() == true
-                                ? sqlserver.ToArray()
-                                : default;
+                            return _sqlserver?.Any() == true
+                                ? _sqlserver.ToArray()
+                                : default( SqlParameter[ ] );
                         }
                     }
                 }
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default;
+                    return default( IEnumerable<DbParameter> );
                 }
 
-                return default;
+                return default( IEnumerable<DbParameter> );
             }
 
-            return default;
+            return default( IEnumerable<DbParameter> );
         }
 
         /// <summary> Determines whether [has a primary key]. </summary>
@@ -300,7 +292,7 @@ namespace BudgetExecution
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default;
+                    return default( bool );
                 }
             }
 
@@ -332,11 +324,11 @@ namespace BudgetExecution
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default;
+                    return default( KeyValuePair<string, object> );
                 }
             }
 
-            return default;
+            return default( KeyValuePair<string, object> );
         }
 
         /// <summary>

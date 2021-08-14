@@ -15,10 +15,6 @@ namespace BudgetExecution
     [ SuppressMessage( "ReSharper", "IntroduceOptionalParameters.Global" ) ]
     public static class TimeSpanExtensions
     {
-        // ***************************************************************************************************************************
-        // ************************************************  METHODS   ***************************************************************
-        // ***************************************************************************************************************************
-
         /// <summary>
         /// Defines the AvgDaysInAYear.
         /// </summary>
@@ -32,22 +28,22 @@ namespace BudgetExecution
         /// <summary>
         /// The GetYears.
         /// </summary>
-        /// <param name = "timespan" >
-        /// The timespan <see cref = "System.TimeSpan"/> .
+        /// <param name = "timeSpan" >
+        /// The timeSpan <see cref = "System.TimeSpan"/> .
         /// </param>
         /// <returns>
         /// The <see cref = "int"/> .
         /// </returns>
-        public static int GetYears( this TimeSpan timespan )
+        public static int GetYears( this TimeSpan timeSpan )
         {
-            return (int)( timespan.TotalDays / AvgDaysInAYear );
+            return (int)( timeSpan.TotalDays / AvgDaysInAYear );
         }
 
         /// <summary>
         /// The GetTotalYears.
         /// </summary>
         /// <param name = "timespan" >
-        /// The timespan <see cref = "System.TimeSpan"/> .
+        /// The timeSpan <see cref = "System.TimeSpan"/> .
         /// </param>
         /// <returns>
         /// The <see cref = "double"/> .
@@ -61,7 +57,7 @@ namespace BudgetExecution
         /// The GetMonths.
         /// </summary>
         /// <param name = "timespan" >
-        /// The timespan <see cref = "System.TimeSpan"/> .
+        /// The timeSpan <see cref = "System.TimeSpan"/> .
         /// </param>
         /// <returns>
         /// The <see cref = "int"/> .
@@ -75,7 +71,7 @@ namespace BudgetExecution
         /// The GetTotalMonths.
         /// </summary>
         /// <param name = "timespan" >
-        /// The timespan <see cref = "System.TimeSpan"/> .
+        /// The timeSpan <see cref = "System.TimeSpan"/> .
         /// </param>
         /// <returns>
         /// The <see cref = "double"/> .
@@ -89,7 +85,7 @@ namespace BudgetExecution
         /// The GetWeeks.
         /// </summary>
         /// <param name = "timespan" >
-        /// The timespan <see cref = "System.TimeSpan"/> .
+        /// The timeSpan <see cref = "System.TimeSpan"/> .
         /// </param>
         /// <returns>
         /// The <see cref = "int"/> .
@@ -103,7 +99,7 @@ namespace BudgetExecution
         /// The GetTotalWeeks.
         /// </summary>
         /// <param name = "timespan" >
-        /// The timespan <see cref = "System.TimeSpan"/> .
+        /// The timeSpan <see cref = "System.TimeSpan"/> .
         /// </param>
         /// <returns>
         /// The <see cref = "double"/> .
@@ -117,7 +113,7 @@ namespace BudgetExecution
         /// The GetDays.
         /// </summary>
         /// <param name = "timespan" >
-        /// The timespan <see cref = "System.TimeSpan"/> .
+        /// The timeSpan <see cref = "System.TimeSpan"/> .
         /// </param>
         /// <returns>
         /// The <see cref = "int"/> .
