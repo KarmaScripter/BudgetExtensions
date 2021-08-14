@@ -11,14 +11,10 @@ namespace BudgetExecution
     /// <summary>
     /// Defines the <see cref = "TimeSpanExtensions"/> .
     /// </summary>
-    [SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" )]
-    [SuppressMessage( "ReSharper", "IntroduceOptionalParameters.Global" )]
+    [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
+    [ SuppressMessage( "ReSharper", "IntroduceOptionalParameters.Global" ) ]
     public static class TimeSpanExtensions
     {
-        // ***************************************************************************************************************************
-        // ************************************************  METHODS   ***************************************************************
-        // ***************************************************************************************************************************
-
         /// <summary>
         /// Defines the AvgDaysInAYear.
         /// </summary>
@@ -32,134 +28,134 @@ namespace BudgetExecution
         /// <summary>
         /// The GetYears.
         /// </summary>
-        /// <param name = "timespan" >
-        /// The timespan <see cref = "System.TimeSpan"/> .
+        /// <param name = "timeSpan" >
+        /// The timeSpan <see cref = "System.TimeSpan"/> .
         /// </param>
         /// <returns>
         /// The <see cref = "int"/> .
         /// </returns>
-        public static int GetYears( this TimeSpan timespan )
+        public static int GetYears( this TimeSpan timeSpan )
         {
-            return (int)( timespan.TotalDays / AvgDaysInAYear );
+            return (int)( timeSpan.TotalDays / AvgDaysInAYear );
         }
 
         /// <summary>
         /// The GetTotalYears.
         /// </summary>
-        /// <param name = "timespan" >
-        /// The timespan <see cref = "System.TimeSpan"/> .
+        /// <param name = "timeSpan" >
+        /// The timeSpan <see cref = "System.TimeSpan"/> .
         /// </param>
         /// <returns>
         /// The <see cref = "double"/> .
         /// </returns>
-        public static double GetTotalYears( this TimeSpan timespan )
+        public static double GetTotalYears( this TimeSpan timeSpan )
         {
-            return timespan.TotalDays / AvgDaysInAYear;
+            return timeSpan.TotalDays / AvgDaysInAYear;
         }
 
         /// <summary>
         /// The GetMonths.
         /// </summary>
-        /// <param name = "timespan" >
-        /// The timespan <see cref = "System.TimeSpan"/> .
+        /// <param name = "timeSpan" >
+        /// The timeSpan <see cref = "System.TimeSpan"/> .
         /// </param>
         /// <returns>
         /// The <see cref = "int"/> .
         /// </returns>
-        public static int GetMonths( this TimeSpan timespan )
+        public static int GetMonths( this TimeSpan timeSpan )
         {
-            return (int)( timespan.TotalDays % AvgDaysInAYear / AvgDaysInAMonth );
+            return (int)( timeSpan.TotalDays % AvgDaysInAYear / AvgDaysInAMonth );
         }
 
         /// <summary>
         /// The GetTotalMonths.
         /// </summary>
-        /// <param name = "timespan" >
-        /// The timespan <see cref = "System.TimeSpan"/> .
+        /// <param name = "timeSpan" >
+        /// The timeSpan <see cref = "System.TimeSpan"/> .
         /// </param>
         /// <returns>
         /// The <see cref = "double"/> .
         /// </returns>
-        public static double GetTotalMonths( this TimeSpan timespan )
+        public static double GetTotalMonths( this TimeSpan timeSpan )
         {
-            return timespan.TotalDays / AvgDaysInAMonth;
+            return timeSpan.TotalDays / AvgDaysInAMonth;
         }
 
         /// <summary>
         /// The GetWeeks.
         /// </summary>
-        /// <param name = "timespan" >
-        /// The timespan <see cref = "System.TimeSpan"/> .
+        /// <param name = "timeSpan" >
+        /// The timeSpan <see cref = "System.TimeSpan"/> .
         /// </param>
         /// <returns>
         /// The <see cref = "int"/> .
         /// </returns>
-        public static int GetWeeks( this TimeSpan timespan )
+        public static int GetWeeks( this TimeSpan timeSpan )
         {
-            return (int)( timespan.TotalDays % AvgDaysInAYear % AvgDaysInAMonth / 7d );
+            return (int)( timeSpan.TotalDays % AvgDaysInAYear % AvgDaysInAMonth / 7d );
         }
 
         /// <summary>
         /// The GetTotalWeeks.
         /// </summary>
-        /// <param name = "timespan" >
-        /// The timespan <see cref = "System.TimeSpan"/> .
+        /// <param name = "timeSpan" >
+        /// The timeSpan <see cref = "System.TimeSpan"/> .
         /// </param>
         /// <returns>
         /// The <see cref = "double"/> .
         /// </returns>
-        public static double GetTotalWeeks( this TimeSpan timespan )
+        public static double GetTotalWeeks( this TimeSpan timeSpan )
         {
-            return timespan.TotalDays / 7d;
+            return timeSpan.TotalDays / 7d;
         }
 
         /// <summary>
         /// The GetDays.
         /// </summary>
-        /// <param name = "timespan" >
-        /// The timespan <see cref = "System.TimeSpan"/> .
+        /// <param name = "timeSpan" >
+        /// The timeSpan <see cref = "System.TimeSpan"/> .
         /// </param>
         /// <returns>
         /// The <see cref = "int"/> .
         /// </returns>
-        public static int GetDays( this TimeSpan timespan )
+        public static int GetDays( this TimeSpan timeSpan )
         {
-            return (int)( timespan.TotalDays % 7d );
+            return (int)( timeSpan.TotalDays % 7d );
         }
 
         /// <summary>
         /// The GetMicroseconds.
         /// </summary>
-        /// <param name = "span" >
-        /// The span <see cref = "System.TimeSpan"/> .
+        /// <param name = "timeSpan" >
+        /// The timeSpan <see cref = "System.TimeSpan"/> .
         /// </param>
         /// <returns>
         /// The <see cref = "double"/> .
         /// </returns>
-        public static double GetMicroseconds( this TimeSpan span )
+        public static double GetMicroseconds( this TimeSpan timeSpan )
         {
-            return span.Ticks / 10d;
+            return timeSpan.Ticks / 10d;
         }
 
         /// <summary>
         /// The GetNanoseconds.
         /// </summary>
-        /// <param name = "span" >
-        /// The span <see cref = "System.TimeSpan"/> .
+        /// <param name = "timeSpan" >
+        /// The timeSpan <see cref = "System.TimeSpan"/> .
         /// </param>
         /// <returns>
         /// The <see cref = "double"/> .
         /// </returns>
-        public static double GetNanoseconds( this TimeSpan span )
+        public static double GetNanoseconds( this TimeSpan timeSpan )
         {
-            return span.Ticks / 100d;
+            return timeSpan.Ticks / 100d;
         }
 
         /// <summary>
         /// The Round.
         /// </summary>
-        /// <param name = "time" >
-        /// The time <see cref = "System.TimeSpan"/> .
+        /// <param name = "timeSpan" >
+        /// The timeSpan <see cref = "System.TimeSpan"/> .
         /// </param>
         /// <param name = "roundinginterval" >
         /// The roundingInterval <see cref = "System.TimeSpan"/> .
@@ -170,10 +166,10 @@ namespace BudgetExecution
         /// <returns>
         /// The <see cref = "System.TimeSpan"/> .
         /// </returns>
-        public static TimeSpan Round( this TimeSpan time, TimeSpan roundinginterval,
+        public static TimeSpan Round( this TimeSpan timeSpan, TimeSpan roundinginterval,
             MidpointRounding roundingtype = MidpointRounding.ToEven )
         {
-            return new TimeSpan( Convert.ToInt64( Math.Round( time.Ticks / (double)roundinginterval.Ticks,
+            return new TimeSpan( Convert.ToInt64( Math.Round( timeSpan.Ticks / (double)roundinginterval.Ticks,
                     roundingtype ) )
                 * roundinginterval.Ticks );
         }

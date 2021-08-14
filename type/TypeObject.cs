@@ -9,10 +9,6 @@ using System.Xml.Serialization;
 
 namespace BudgetExecution
 {
-    // ********************************************************************************************************************************
-    // *********************************************************  ASSEMBLIES   ********************************************************
-    // ********************************************************************************************************************************
-
     using System;
     using System.IO;
     using System.Runtime.Serialization;
@@ -22,116 +18,177 @@ namespace BudgetExecution
     /// <summary>
     /// 
     /// </summary>
-    [SuppressMessage( "ReSharper", "CompareNonConstrainedGenericWithNull" )]
+    [ SuppressMessage( "ReSharper", "CompareNonConstrainedGenericWithNull" ) ]
     public static class TypeObject
     {
-        // ***************************************************************************************************************************
-        // ****************************************************    MEMBERS    ********************************************************
-        // ***************************************************************************************************************************
-
         /// <summary>
-        /// Copies the specified input.
+        /// Copies the specified type.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="input">The input.</param>
+        /// <param name="type">The type.</param>
         /// <returns></returns>
-        public static T Copy<T>( this T input ) where T : ISerializable
+        public static T Copy<T>( this T type ) where T : ISerializable
         {
-            if( input != null )
+            if( type != null )
             {
                 try
                 {
-                    using var stream = new MemoryStream();
-                    var formatter = new BinaryFormatter();
-                    formatter.Serialize( stream, input );
-                    stream.Position = 0;
-                    return (T)formatter.Deserialize( stream );
+                    using var _stream = new MemoryStream();
+                    var _formatter = new BinaryFormatter();
+                    _formatter.Serialize( _stream, type );
+                    _stream.Position = 0;
+                    return (T)_formatter.Deserialize( _stream );
                 }
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default;
+                    return default( T );
                 }
             }
 
-            return default;
+            return default( T );
         }
 
         /// <summary>
         /// Converts to json.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="item">The item.</param>
+        /// <param name="type">The type.</param>
         /// <returns></returns>
-        public static string ToJson<T>( this T item )
+        public static string ToJson<T>( this T type )
         {
-            var encoding = Encoding.Default;
-            var serializer = new DataContractJsonSerializer( typeof( T ) );
-            using var stream = new MemoryStream();
-            serializer.WriteObject( stream, item );
-            var json = encoding.GetString( stream.ToArray() );
-            return json;
+            if ( type != null )
+            {
+                try
+                {
+                    var _encoding = Encoding.Default;
+                    var _serializer = new DataContractJsonSerializer( typeof( T ) );
+                    using var stream = new MemoryStream();
+                    _serializer.WriteObject( stream, type );
+                    var json = _encoding.GetString( stream.ToArray() );
+                    return json;
+                }
+                catch( Exception ex )
+                {
+                    Fail( ex );
+                    return default( string );
+                }
+            }
+
+            return default( string );
         }
 
         /// <summary>
         /// An object extension method that serialize an object to binary.
         /// </summary>
         /// <typeparam name="T">Generic type parameter.</typeparam>
-        /// <param name="this">The @this to act on.</param>
+        /// <param name="type">The @type to act on.</param>
         /// <returns>
         /// A string.
         /// </returns>
-        public static string SerializeBinary<T>( this T @this )
+        public static string SerializeBinary<T>( this T type )
         {
-            var write = new BinaryFormatter();
-            using var stream = new MemoryStream();
-            write.Serialize( stream, @this );
-            return Encoding.Default.GetString( stream.ToArray() );
+            if ( type != null )
+            {
+                try
+                {
+                    var _formatter = new BinaryFormatter();
+                    using var _stream = new MemoryStream();
+                    _formatter.Serialize( _stream, type );
+                    return Encoding.Default.GetString( _stream.ToArray() );
+                }
+                catch( Exception ex )
+                {
+                    Fail( ex );
+                    return default( string );
+                }
+            }
+
+            return default( string );
         }
 
         /// <summary>
         /// An object extension method that serialize an object to binary.
         /// </summary>
         /// <typeparam name="T">Generic type parameter.</typeparam>
-        /// <param name="this">The @this to act on.</param>
+        /// <param name="type">The @type to act on.</param>
         /// <param name="encoding">The encoding.</param>
         /// <returns>
         /// A string.
         /// </returns>
-        public static string SerializeBinary<T>( this T @this, Encoding encoding )
+        public static string SerializeBinary<T>( this T type, Encoding encoding )
         {
-            var write = new BinaryFormatter();
-            using var stream = new MemoryStream();
-            write.Serialize( stream, @this );
-            return encoding.GetString( stream.ToArray() );
+            if ( type != null )
+            {
+                try
+                {
+                    var _formatter = new BinaryFormatter();
+                    using var _stream = new MemoryStream();
+                    _formatter.Serialize( _stream, type );
+                    return encoding.GetString( _stream.ToArray() );
+                }
+                catch( Exception ex )
+                {
+                    Fail( ex );
+                    return default( string );
+                }
+            }
+
+            return default( string );
         }
 
         /// <summary>
         /// An object extension method that serialize a string to XML.
         /// </summary>
-        /// <param name="this">The @this to act on.</param>
+        /// <param name="type">The @type to act on.</param>
         /// <returns>
         /// The string representation of the Xml Serialization.
         /// </returns>
-        public static string SerializeXml( this object @this )
+        public static string SerializeXml( this object type )
         {
-            var serializer = new XmlSerializer( @this.GetType() );
-            using var writer = new StringWriter();
-            serializer.Serialize( writer, @this );
-            using var reader = new StringReader( writer.GetStringBuilder().ToString() );
-            return reader.ReadToEnd();
+            if ( type != null )
+            {
+                try
+                {
+                    var _serializer = new XmlSerializer( type.GetType() );
+                    using var _writer = new StringWriter();
+                    _serializer.Serialize( _writer, type );
+                    using var _reader = new StringReader( _writer.GetStringBuilder().ToString() );
+                    return _reader.ReadToEnd();
+                }
+                catch( Exception ex )
+                {
+                    Fail( ex );
+                    return default( string );
+                }
+            }
+
+            return default( string );
         }
 
         /// <summary>
         ///     A T extension method that serialize java script.
         /// </summary>
         /// <typeparam name="T">Generic type parameter.</typeparam>
-        /// <param name="this">The @this to act on.</param>
+        /// <param name="type">The @type to act on.</param>
         /// <returns>A string.</returns>
-        public static string SerializeJavaScript<T>( this T @this )
+        public static string SerializeJavaScript<T>( this T type )
         {
-            var serializer = new JavaScriptSerializer();
-            return serializer.Serialize( @this );
+            if ( type != null )
+            {
+                try
+                {
+                    var _serializer = new JavaScriptSerializer();
+                    return _serializer.Serialize( type );
+                }
+                catch( Exception ex )
+                {
+                    Fail( ex );
+                    return default( string );
+                }
+            }
+
+            return default( string );
         }
 
         /// <summary>
@@ -140,9 +197,9 @@ namespace BudgetExecution
         /// <param name="ex">The ex.</param>
         private static void Fail( Exception ex )
         {
-            using var error = new Error( ex );
-            error?.SetText();
-            error?.ShowDialog();
+            using var _error = new Error( ex );
+            _error?.SetText();
+            _error?.ShowDialog();
         }
     }
 }

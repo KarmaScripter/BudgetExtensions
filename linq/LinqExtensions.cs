@@ -4,10 +4,6 @@
 
 namespace BudgetExecution
 {
-    // ******************************************************************************************************************************
-    // ******************************************************   ASSEMBLIES   ********************************************************
-    // ******************************************************************************************************************************
-
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -18,13 +14,10 @@ namespace BudgetExecution
     /// <summary>
     /// 
     /// </summary>
-    [SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" )]
+    [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
+    [ SuppressMessage( "ReSharper", "UnusedVariable" ) ]
     public static class LinqExtensions
     {
-        // ***************************************************************************************************************************
-        // ************************************************  METHODS   ***************************************************************
-        // ***************************************************************************************************************************
-
         /// <summary>
         /// Determines whether none of the elements of a sequence satisfy a condition.
         /// </summary>
@@ -117,21 +110,19 @@ namespace BudgetExecution
                 return true;
             }
 
-            if( source is ICollection sequence
-                && sequence.Count < mincount )
+            if( source is ICollection _sequence
+                && _sequence.Count < mincount )
             {
-                // If the collection doesn't even contain as many elements
-                // as expected to match the predicate, we can stop here
                 return false;
             }
 
-            var matches = 0;
+            var _matches = 0;
 
-            foreach( var unused in source.Where( predicate ) )
+            foreach( var _unused in source.Where( predicate ) )
             {
-                matches++;
+                _matches++;
 
-                if( matches >= mincount )
+                if( _matches >= mincount )
                 {
                     return true;
                 }
@@ -166,8 +157,8 @@ namespace BudgetExecution
         /// </returns>
         public static bool HasExactly<TSource>( this IEnumerable<TSource> source, int count )
         {
-            return source is ICollection sequence
-                ? sequence.Count == count
+            return source is ICollection _sequence
+                ? _sequence.Count == count
                 : source.HasExactly( count, _ => true );
         }
 
@@ -201,27 +192,25 @@ namespace BudgetExecution
         public static bool HasExactly<TSource>( this IEnumerable<TSource> source, int count,
             Func<TSource, bool> predicate )
         {
-            if( source is ICollection sequence
-                && sequence.Count < count )
+            if( source is ICollection _sequence
+                && _sequence.Count < count )
             {
-                // If the collection doesn't even contain as many elements
-                // as expected to match the predicate, we can stop here
                 return false;
             }
 
-            var matches = 0;
+            var _matches = 0;
 
-            foreach( var unused in source.Where( predicate ) )
+            foreach( var _unused in source.Where( predicate ) )
             {
-                ++matches;
+                ++_matches;
 
-                if( matches > count )
+                if( _matches > count )
                 {
                     return false;
                 }
             }
 
-            return matches == count;
+            return _matches == count;
         }
 
         /// <summary>
@@ -284,21 +273,19 @@ namespace BudgetExecution
         public static bool HasAtMost<TSource>( this IEnumerable<TSource> source, int limit,
             Func<TSource, bool> predicate )
         {
-            if( source is ICollection sequence
-                && sequence.Count <= limit )
+            if( source is ICollection _sequence
+                && _sequence.Count <= limit )
             {
-                // If the collection doesn't contain more elements
-                // than expected to match the predicate, we can stop here
                 return true;
             }
 
-            var matches = 0;
+            var _matches = 0;
 
-            foreach( var unused in source.Where( predicate ) )
+            foreach( var _unused in source.Where( predicate ) )
             {
-                matches++;
+                _matches++;
 
-                if( matches > limit )
+                if( _matches > limit )
                 {
                     return false;
                 }
