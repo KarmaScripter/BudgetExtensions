@@ -4,6 +4,11 @@
 
 namespace BudgetExecution
 {
+    // ******************************************************************************************************************************
+    // ******************************************************   ASSEMBLIES   ********************************************************
+    // ******************************************************************************************************************************
+
+    using System;
     using System;
     using System.Diagnostics.CodeAnalysis;
     using System.IO;
@@ -13,16 +18,25 @@ namespace BudgetExecution
     using System.Text.RegularExpressions;
     using System.Threading;
 
-    /// <summary>
-    /// 
-    /// </summary>
-    [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
-    [ SuppressMessage( "ReSharper", "MemberCanBeInternal" ) ] 
+    [SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" )]
+    [SuppressMessage( "ReSharper", "MemberCanBeInternal" )]
     public static class StringExtensions
     {
-        /// <summary>Splits the pascal.</summary>
-        /// <param name="text">The text.</param>
-        /// <returns></returns>
+        // ***************************************************************************************************************************
+        // ************************************************  METHODS   ***************************************************************
+        // ***************************************************************************************************************************
+
+        /// <summary>
+        /// The SplitPascal
+        /// </summary>
+        /// <returns>
+        /// The <see cref = "string"/>
+        /// </returns>
+        /// <param name = "text" >
+        /// The text.
+        /// </param>
+        /// <returns>
+        /// </returns>
         public static string SplitPascal( this string text )
         {
             try
@@ -34,41 +48,55 @@ namespace BudgetExecution
             catch( Exception ex )
             {
                 Fail( ex );
-                return default( string );
+                return default;
             }
         }
 
-        /// <summary>Converts to propercase.</summary>
-        /// <param name="str">The string.</param>
-        /// <returns></returns>
-        [ SuppressMessage( "ReSharper", "UnusedMethodReturnValue.Global" ) ]
+        /// <summary>
+        /// The ToProperCase
+        /// </summary>
+        /// <param name = "str" >
+        /// The str <see cref = "string"/>
+        /// </param>
+        /// <returns>
+        /// The <see cref = "string"/>
+        /// </returns>
+        [SuppressMessage( "ReSharper", "UnusedMethodReturnValue.Global" )]
         public static string ToProperCase( this string str )
         {
             if( !string.IsNullOrEmpty( str ) )
             {
                 try
                 {
-                    var _cultureInfo = Thread.CurrentThread.CurrentCulture;
-                    var _textInfo = _cultureInfo.TextInfo;
+                    var cultureinfo = Thread.CurrentThread.CurrentCulture;
+                    var textinfo = cultureinfo.TextInfo;
 
-                    return !string.IsNullOrEmpty( _textInfo.ToTitleCase( str ) )
-                        ? _textInfo.ToTitleCase( str )
-                        : default( string );
+                    return !string.IsNullOrEmpty( textinfo.ToTitleCase( str ) )
+                        ? textinfo.ToTitleCase( str )
+                        : default;
                 }
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default( string );
+                    return default;
                 }
             }
 
-            return default( string );
+            return default;
         }
 
-        /// <summary>Ifs the null then.</summary>
-        /// <param name="str">The string.</param>
-        /// <param name="alt">The alt.</param>
-        /// <returns></returns>
+        /// <summary>
+        /// The IfNullThen
+        /// </summary>
+        /// <param name = "str" >
+        /// The str <see cref = "string"/>
+        /// </param>
+        /// <param name = "alt" >
+        /// The alt <see cref = "string"/>
+        /// </param>
+        /// <returns>
+        /// The <see cref = "string"/>
+        /// </returns>
         public static string IfNullThen( this string str, string alt )
         {
             try
@@ -78,14 +106,21 @@ namespace BudgetExecution
             catch( Exception ex )
             {
                 Fail( ex );
-                return default( string );
+                return default;
             }
         }
 
-        /// <summary>Converts to enum.</summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="str">The string.</param>
-        /// <returns></returns>
+        /// <summary>
+        /// The ToEnum
+        /// </summary>
+        /// <typeparam name = "T" >
+        /// </typeparam>
+        /// <param name = "str" >
+        /// The str <see cref = "string"/>
+        /// </param>
+        /// <returns>
+        /// The <see cref = "T"/>
+        /// </returns>
         public static T ToEnum<T>( this string str ) where T : struct
         {
             try
@@ -95,14 +130,22 @@ namespace BudgetExecution
             catch( Exception ex )
             {
                 Fail( ex );
-                return default( T );
+                return default;
             }
         }
 
-        /// <summary>Lasts the specified length.</summary>
-        /// <param name="str">The string.</param>
-        /// <param name="length">The length.</param>
-        /// <returns></returns>
+        /// <summary>
+        /// The Right
+        /// </summary>
+        /// <param name = "str" >
+        /// The str <see cref = "string"/>
+        /// </param>
+        /// <param name = "length" >
+        /// The length <see cref = "int"/>
+        /// </param>
+        /// <returns>
+        /// The <see cref = "string"/>
+        /// </returns>
         public static string Last( this string str, int length )
         {
             try
@@ -114,14 +157,22 @@ namespace BudgetExecution
             catch( Exception ex )
             {
                 Fail( ex );
-                return default( string );
+                return default;
             }
         }
 
-        /// <summary>Firsts the specified length.</summary>
-        /// <param name="str">The string.</param>
-        /// <param name="length">The length.</param>
-        /// <returns></returns>
+        /// <summary>
+        /// The Left
+        /// </summary>
+        /// <param name = "str" >
+        /// The str <see cref = "string"/>
+        /// </param>
+        /// <param name = "length" >
+        /// The length <see cref = "int"/>
+        /// </param>
+        /// <returns>
+        /// The <see cref = "string"/>
+        /// </returns>
         public static string First( this string str, int length )
         {
             try
@@ -133,38 +184,50 @@ namespace BudgetExecution
             catch( Exception ex )
             {
                 Fail( ex );
-                return default( string );
+                return default;
             }
         }
 
-        /// <summary>Firsts to upper.</summary>
-        /// <param name="str">The string.</param>
-        /// <returns></returns>
+        /// <summary>
+        /// The FirstToUpper
+        /// </summary>
+        /// <param name = "str" >
+        /// The theString <see cref = "string"/>
+        /// </param>
+        /// <returns>
+        /// The <see cref = "string"/>
+        /// </returns>
         public static string FirstToUpper( this string str )
         {
             try
             {
                 if( !string.IsNullOrEmpty( str ) )
                 {
-                    var _chars = str.ToCharArray();
-                    _chars[ 0 ] = char.ToUpper( _chars[ 0 ] );
-                    return new string( _chars );
+                    var letters = str.ToCharArray();
+                    letters[ 0 ] = char.ToUpper( letters[ 0 ] );
+                    return new string( letters );
                 }
                 else
                 {
-                    return default( string );
+                    return default;
                 }
             }
             catch( Exception ex )
             {
                 Fail( ex );
-                return default( string );
+                return default;
             }
         }
 
-        /// <summary>Converts to datetime.</summary>
-        /// <param name="str">The string.</param>
-        /// <returns></returns>
+        /// <summary>
+        /// The ToDateTime
+        /// </summary>
+        /// <param name = "str" >
+        /// The str <see cref = "string"/>
+        /// </param>
+        /// <returns>
+        /// The <see/>
+        /// </returns>
         public static DateTime ToDateTime( this string str )
         {
             try
@@ -174,71 +237,95 @@ namespace BudgetExecution
             catch( Exception ex )
             {
                 Fail( ex );
-                return default( DateTime );
+                return default;
             }
         }
 
-        /// <summary>Gets the memory stream.</summary>
-        /// <param name="str">The string.</param>
-        /// <returns></returns>
+        /// <summary>
+        /// The ToStream
+        /// </summary>
+        /// <param name = "str" >
+        /// The source <see cref = "string"/>
+        /// </param>
+        /// <returns>
+        /// The <see cref = "MemoryStream"/>
+        /// </returns>
         public static MemoryStream GetMemoryStream( this string str )
         {
             try
             {
-                var _buffer = Encoding.UTF8.GetBytes( str );
-                return new MemoryStream( _buffer );
+                var bytes = Encoding.UTF8.GetBytes( str );
+                return new MemoryStream( bytes );
             }
             catch( Exception ex )
             {
                 Fail( ex );
-                return default( MemoryStream );
+                return default;
             }
         }
 
-        /// <summary>Words the count.</summary>
-        /// <param name="str">The string.</param>
-        /// <returns></returns>
+        /// <summary>
+        /// The WordCount
+        /// </summary>
+        /// <param name = "str" >
+        /// The input <see cref = "string"/>
+        /// </param>
+        /// <returns>
+        /// The <see cref = "int"/>
+        /// </returns>
         public static int WordCount( this string str )
         {
-            var _count = 0;
+            var count = 0;
 
             try
             {
                 // Exclude whitespaces, Tabs and line breaks
-                var _regex = new Regex( @"[^\s]+" );
-                var _matches = _regex.Matches( str );
-                _count = _matches.Count;
+                var re = new Regex( @"[^\s]+" );
+                var matches = re.Matches( str );
+                count = matches.Count;
             }
             catch( Exception ex )
             {
                 Fail( ex );
-                return _count;
+                return count;
             }
 
-            return _count;
+            return count;
         }
 
-        /// <summary>Gets the stream reader.</summary>
-        /// <param name="str">The string.</param>
-        /// <returns></returns>
+        /// <summary>
+        /// Read a str file and obtain it's contents.
+        /// </summary>
+        /// <param name = "str" >
+        /// The complete file path to write to.
+        /// </param>
+        /// <returns>
+        /// String containing the content of the file.
+        /// </returns>
         public static StreamReader GetStreamReader( this string str )
         {
             try
             {
                 return !string.IsNullOrEmpty( str )
                     ? new StreamReader( str )
-                    : default( StreamReader );
+                    : default;
             }
             catch( Exception ex )
             {
                 Fail( ex );
-                return default( StreamReader );
+                return default;
             }
         }
 
-        /// <summary>Writes to file.</summary>
-        /// <param name="str">The string.</param>
-        /// <param name="filetext">The filetext.</param>
+        /// <summary>
+        /// Writes out a str to a file.
+        /// </summary>
+        /// <param name = "str" >
+        /// The complete file path to write to.
+        /// </param>
+        /// <param name = "filetext" >
+        /// A String containing str to be written to the file.
+        /// </param>
         public static void WriteToFile( this string str, string filetext )
         {
             if( !string.IsNullOrEmpty( str )
@@ -246,8 +333,8 @@ namespace BudgetExecution
             {
                 try
                 {
-                    using var _writer = new StreamWriter( str, false );
-                    _writer.Write( filetext );
+                    using var sw = new StreamWriter( str, false );
+                    sw.Write( filetext );
                 }
                 catch( Exception ex )
                 {
@@ -256,28 +343,42 @@ namespace BudgetExecution
             }
         }
 
-        /// <summary>Emails the specified subject.</summary>
-        /// <param name="body">The body.</param>
-        /// <param name="subject">The subject.</param>
-        /// <param name="sender">The sender.</param>
-        /// <param name="recipient">The recipient.</param>
-        /// <param name="server">The server.</param>
-        /// <returns></returns>
+        /// <summary>
+        /// Send an email using the supplied string.
+        /// </summary>
+        /// <param name = "body" >
+        /// String that will be used i the body of the email.
+        /// </param>
+        /// <param name = "subject" >
+        /// Subject of the email.
+        /// </param>
+        /// <param name = "sender" >
+        /// The email address from which the message was sent.
+        /// </param>
+        /// <param name = "recipient" >
+        /// The receiver of the email.
+        /// </param>
+        /// <param name = "server" >
+        /// The server from which the email will be sent.
+        /// </param>
+        /// <returns>
+        /// A boolean value indicating the success of the email send.
+        /// </returns>
         public static bool Email( this string body, string subject, string sender,
             string recipient, string server )
         {
             try
             {
-                var _message = new MailMessage();
-                _message.To.Add( recipient );
-                var _address = new MailAddress( sender );
-                _message.From = _address;
-                _message.Subject = subject;
-                _message.Body = body;
-                var _client = new SmtpClient( server );
-                var _credentials = new NetworkCredential();
-                _client.Credentials = _credentials;
-                _client.Send( _message );
+                var message = new MailMessage();
+                message.To.Add( recipient );
+                var address = new MailAddress( sender );
+                message.From = address;
+                message.Subject = subject;
+                message.Body = body;
+                var client = new SmtpClient( server );
+                var credentials = new NetworkCredential();
+                client.Credentials = credentials;
+                client.Send( message );
                 return true;
             }
             catch( Exception ex )
@@ -287,9 +388,12 @@ namespace BudgetExecution
             }
         }
 
-        /// <summary>Removes the spaces.</summary>
-        /// <param name="s">The s.</param>
-        /// <returns></returns>
+        /// <summary>
+        /// remove white space, not line end Useful when parsing user input such phone,
+        /// price int.Parse("1 000 000".RemoveSpaces(),.....
+        /// </summary>
+        /// <param name = "s" >
+        /// </param>
         public static string RemoveSpaces( this string s )
         {
             if( !string.IsNullOrEmpty( s )
@@ -309,13 +413,15 @@ namespace BudgetExecution
             return s;
         }
 
-        /// <summary>Fails the specified ex.</summary>
+        /// <summary>
+        /// Get Error Dialog.
+        /// </summary>
         /// <param name="ex">The ex.</param>
         private static void Fail( Exception ex )
         {
-            using var _error = new Error( ex );
-            _error?.SetText();
-            _error?.ShowDialog();
+            using var error = new Error( ex );
+            error?.SetText();
+            error?.ShowDialog();
         }
     }
 }

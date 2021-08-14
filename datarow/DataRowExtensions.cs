@@ -17,8 +17,8 @@ namespace BudgetExecution
     using System.Linq;
 
     /// <summary> </summary>
-    [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
-    [ SuppressMessage( "ReSharper", "MemberCanBeInternal" ) ]
+    [SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" )]
+    [SuppressMessage( "ReSharper", "MemberCanBeInternal" )]
     public static class DataRowExtensions
     {
         /// <summary> Converts to DataRow into Database Parameters. </summary>

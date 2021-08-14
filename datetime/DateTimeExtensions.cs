@@ -4,297 +4,415 @@
 
 namespace BudgetExecution
 {
+    // ******************************************************************************************************************************
+    // ******************************************************   ASSEMBLIES   ********************************************************
+    // ******************************************************************************************************************************
+
     using System;
     using System.Diagnostics.CodeAnalysis;
     using System.Threading;
 
-    /// <summary>
-    /// 
-    /// </summary>
-    [ SuppressMessage( "ReSharper", "ConvertSwitchStatementToSwitchExpression" ) ]
+    [SuppressMessage( "ReSharper", "ConvertSwitchStatementToSwitchExpression" )]
     public static class DateTimeExtensions
     {
-        /// <summary>Determines whether this instance is date.</summary>
-        /// <param name="dt">The dt.</param>
+        // ***************************************************************************************************************************
+        // ************************************************  METHODS   ***************************************************************
+        // ***************************************************************************************************************************
+
+        /// <summary>
+        /// Verifies if the object is a date
+        /// </summary>
+        /// <param name = "dt" >
+        /// The dt.
+        /// </param>
         /// <returns>
-        ///   <c>true</c> if the specified dt is date; otherwise, <c>false</c>.
+        /// The <see cref = "bool"/>
         /// </returns>
         public static bool IsDate( this object dt )
         {
             return DateTime.TryParse( dt.ToString(), out _ );
         }
 
-        /// <summary>Dayses the ago.</summary>
-        /// <param name="days">The days.</param>
-        /// <returns></returns>
+        /// <summary>
+        /// Returns a date in the past by days.
+        /// </summary>
+        /// <param name = "days" >
+        /// The days.
+        /// </param>
+        /// <returns>
+        /// </returns>
         public static DateTime DaysAgo( this int days )
         {
-            var _timespan = new TimeSpan(  days, 0, 0, 0 );
-            return DateTime.Now.Subtract( _timespan );
+            var t = new TimeSpan( days, 0, 0, 0 );
+            return DateTime.Now.Subtract( t );
         }
 
-        /// <summary>Dayses from now.</summary>
-        /// <param name="days">The days.</param>
-        /// <returns></returns>
+        /// <summary>
+        /// Returns a date in the future by days.
+        /// </summary>
+        /// <param name = "days" >
+        /// The days.
+        /// </param>
+        /// <returns>
+        /// </returns>
         public static DateTime DaysFromNow( this int days )
         {
-            var _timespan = new TimeSpan( days, 0, 0, 0 );
-            return DateTime.Now.Add( _timespan );
+            var t = new TimeSpan( days, 0, 0, 0 );
+            return DateTime.Now.Add( t );
         }
 
-        /// <summary>Hourses the ago.</summary>
-        /// <param name="hours">The hours.</param>
-        /// <returns></returns>
+        /// <summary>
+        /// Returns a date in the past by hours.
+        /// </summary>
+        /// <param name = "hours" >
+        /// The hours.
+        /// </param>
+        /// <returns>
+        /// </returns>
         public static DateTime HoursAgo( this int hours )
         {
-            var _timespan = new TimeSpan( hours, 0, 0 );
-            return DateTime.Now.Subtract( _timespan );
+            var t = new TimeSpan( hours, 0, 0 );
+            return DateTime.Now.Subtract( t );
         }
 
-        /// <summary>Hourses from now.</summary>
-        /// <param name="hours">The hours.</param>
-        /// <returns></returns>
+        /// <summary>
+        /// Returns a date in the future by hours.
+        /// </summary>
+        /// <param name = "hours" >
+        /// The hours.
+        /// </param>
+        /// <returns>
+        /// </returns>
         public static DateTime HoursFromNow( this int hours )
         {
-            var _timespan = new TimeSpan( hours, 0, 0 );
-            return DateTime.Now.Add( _timespan );
+            var t = new TimeSpan( hours, 0, 0 );
+            return DateTime.Now.Add( t );
         }
 
-        /// <summary>Minuteses the ago.</summary>
-        /// <param name="minutes">The minutes.</param>
-        /// <returns></returns>
+        /// <summary>
+        /// Returns a date in the past by minutes
+        /// </summary>
+        /// <param name = "minutes" >
+        /// The minutes.
+        /// </param>
+        /// <returns>
+        /// </returns>
         public static DateTime MinutesAgo( this int minutes )
         {
-            var _timespan = new TimeSpan( 0, minutes, 0 );
-            return DateTime.Now.Subtract( _timespan );
+            var t = new TimeSpan( 0, minutes, 0 );
+            return DateTime.Now.Subtract( t );
         }
 
-        /// <summary>Minuteses from now.</summary>
-        /// <param name="minutes">The minutes.</param>
-        /// <returns></returns>
+        /// <summary>
+        /// Returns a date in the future by minutes.
+        /// </summary>
+        /// <param name = "minutes" >
+        /// The minutes.
+        /// </param>
+        /// <returns>
+        /// </returns>
         public static DateTime MinutesFromNow( this int minutes )
         {
-            var _timespan = new TimeSpan( 0, minutes, 0 );
-            return DateTime.Now.Add( _timespan );
+            var t = new TimeSpan( 0, minutes, 0 );
+            return DateTime.Now.Add( t );
         }
 
-        /// <summary>Secondses the ago.</summary>
-        /// <param name="seconds">The seconds.</param>
-        /// <returns></returns>
+        /// <summary>
+        /// Gets a date in the past according to seconds
+        /// </summary>
+        /// <param name = "seconds" >
+        /// The seconds.
+        /// </param>
+        /// <returns>
+        /// </returns>
         public static DateTime SecondsAgo( this int seconds )
         {
-            var _timespan = new TimeSpan( 0, 0, seconds );
-            return DateTime.Now.Subtract( _timespan );
+            var t = new TimeSpan( 0, 0, seconds );
+            return DateTime.Now.Subtract( t );
         }
 
-        /// <summary>Secondses from now.</summary>
-        /// <param name="seconds">The seconds.</param>
-        /// <returns></returns>
+        /// <summary>
+        /// Gets a date in the future by seconds.
+        /// </summary>
+        /// <param name = "seconds" >
+        /// The seconds.
+        /// </param>
+        /// <returns>
+        /// </returns>
         public static DateTime SecondsFromNow( this int seconds )
         {
-            var _timespan = new TimeSpan( 0, 0, seconds );
-            return DateTime.Now.Add( _timespan );
+            var t = new TimeSpan( 0, 0, seconds );
+            return DateTime.Now.Add( t );
         }
 
         /// <summary>
-        /// Determines whether [is week day].
+        /// Checks to see if the date is a week day (Mon - Fri)
         /// </summary>
-        /// <param name="dateTime">The date time.</param>
+        /// <param name = "datetime" >
+        /// The dt.
+        /// </param>
         /// <returns>
-        ///   <c>true</c> if [is week day] [the specified date time]; otherwise, <c>false</c>.
+        /// The <see cref = "bool"/>
         /// </returns>
-        public static bool IsWeekDay( this DateTime dateTime )
+        public static bool IsWeekDay( this DateTime datetime )
         {
-            return dateTime.DayOfWeek != DayOfWeek.Saturday 
-                && dateTime.DayOfWeek != DayOfWeek.Sunday;
+            return datetime.DayOfWeek != DayOfWeek.Saturday && datetime.DayOfWeek != DayOfWeek.Sunday;
         }
 
         /// <summary>
-        /// Determines whether [is week end].
+        /// Checks to see if the date is Saturday or Sunday
         /// </summary>
-        /// <param name="dateTime">The date time.</param>
         /// <returns>
-        ///   <c>true</c> if [is week end] [the specified date time]; otherwise, <c>false</c>.
+        /// The <see cref = "bool"/>
         /// </returns>
-        public static bool IsWeekEnd( this DateTime dateTime )
+        public static bool IsWeekEnd( this DateTime datetime )
         {
-            return dateTime.DayOfWeek == DayOfWeek.Saturday 
-                || dateTime.DayOfWeek == DayOfWeek.Sunday;
+            return datetime.DayOfWeek == DayOfWeek.Saturday || datetime.DayOfWeek == DayOfWeek.Sunday;
         }
 
-        /// <summary>Counts the week days.</summary>
-        /// <param name="startDate">The start date.</param>
-        /// <param name="endDate">The end date.</param>
-        /// <returns></returns>
-        public static int CountWeekDays( this DateTime startDate, DateTime endDate )
+        /// <summary>
+        /// Counts the number of weekdays between two dates.
+        /// </summary>
+        /// <param name = "startdate" >
+        /// The start time.
+        /// </param>
+        /// <param name = "enddate" >
+        /// The end time.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static int CountWeekDays( this DateTime startdate, DateTime enddate )
         {
-            var _timespan = endDate - startDate;
-            var _days = 0;
+            var ts = enddate - startdate;
+            Console.WriteLine( ts.Days );
+            var cnt = 0;
 
-            for( var i = 0; i < _timespan.Days; i++ )
+            for( var i = 0; i < ts.Days; i++ )
             {
-                var _time = startDate.AddDays( i );
+                var dt = startdate.AddDays( i );
 
-                if( _time.IsWeekDay() )
+                if( dt.IsWeekDay() )
                 {
-                    _days++;
+                    cnt++;
                 }
             }
 
-            return _days;
+            return cnt;
         }
 
-        /// <summary>Counts the week ends.</summary>
-        /// <param name="startDate">The start date.</param>
-        /// <param name="endDate">The end date.</param>
-        /// <returns></returns>
-        public static int CountWeekEnds( this DateTime startDate, DateTime endDate )
+        /// <summary>
+        /// Counts the number of weekends between two dates.
+        /// </summary>
+        /// <param name = "startdate" >
+        /// The start time.
+        /// </param>
+        /// <param name = "enddate" >
+        /// The end time.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static int CountWeekEnds( this DateTime startdate, DateTime enddate )
         {
-            var _timespan = endDate - startDate;
-            Console.WriteLine( _timespan.Days );
-            var _days = 0;
+            var ts = enddate - startdate;
+            Console.WriteLine( ts.Days );
+            var cnt = 0;
 
-            for( var i = 0; i < _timespan.Days; i++ )
+            for( var i = 0; i < ts.Days; i++ )
             {
-                var _time = startDate.AddDays( i );
+                var dt = startdate.AddDays( i );
 
-                if( _time.IsWeekEnd() )
+                if( dt.IsWeekEnd() )
                 {
-                    _days++;
+                    cnt++;
                 }
             }
 
-            return _days;
+            return cnt;
         }
 
-        /// <summary>Differences the specified date two.</summary>
-        /// <param name="dateOne">The date one.</param>
-        /// <param name="dateTwo">The date two.</param>
-        /// <returns></returns>
-        public static TimeSpan Diff( this DateTime dateOne, DateTime dateTwo )
+        /// <summary>
+        /// Diffs the specified date.
+        /// </summary>
+        /// <param name = "dateone" >
+        /// The date one.
+        /// </param>
+        /// <param name = "datetwo" >
+        /// The date two.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static TimeSpan Diff( this DateTime dateone, DateTime datetwo )
         {
-            var _timespan = dateOne.Subtract( dateTwo );
-            return _timespan;
+            var t = dateone.Subtract( datetwo );
+            return t;
         }
 
-        /// <summary>Differences the days.</summary>
-        /// <param name="dateOne">The date one.</param>
-        /// <param name="dateTwo">The date two.</param>
-        /// <returns></returns>
-        public static double DiffDays( this string dateOne, string dateTwo )
+        /// <summary>
+        /// Returns a double indicating the number of days between two dates (past is
+        /// negative)
+        /// </summary>
+        /// <param name = "dateone" >
+        /// The date one.
+        /// </param>
+        /// <param name = "datetwo" >
+        /// The date two.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static double DiffDays( this string dateone, string datetwo )
         {
-            return DateTime.TryParse( dateOne, out var dtone ) 
-                && DateTime.TryParse( dateTwo, out var dttwo )
-                    ? dtone.Diff( dttwo ).TotalDays
-                    : 0;
+            return DateTime.TryParse( dateone, out var dtone ) && DateTime.TryParse( datetwo, out var dttwo )
+                ? dtone.Diff( dttwo ).TotalDays
+                : 0;
         }
 
-        /// <summary>Differences the days.</summary>
-        /// <param name="dateOne">The date one.</param>
-        /// <param name="dateTwo">The date two.</param>
-        /// <returns></returns>
-        public static double DiffDays( this DateTime dateOne, DateTime dateTwo )
+        /// <summary>
+        /// Returns a double indicating the number of days between two dates (past is
+        /// negative)
+        /// </summary>
+        /// <param name = "dateone" >
+        /// The date one.
+        /// </param>
+        /// <param name = "datetwo" >
+        /// The date two.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static double DiffDays( this DateTime dateone, DateTime datetwo )
         {
-            return dateOne.Diff( dateTwo ).TotalDays;
+            return dateone.Diff( datetwo ).TotalDays;
         }
 
-        /// <summary>Differences the hours.</summary>
-        /// <param name="dateOne">The date one.</param>
-        /// <param name="dateTwo">The date two.</param>
-        /// <returns></returns>
-        public static double DiffHours( this string dateOne, string dateTwo )
+        /// <summary>
+        /// Returns a double indicating the number of days between two dates (past is
+        /// negative)
+        /// </summary>
+        /// <param name = "dateone" >
+        /// The date one.
+        /// </param>
+        /// <param name = "datetwo" >
+        /// The date two.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static double DiffHours( this string dateone, string datetwo )
         {
-            return DateTime.TryParse( dateOne, out var dtone ) && DateTime.TryParse( dateTwo, out var dttwo )
+            return DateTime.TryParse( dateone, out var dtone ) && DateTime.TryParse( datetwo, out var dttwo )
                 ? dtone.Diff( dttwo ).TotalHours
                 : 0;
         }
 
-        /// <summary>Differences the hours.</summary>
-        /// <param name="dateOne">The date one.</param>
-        /// <param name="dateTwo">The date two.</param>
-        /// <returns></returns>
-        public static double DiffHours( this DateTime dateOne, DateTime dateTwo )
+        /// <summary>
+        /// Returns a double indicating the number of days between two dates (past is
+        /// negative)
+        /// </summary>
+        /// <param name = "dateone" >
+        /// The date one.
+        /// </param>
+        /// <param name = "datetwo" >
+        /// The date two.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static double DiffHours( this DateTime dateone, DateTime datetwo )
         {
-            return dateOne.Diff( dateTwo ).TotalHours;
-        }
-
-        /// <summary>Differences the minutes.</summary>
-        /// <param name="dateOne">The date one.</param>
-        /// <param name="dateTwo">The date two.</param>
-        /// <returns></returns>
-        public static double DiffMinutes( this string dateOne, string dateTwo )
-        {
-            return DateTime.TryParse( dateOne, out var dtone ) 
-                && DateTime.TryParse( dateTwo, out var dttwo )
-                    ? dtone.Diff( dttwo ).TotalMinutes
-                    : 0;
-        }
-
-        /// <summary>Differences the minutes.</summary>
-        /// <param name="dateOne">The date one.</param>
-        /// <param name="dateTwo">The date two.</param>
-        /// <returns></returns>
-        public static double DiffMinutes( this DateTime dateOne, DateTime dateTwo )
-        {
-            return dateOne.Diff( dateTwo ).TotalMinutes;
+            return dateone.Diff( datetwo ).TotalHours;
         }
 
         /// <summary>
-        /// Determines whether [is federal holiday].
+        /// Returns a double indicating the number of days between two dates (past is
+        /// negative)
         /// </summary>
-        /// <param name="date">The date.</param>
+        /// <param name = "dateone" >
+        /// The date one.
+        /// </param>
+        /// <param name = "datetwo" >
+        /// The date two.
+        /// </param>
         /// <returns>
-        ///   <c>true</c> if [is federal holiday] [the specified date]; otherwise, <c>false</c>.
+        /// </returns>
+        public static double DiffMinutes( this string dateone, string datetwo )
+        {
+            return DateTime.TryParse( dateone, out var dtone ) && DateTime.TryParse( datetwo, out var dttwo )
+                ? dtone.Diff( dttwo ).TotalMinutes
+                : 0;
+        }
+
+        /// <summary>
+        /// Returns a double indicating the number of days between two dates (past is
+        /// negative)
+        /// </summary>
+        /// <param name = "dateone" >
+        /// The date one.
+        /// </param>
+        /// <param name = "datetwo" >
+        /// The date two.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static double DiffMinutes( this DateTime dateone, DateTime datetwo )
+        {
+            return dateone.Diff( datetwo ).TotalMinutes;
+        }
+
+        /// <summary>
+        /// The IsFederalHoliday
+        /// </summary>
+        /// <param name = "date" >
+        /// The date <see cref = "System.DateTime"/>
+        /// </param>
+        /// <returns>
+        /// The <see cref = "bool"/>
         /// </returns>
         public static bool IsFederalHoliday( this DateTime date )
         {
             // to ease typing
-            var _nthweekday = (int)Math.Ceiling( date.Day / 7.0d );
-            var _dayName = date.DayOfWeek;
-            var _isThursday = _dayName == DayOfWeek.Thursday;
-            var _isFriday = _dayName == DayOfWeek.Friday;
-            var _isMonday = _dayName == DayOfWeek.Monday;
-            var _isWeekend = _dayName == DayOfWeek.Saturday || _dayName == DayOfWeek.Sunday;
+            var nthweekday = (int)Math.Ceiling( date.Day / 7.0d );
+            var dayname = date.DayOfWeek;
+            var isthursday = dayname == DayOfWeek.Thursday;
+            var isfriday = dayname == DayOfWeek.Friday;
+            var ismonday = dayname == DayOfWeek.Monday;
+            var isweekend = dayname == DayOfWeek.Saturday || dayname == DayOfWeek.Sunday;
 
             switch( date.Month )
             {
                 // New Years Day (Jan 1, or preceding Friday/following Monday if weekend)
-                case 12 when date.Day == 31 && _isFriday:
-                case 1 when date.Day == 1 && !_isWeekend:
-                case 1 when date.Day == 2 && _isMonday:
+                case 12 when date.Day == 31 && isfriday:
+                case 1 when date.Day == 1 && !isweekend:
+                case 1 when date.Day == 2 && ismonday:
 
                 // MLK day (3rd monday in January)
-                case 1 when _isMonday && _nthweekday == 3:
+                case 1 when ismonday && nthweekday == 3:
 
                 // President’s Day (3rd Monday in February)
-                case 2 when _isMonday && _nthweekday == 3:
+                case 2 when ismonday && nthweekday == 3:
 
                 // Memorial Day (Last Monday in May)
-                case 5 when _isMonday && date.AddDays( 7 ).Month == 6:
+                case 5 when ismonday && date.AddDays( 7 ).Month == 6:
 
                 // Independence Day (July 4, or preceding Friday/following Monday if weekend)
-                case 7 when date.Day == 3 && _isFriday:
-                case 7 when date.Day == 4 && !_isWeekend:
-                case 7 when date.Day == 5 && _isMonday:
+                case 7 when date.Day == 3 && isfriday:
+                case 7 when date.Day == 4 && !isweekend:
+                case 7 when date.Day == 5 && ismonday:
 
                 // Labor Day (1st Monday in September)
-                case 9 when _isMonday && _nthweekday == 1:
+                case 9 when ismonday && nthweekday == 1:
 
                 // Columbus Day (2nd Monday in October)
-                case 10 when _isMonday && _nthweekday == 2:
+                case 10 when ismonday && nthweekday == 2:
 
                 // Veteran’s Day (November 11, or preceding Friday/following Monday if weekend))
-                case 11 when date.Day == 10 && _isFriday:
-                case 11 when date.Day == 11 && !_isWeekend:
-                case 11 when date.Day == 12 && _isMonday:
+                case 11 when date.Day == 10 && isfriday:
+                case 11 when date.Day == 11 && !isweekend:
+                case 11 when date.Day == 12 && ismonday:
 
                 // Thanksgiving Day (4th Thursday in November)
-                case 11 when _isThursday && _nthweekday == 4:
+                case 11 when isthursday && nthweekday == 4:
 
                 // Christmas Day (December 25, or preceding Friday/following Monday if weekend))
-                case 12 when date.Day == 24 && _isFriday:
-                case 12 when date.Day == 25 && !_isWeekend:
-                case 12 when date.Day == 26 && _isMonday:
+                case 12 when date.Day == 24 && isfriday:
+                case 12 when date.Day == 25 && !isweekend:
+                case 12 when date.Day == 26 && ismonday:
                     return true;
 
                 default:

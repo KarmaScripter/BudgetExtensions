@@ -14,8 +14,8 @@ namespace BudgetExecution
     /// <summary>
     /// 
     /// </summary>
-    [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" )]
-    [ SuppressMessage( "ReSharper", "CompareNonConstrainedGenericWithNull" )]
+    [SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" )]
+    [SuppressMessage( "ReSharper", "CompareNonConstrainedGenericWithNull" )]
     public static class CollectionExtensions
     {
         /// <summary>Adds if.</summary>
