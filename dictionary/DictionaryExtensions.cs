@@ -15,10 +15,18 @@ namespace BudgetExecution
     using System.Linq;
     using System.Threading;
 
+    /// <summary> </summary>
     [ SuppressMessage( "ReSharper", "MemberCanBeInternal" ) ]
     [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
     public static class DictionaryExtensions
     {
+        /// <summary> Adds the or update. </summary>
+        /// <typeparam name = "TKey" > The type of the key. </typeparam>
+        /// <typeparam name = "TValue" > The type of the value. </typeparam>
+        /// <param name = "dict" > The dictionary. </param>
+        /// <param name = "key" > The key. </param>
+        /// <param name = "value" > The value. </param>
+        /// <returns> </returns>
         public static TValue AddOrUpdate<TKey, TValue>( this IDictionary<TKey, TValue> dict, TKey key,
             TValue value )
         {
@@ -42,6 +50,12 @@ namespace BudgetExecution
             return dict[ key ];
         }
 
+        /// <summary>
+        /// Predicates the specified logic.
+        /// </summary>
+        /// <param name="dict">The dictionary.</param>
+        /// <param name="logic">The logic.</param>
+        /// <returns></returns>
         public static string Predicate( this IDictionary<string, object> dict, Logic logic = Logic.AND )
         {
             if( dict?.Any() == true
@@ -50,22 +64,22 @@ namespace BudgetExecution
                 try
                 {
                     var _conjuction = logic.ToString();
-                    var _sqlString = "";
+                    var _string = "";
 
                     if( dict.HasPrimaryKey() )
                     {
-                        var _primaryKey = dict.GetPrimaryKey();
+                        var _key = dict.GetPrimaryKey();
 
-                        if( !string.IsNullOrEmpty( _primaryKey.Key )
-                            & int.Parse( _primaryKey.Value.ToString() ) > -1 )
+                        if( !string.IsNullOrEmpty( _key.Key )
+                            & int.Parse( _key.Value.ToString() ) > -1 )
                         {
                             foreach( var kvp in dict )
                             {
-                                _sqlString += $"{kvp.Key} = {kvp.Value}  {_conjuction} ";
+                                _string += $"{kvp.Key} = {kvp.Value}  {_conjuction} ";
                             }
 
-                            var _sql = _sqlString.TrimEnd( $"  {_conjuction} ".ToCharArray() );
-                            _sql += $" WHERE {_primaryKey.Key} = {int.Parse( _primaryKey.Value.ToString() )};";
+                            var _sql = _string.TrimEnd( $"  {_conjuction} ".ToCharArray() );
+                            _sql += $" WHERE {_key.Key} = {int.Parse( _key.Value.ToString() )};";
 
                             return !string.IsNullOrEmpty( _sql )
                                 ? _sql
@@ -76,10 +90,10 @@ namespace BudgetExecution
                     {
                         foreach( var kvp in dict )
                         {
-                            _sqlString += $"{kvp.Key} = {kvp.Value} {_conjuction} ";
+                            _string += $"{kvp.Key} = {kvp.Value} {_conjuction} ";
                         }
 
-                        var _sql = _sqlString.TrimEnd( $" {_conjuction} ".ToCharArray() );
+                        var _sql = _string.TrimEnd( $" {_conjuction} ".ToCharArray() );
 
                         return !string.IsNullOrEmpty( _sql )
                             ? _sql
@@ -96,6 +110,11 @@ namespace BudgetExecution
             return string.Empty;
         }
 
+        /// <summary> Converts to sorteddictionary. </summary>
+        /// <typeparam name = "TKey" > The type of the key. </typeparam>
+        /// <typeparam name = "TValue" > The type of the value. </typeparam>
+        /// <param name = "nvc" > The this. </param>
+        /// <returns> </returns>
         public static SortedDictionary<TKey, TValue> ToSortedDictionary<TKey, TValue>( this IDictionary<TKey, TValue> nvc )
         {
             try
@@ -109,6 +128,11 @@ namespace BudgetExecution
             }
         }
 
+        /// <summary> Converts to sorteddictionary. </summary>
+        /// <typeparam name = "TKey" > The type of the key. </typeparam>
+        /// <typeparam name = "TValue" > The type of the value. </typeparam>
+        /// <param name = "dict" > The dictionary. </param>
+        /// <returns> </returns>
         public static SortedList<TKey, TValue> ToSortedList<TKey, TValue>( this IDictionary<TKey, TValue> dict )
         {
             try
@@ -122,6 +146,10 @@ namespace BudgetExecution
             }
         }
 
+        /// <summary> Converts to sqldbparameters. </summary>
+        /// <param name = "dict" > The dictionary. </param>
+        /// <param name = "provider" > The provider. </param>
+        /// <returns> </returns>
         public static IEnumerable<DbParameter> ToSqlDbParameters( this IDictionary<string, object> dict,
             Provider provider )
         {
@@ -231,6 +259,14 @@ namespace BudgetExecution
             return default( IEnumerable<DbParameter> );
         }
 
+        /// <summary> Determines whether [has a primary key]. </summary>
+        /// <param name = "dict" > The row. </param>
+        /// <returns>
+        /// <c> true </c>
+        /// if [has primary key] [the specified row]; otherwise,
+        /// <c> false </c>
+        /// .
+        /// </returns>
         public static bool HasPrimaryKey( this IDictionary<string, object> dict )
         {
             if( dict?.Any() == true )
@@ -243,9 +279,9 @@ namespace BudgetExecution
 
                     for( var i = 1; i < _array.Length; i++ )
                     {
-                        var name = _array[ i ];
+                        var _name = _array[ i ];
 
-                        if( _names.Contains( name ) )
+                        if( _names.Contains( _name ) )
                         {
                             _count++;
                         }
@@ -263,6 +299,11 @@ namespace BudgetExecution
             return false;
         }
 
+        /// <summary>
+        /// Gets the primary key.
+        /// </summary>
+        /// <param name="dict">The dictionary.</param>
+        /// <returns></returns>
         public static KeyValuePair<string, object> GetPrimaryKey( this IDictionary<string, object> dict )
         {
             if( dict?.Any() == true
@@ -290,6 +331,10 @@ namespace BudgetExecution
             return default( KeyValuePair<string, object> );
         }
 
+        /// <summary>
+        /// Get Error Dialog.
+        /// </summary>
+        /// <param name="ex">The ex.</param>
         private static void Fail( Exception ex )
         {
             using var _error = new Error( ex );

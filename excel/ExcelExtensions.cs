@@ -17,7 +17,7 @@ namespace BudgetExecution
     /// <summary>
     /// 
     /// </summary>
-    [SuppressMessage( "ReSharper", "CompareNonConstrainedGenericWithNull" ) ]
+    [SuppressMessage( "ReSharper", "CompareNonConstrainedGenericWithNull" )]
     public static class ExcelExtensions
     {
         /// <summary>Converts to dataset.</summary>
