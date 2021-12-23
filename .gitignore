@@ -244,27 +244,27 @@ ServiceFabricBackup/
 *.rptproj.bak
 
 # MS SQL Server files
-*.mdf
-*.ldf
-*.ndf
-*.sdf
+#*.mdf
+#*.ldf
+#*.ndf
+#*.sdf
 
 # MS Access Database files
-*.accdb
-*.mdb
+#*.accdb
+#*.mdb
 
 # SQLite Database files
-*.db
+#*.db
 
 # Budget Execution Files
-*.exe
-[Ee]tc/
-[Dd]b/
-[Dd]atabases/
+#*.exe
+#[Ee]tc/
+#[Dd]b/
+#[Dd]atabases/
 
 # Settings and Condfiguration files
 *.DotSettings
-*.editorconfig
+#*.editorconfig
 
 # Business Intelligence projects
 *.rdl.data
@@ -347,4 +347,4 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
-*.db
+#*.db
