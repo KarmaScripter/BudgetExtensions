@@ -26,7 +26,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <LangVersion>8</LangVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -36,7 +36,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <LangVersion>8</LangVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
@@ -46,101 +46,54 @@
     </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BudgetEnumerations, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\BudgetEnumerations\bin\Debug\BudgetEnumerations.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
-    <Reference Include="EPPlus, Version=5.8.4.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
-      <HintPath>packages\EPPlus.5.8.4\lib\net45\EPPlus.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=1.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.IO.RecyclableMemoryStream.1.4.1\lib\net46\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
-    </Reference>
-    <Reference Include="PresentationCore" />
-    <Reference Include="Syncfusion.Shared.Base, Version=15.3460.0.26, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\Syncfusion.Shared.Base.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>packages\System.ComponentModel.Annotations.4.7.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
-    </Reference>
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data.SQLite, Version=1.0.115.5, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=AMD64">
-      <HintPath>packages\System.Data.SQLite.x64.1.0.115.5\lib\net46\System.Data.SQLite.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Data.SQLite.EF6, Version=1.0.115.5, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>packages\System.Data.SQLite.EF6.1.0.115.5\lib\net46\System.Data.SQLite.EF6.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Data.SQLite.Linq, Version=1.0.115.5, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>packages\System.Data.SQLite.Linq.1.0.115.5\lib\net46\System.Data.SQLite.Linq.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Data.SqlServerCe, Version=9.0.242.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\System.Data.SqlServerCe.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Reflection.TypeExtensions, Version=4.1.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>packages\System.Reflection.TypeExtensions.4.7.0\lib\net461\System.Reflection.TypeExtensions.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Security" />
-    <Reference Include="System.Threading.Tasks" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="VisualPlus">
-      <HintPath>..\BudgetStatic\lib\VisualPlus.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="collection\CollectionExtensions.cs" />
-    <Compile Include="datagrid\DataGridExtensions.cs" />
-    <Compile Include="datarow\DataRowExtensions.cs" />
-    <Compile Include="datatable\DataTableExtensions.cs" />
-    <Compile Include="datetime\DateTimeExtensions.cs" />
-    <Compile Include="dictionary\DictionaryExtensions.cs" />
-    <Compile Include="enumerable\EnumerableExtensions.cs" />
+    <Compile Include="CollectionExtensions.cs" />
+    <Compile Include="DataGridExtensions.cs" />
+    <Compile Include="DataRowExtensions.cs" />
+    <Compile Include="DataTableExtensions.cs" />
+    <Compile Include="DateTimeExtensions.cs" />
+    <Compile Include="DictionaryExtensions.cs" />
+    <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="Error.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Error.designer.cs">
       <DependentUpon>Error.cs</DependentUpon>
     </Compile>
-    <Compile Include="excel\ExcelExtensions.cs" />
-    <Compile Include="filestream\FileStreamExtensions.cs" />
-    <Compile Include="linq\LinqExtensions.cs" />
+    <Compile Include="ExcelExtensions.cs" />
+    <Compile Include="FileStreamExtensions.cs" />
+    <Compile Include="LinqExtensions.cs" />
     <Compile Include="Message.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Message.designer.cs">
       <DependentUpon>Message.cs</DependentUpon>
     </Compile>
-    <Compile Include="string\StringExtensions.cs" />
-    <Compile Include="timespan\TimeSpanExtensions.cs" />
-    <Compile Include="type\TypeObject.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BudgetEnumerations\Enumerations.csproj">
-      <Project>{7E4815FC-F938-48BF-AF14-676F61AB5F30}</Project>
-      <Name>Enumerations</Name>
-    </ProjectReference>
+    <Compile Include="StringExtensions.cs" />
+    <Compile Include="TimeSpanExtensions.cs" />
+    <Compile Include="TypeObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Dialog\" />
+    <None Include="lib\MetroSet UI.dll.config" />
+    <None Include="packages\System.Reflection.TypeExtensions.4.7.0\.signature.p7s" />
+    <None Include="packages\System.Reflection.TypeExtensions.4.7.0\lib\MonoAndroid10\_._" />
+    <None Include="packages\System.Reflection.TypeExtensions.4.7.0\lib\MonoTouch10\_._" />
+    <None Include="packages\System.Reflection.TypeExtensions.4.7.0\lib\netcoreapp2.0\_._" />
+    <None Include="packages\System.Reflection.TypeExtensions.4.7.0\lib\uap10.0.16299\_._" />
+    <None Include="packages\System.Reflection.TypeExtensions.4.7.0\lib\xamarinios10\_._" />
+    <None Include="packages\System.Reflection.TypeExtensions.4.7.0\lib\xamarinmac20\_._" />
+    <None Include="packages\System.Reflection.TypeExtensions.4.7.0\lib\xamarintvos10\_._" />
+    <None Include="packages\System.Reflection.TypeExtensions.4.7.0\lib\xamarinwatchos10\_._" />
+    <None Include="packages\System.Reflection.TypeExtensions.4.7.0\ref\MonoAndroid10\_._" />
+    <None Include="packages\System.Reflection.TypeExtensions.4.7.0\ref\MonoTouch10\_._" />
+    <None Include="packages\System.Reflection.TypeExtensions.4.7.0\ref\netcoreapp2.0\_._" />
+    <None Include="packages\System.Reflection.TypeExtensions.4.7.0\ref\uap10.0.16299\_._" />
+    <None Include="packages\System.Reflection.TypeExtensions.4.7.0\ref\xamarinios10\_._" />
+    <None Include="packages\System.Reflection.TypeExtensions.4.7.0\ref\xamarinmac20\_._" />
+    <None Include="packages\System.Reflection.TypeExtensions.4.7.0\ref\xamarintvos10\_._" />
+    <None Include="packages\System.Reflection.TypeExtensions.4.7.0\ref\xamarinwatchos10\_._" />
+    <None Include="packages\System.Reflection.TypeExtensions.4.7.0\runtimes\aot\lib\uap10.0.16299\_._" />
+    <None Include="packages\System.Reflection.TypeExtensions.4.7.0\System.Reflection.TypeExtensions.4.7.0.nupkg" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Error.resx">
@@ -149,6 +102,250 @@
     <EmbeddedResource Include="Message.resx">
       <DependentUpon>Message.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="lib\BudgetStatic.dll" />
+    <Content Include="lib\CharmNotification.dll" />
+    <Content Include="lib\DataGridViewExtension.dll" />
+    <Content Include="lib\EPPlus.dll" />
+    <Content Include="lib\EPPlus.XML" />
+    <Content Include="lib\Expander.dll" />
+    <Content Include="lib\LinqStatistics.dll" />
+    <Content Include="lib\MetroSet UI.dll" />
+    <Content Include="lib\SQLite.Designer.dll" />
+    <Content Include="lib\SQLite.Designer.xml" />
+    <Content Include="lib\Syncfusion.Calculate.Base.dll" />
+    <Content Include="lib\Syncfusion.Calculate.Base.xml" />
+    <Content Include="lib\Syncfusion.Calculate.Windows.dll" />
+    <Content Include="lib\Syncfusion.Calculate.Windows.xml" />
+    <Content Include="lib\Syncfusion.Chart.Base.dll" />
+    <Content Include="lib\Syncfusion.Chart.Base.xml" />
+    <Content Include="lib\Syncfusion.Chart.Windows.dll" />
+    <Content Include="lib\Syncfusion.Chart.Windows.xml" />
+    <Content Include="lib\Syncfusion.Compression.Base.dll" />
+    <Content Include="lib\Syncfusion.Compression.Base.xml" />
+    <Content Include="lib\Syncfusion.Data.WinForms.dll" />
+    <Content Include="lib\Syncfusion.Data.WinForms.xml" />
+    <Content Include="lib\Syncfusion.DataSource.WinForms.dll" />
+    <Content Include="lib\Syncfusion.DataSource.WinForms.xml" />
+    <Content Include="lib\Syncfusion.Grid.Base.dll" />
+    <Content Include="lib\Syncfusion.Grid.Base.xml" />
+    <Content Include="lib\Syncfusion.Grid.Windows.dll" />
+    <Content Include="lib\Syncfusion.Grid.Windows.xml" />
+    <Content Include="lib\Syncfusion.Licensing.dll" />
+    <Content Include="lib\Syncfusion.Office2016Theme.WinForms.dll" />
+    <Content Include="lib\Syncfusion.Office2016Theme.WinForms.xml" />
+    <Content Include="lib\Syncfusion.Office2019Theme.WinForms.dll" />
+    <Content Include="lib\Syncfusion.Office2019Theme.WinForms.xml" />
+    <Content Include="lib\Syncfusion.Pdf.Base.dll" />
+    <Content Include="lib\Syncfusion.Pdf.Base.xml" />
+    <Content Include="lib\Syncfusion.Pdf.Windows.dll" />
+    <Content Include="lib\Syncfusion.Pdf.Windows.xml" />
+    <Content Include="lib\Syncfusion.PdfViewer.Windows.dll" />
+    <Content Include="lib\Syncfusion.PdfViewer.Windows.xml" />
+    <Content Include="lib\Syncfusion.PivotAnalysis.Base.dll" />
+    <Content Include="lib\Syncfusion.PivotAnalysis.Base.xml" />
+    <Content Include="lib\Syncfusion.PivotAnalysis.Windows.dll" />
+    <Content Include="lib\Syncfusion.PivotAnalysis.Windows.xml" />
+    <Content Include="lib\Syncfusion.PivotChart.Windows.dll" />
+    <Content Include="lib\Syncfusion.PivotChart.Windows.xml" />
+    <Content Include="lib\Syncfusion.PivotConverter.Windows.dll" />
+    <Content Include="lib\Syncfusion.PivotConverter.Windows.xml" />
+    <Content Include="lib\Syncfusion.Shared.Base.dll" />
+    <Content Include="lib\Syncfusion.Shared.Base.xml" />
+    <Content Include="lib\Syncfusion.Shared.Windows.dll" />
+    <Content Include="lib\Syncfusion.Shared.Windows.xml" />
+    <Content Include="lib\Syncfusion.Spreadsheet.Windows.dll" />
+    <Content Include="lib\Syncfusion.Spreadsheet.Windows.xml" />
+    <Content Include="lib\Syncfusion.SpreadsheetHelper.Windows.dll" />
+    <Content Include="lib\Syncfusion.SpreadsheetHelper.Windows.xml" />
+    <Content Include="lib\Syncfusion.Tools.Base.dll" />
+    <Content Include="lib\Syncfusion.Tools.Base.xml" />
+    <Content Include="lib\Syncfusion.Tools.Windows.dll" />
+    <Content Include="lib\Syncfusion.Tools.Windows.xml" />
+    <Content Include="lib\Syncfusion.XlsIO.Base.dll" />
+    <Content Include="lib\Syncfusion.XlsIO.Base.xml" />
+    <Content Include="lib\System.Data.SqlServerCe.dll" />
+    <Content Include="lib\VisualPlus.dll" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\lib\net461\System.Reflection.TypeExtensions.dll" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\lib\net461\System.Reflection.TypeExtensions.xml" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\lib\net46\System.Reflection.TypeExtensions.dll" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\lib\netcore50\System.Reflection.TypeExtensions.dll" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\lib\netcoreapp1.0\System.Reflection.TypeExtensions.dll" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\lib\netstandard1.3\System.Reflection.TypeExtensions.dll" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\lib\netstandard1.3\System.Reflection.TypeExtensions.xml" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\lib\netstandard1.5\System.Reflection.TypeExtensions.dll" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\lib\netstandard1.5\System.Reflection.TypeExtensions.xml" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\lib\netstandard2.0\System.Reflection.TypeExtensions.dll" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\lib\netstandard2.0\System.Reflection.TypeExtensions.xml" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\LICENSE.TXT" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\ref\net461\System.Reflection.TypeExtensions.dll" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\ref\net461\System.Reflection.TypeExtensions.xml" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\ref\net46\System.Reflection.TypeExtensions.dll" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\ref\net472\System.Reflection.TypeExtensions.dll" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\ref\net472\System.Reflection.TypeExtensions.xml" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\ref\netstandard1.3\de\System.Reflection.TypeExtensions.xml" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\ref\netstandard1.3\es\System.Reflection.TypeExtensions.xml" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\ref\netstandard1.3\fr\System.Reflection.TypeExtensions.xml" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\ref\netstandard1.3\it\System.Reflection.TypeExtensions.xml" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\ref\netstandard1.3\ja\System.Reflection.TypeExtensions.xml" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\ref\netstandard1.3\ko\System.Reflection.TypeExtensions.xml" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\ref\netstandard1.3\ru\System.Reflection.TypeExtensions.xml" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\ref\netstandard1.3\System.Reflection.TypeExtensions.dll" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\ref\netstandard1.3\System.Reflection.TypeExtensions.xml" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\ref\netstandard1.3\zh-hans\System.Reflection.TypeExtensions.xml" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\ref\netstandard1.3\zh-hant\System.Reflection.TypeExtensions.xml" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\ref\netstandard1.5\de\System.Reflection.TypeExtensions.xml" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\ref\netstandard1.5\es\System.Reflection.TypeExtensions.xml" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\ref\netstandard1.5\fr\System.Reflection.TypeExtensions.xml" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\ref\netstandard1.5\it\System.Reflection.TypeExtensions.xml" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\ref\netstandard1.5\ja\System.Reflection.TypeExtensions.xml" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\ref\netstandard1.5\ko\System.Reflection.TypeExtensions.xml" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\ref\netstandard1.5\ru\System.Reflection.TypeExtensions.xml" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\ref\netstandard1.5\System.Reflection.TypeExtensions.dll" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\ref\netstandard1.5\System.Reflection.TypeExtensions.xml" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\ref\netstandard1.5\zh-hans\System.Reflection.TypeExtensions.xml" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\ref\netstandard1.5\zh-hant\System.Reflection.TypeExtensions.xml" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\ref\netstandard2.0\System.Reflection.TypeExtensions.dll" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\ref\netstandard2.0\System.Reflection.TypeExtensions.xml" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\runtimes\aot\lib\netcore50\System.Reflection.TypeExtensions.dll" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\THIRD-PARTY-NOTICES.TXT" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\useSharedDesignerContext.txt" />
+    <Content Include="packages\System.Reflection.TypeExtensions.4.7.0\version.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="BudgetStatic">
+      <HintPath>lib\BudgetStatic.dll</HintPath>
+    </Reference>
+    <Reference Include="CharmNotification">
+      <HintPath>lib\CharmNotification.dll</HintPath>
+    </Reference>
+    <Reference Include="DataGridViewExtension">
+      <HintPath>lib\DataGridViewExtension.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus">
+      <HintPath>lib\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="Expander">
+      <HintPath>lib\Expander.dll</HintPath>
+    </Reference>
+    <Reference Include="LinqStatistics">
+      <HintPath>lib\LinqStatistics.dll</HintPath>
+    </Reference>
+    <Reference Include="MetroSet UI">
+      <HintPath>lib\MetroSet UI.dll</HintPath>
+    </Reference>
+    <Reference Include="SQLite.Designer">
+      <HintPath>lib\SQLite.Designer.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Calculate.Base">
+      <HintPath>lib\Syncfusion.Calculate.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Calculate.Windows">
+      <HintPath>lib\Syncfusion.Calculate.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Chart.Base">
+      <HintPath>lib\Syncfusion.Chart.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Chart.Windows">
+      <HintPath>lib\Syncfusion.Chart.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Compression.Base">
+      <HintPath>lib\Syncfusion.Compression.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Data.WinForms">
+      <HintPath>lib\Syncfusion.Data.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.DataSource.WinForms">
+      <HintPath>lib\Syncfusion.DataSource.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Grid.Base">
+      <HintPath>lib\Syncfusion.Grid.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Grid.Windows">
+      <HintPath>lib\Syncfusion.Grid.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Licensing">
+      <HintPath>lib\Syncfusion.Licensing.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Office2016Theme.WinForms">
+      <HintPath>lib\Syncfusion.Office2016Theme.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Office2019Theme.WinForms">
+      <HintPath>lib\Syncfusion.Office2019Theme.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Pdf.Base">
+      <HintPath>lib\Syncfusion.Pdf.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Pdf.Windows">
+      <HintPath>lib\Syncfusion.Pdf.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.PdfViewer.Windows">
+      <HintPath>lib\Syncfusion.PdfViewer.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.PivotAnalysis.Base">
+      <HintPath>lib\Syncfusion.PivotAnalysis.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.PivotAnalysis.Windows">
+      <HintPath>lib\Syncfusion.PivotAnalysis.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.PivotChart.Windows">
+      <HintPath>lib\Syncfusion.PivotChart.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.PivotConverter.Windows">
+      <HintPath>lib\Syncfusion.PivotConverter.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Shared.Base">
+      <HintPath>lib\Syncfusion.Shared.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Shared.Windows">
+      <HintPath>lib\Syncfusion.Shared.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Spreadsheet.Windows">
+      <HintPath>lib\Syncfusion.Spreadsheet.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SpreadsheetHelper.Windows">
+      <HintPath>lib\Syncfusion.SpreadsheetHelper.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Tools.Base">
+      <HintPath>lib\Syncfusion.Tools.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Tools.Windows">
+      <HintPath>lib\Syncfusion.Tools.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.XlsIO.Base">
+      <HintPath>lib\Syncfusion.XlsIO.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.Data.DataSetExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.Linq">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.Data.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SqlServerCe">
+      <HintPath>lib\System.Data.SqlServerCe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.Drawing.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.Xml.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.Xml.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="VisualPlus">
+      <HintPath>lib\VisualPlus.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
