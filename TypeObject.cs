@@ -6,12 +6,12 @@ namespace BudgetExecution
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
+    using System.Runtime.Serialization.Json;
     using System.Text;
+    using System.Xml.Serialization;
     using System.IO;
     using System.Runtime.Serialization;
     using System.Runtime.Serialization.Formatters.Binary;
-    using System.Runtime.Serialization.Json;
-    using System.Xml.Serialization;
     using System.Web.Script.Serialization;
 
     /// <summary>
