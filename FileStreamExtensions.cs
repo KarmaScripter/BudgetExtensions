@@ -390,24 +390,24 @@ namespace BudgetExecution
         /// <param name = "stream" >
         /// The stream to read from
         /// </param>
-        /// <param name = "bufsize" >
+        /// <param name = "bufferSize" >
         /// The number of bytes to read.
         /// </param>
         /// <returns>
         /// the read byte[]
         /// </returns>
-        public static IEnumerable<byte> ReadFixedbuffersize( this Stream stream, int bufsize )
+        public static IEnumerable<byte> ReadFixedbuffersize( this Stream stream, int bufferSize )
         {
             if ( stream != null )
             {
                 try
                 {
-                    var _buffer = new byte[ bufsize ];
+                    var _buffer = new byte[ bufferSize ];
                     var _offset = 0;
 
                     do
                     {
-                        var _read = stream.Read( _buffer, _offset, bufsize - _offset );
+                        var _read = stream.Read( _buffer, _offset, bufferSize - _offset );
 
                         if( _read == 0 )
                         {
@@ -416,7 +416,7 @@ namespace BudgetExecution
 
                         _offset += _read;
                     }
-                    while( _offset < bufsize );
+                    while( _offset < bufferSize );
 
                     return _buffer;
                 }
