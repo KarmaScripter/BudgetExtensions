@@ -19,7 +19,7 @@ namespace BudgetExecution
         /// <summary>
         /// Gets or sets the text associated with this control.
         /// </summary>
-        public string Text { get; set; }
+        public new string Text { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Error"/> class.

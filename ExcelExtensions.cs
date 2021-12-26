@@ -17,7 +17,7 @@ namespace BudgetExecution
     /// <summary>
     /// 
     /// </summary>
-    [SuppressMessage( "ReSharper", "CompareNonConstrainedGenericWithNull" )]
+    [ SuppressMessage( "ReSharper", "CompareNonConstrainedGenericWithNull" ) ]
     public static class ExcelExtensions
     {
         /// <summary>Converts to dataset.</summary>
@@ -144,14 +144,9 @@ namespace BudgetExecution
                 ? Math.Round( 7.0 * _second - 0.0, 0 ) / 7.0
                 : Math.Round( 12.0 * _second - 0.0, 0 ) / 12.0 + 0.0;
 
-            if( _first > 0.0 )
-            {
-                column.Width = width + _third;
-            }
-            else
-            {
-                column.Width = 0.0;
-            }
+            column.Width = _first > 0.0
+                ? width + _third
+                : 0.0;
         }
 
         /// <summary>Sets the height.</summary>
