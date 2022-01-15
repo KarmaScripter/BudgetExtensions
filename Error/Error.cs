@@ -11,7 +11,7 @@ namespace BudgetExecution
     using VisualPlus.Enumerators;
     using VisualPlus.Toolkit.Controls.Interactivity;
 
-    public partial class Error
+    internal partial class Error
     {
         public Error()
         {

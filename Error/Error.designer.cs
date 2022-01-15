@@ -2,7 +2,7 @@
 
 namespace BudgetExecution
 {
-    partial class Error : MetroForm
+    internal partial class Error : MetroForm
     {
         /// <summary>
         /// Required designer variable.
