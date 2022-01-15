@@ -51,21 +51,15 @@
     <Compile Include="DateTimeExtensions.cs" />
     <Compile Include="DictionaryExtensions.cs" />
     <Compile Include="EnumerableExtensions.cs" />
-    <Compile Include="Error.cs">
+    <Compile Include="Error\Error.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Error.designer.cs">
+    <Compile Include="Error\Error.designer.cs">
       <DependentUpon>Error.cs</DependentUpon>
     </Compile>
     <Compile Include="ExcelExtensions.cs" />
     <Compile Include="FileStreamExtensions.cs" />
     <Compile Include="LinqExtensions.cs" />
-    <Compile Include="Message.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Message.designer.cs">
-      <DependentUpon>Message.cs</DependentUpon>
-    </Compile>
     <Compile Include="StringExtensions.cs" />
     <Compile Include="TimeSpanExtensions.cs" />
     <Compile Include="TypeObject.cs" />
@@ -74,14 +68,6 @@
     <None Include=".editorconfig" />
     <None Include="lib\MetroSet UI.dll.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Error.resx">
-      <DependentUpon>Error.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Message.resx">
-      <DependentUpon>Message.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
@@ -187,6 +173,11 @@
     <Reference Include="VisualPlus">
       <HintPath>lib\VisualPlus.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Error\Error.resx">
+      <DependentUpon>Error.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

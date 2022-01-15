@@ -13,7 +13,6 @@ C:\Users\terry\source\repos\BudgetExtensions\bin\Debug\EPPlus.xml
 C:\Users\terry\source\repos\BudgetExtensions\bin\Debug\Syncfusion.Shared.Base.xml
 C:\Users\terry\source\repos\BudgetExtensions\obj\Debug\Extensions.csproj.AssemblyReference.cache
 C:\Users\terry\source\repos\BudgetExtensions\obj\Debug\BudgetExecution.Error.resources
-C:\Users\terry\source\repos\BudgetExtensions\obj\Debug\BudgetExecution.Message.resources
 C:\Users\terry\source\repos\BudgetExtensions\obj\Debug\Extensions.csproj.GenerateResource.cache
 C:\Users\terry\source\repos\BudgetExtensions\obj\Debug\Extensions.csproj.CoreCompileInputs.cache
 C:\Users\terry\source\repos\BudgetExtensions\obj\Debug\Extensions.csproj.CopyComplete
