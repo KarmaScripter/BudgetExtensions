@@ -140,8 +140,13 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="BudgetEnumerations">
+    <Reference Include="BudgetEnumerations, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\BudgetEnumerations\bin\Debug\BudgetEnumerations.dll</HintPath>
+    </Reference>
+    <Reference Include="BudgetStatic, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\BudgetStatic\bin\Debug\BudgetStatic.dll</HintPath>
     </Reference>
     <Reference Include="EPPlus">
       <HintPath>lib\EPPlus.dll</HintPath>

@@ -19,26 +19,22 @@ namespace BudgetExecution
     /// <summary>
     /// 
     /// </summary>
-    [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
+    [SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
     [ SuppressMessage( "ReSharper", "MemberCanBeInternal" ) ]
     public static class DataRowExtensions
     {
-        /// <summary>.
+        /// <summary>
+        /// Converts to sqldbparameters.
         /// </summary>
         /// <param name="dataRow">The data row.</param>
         /// <param name="provider">The provider.</param>
         /// <returns></returns>
-        /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">provider</exception>
+        /// <exception cref="InvalidEnumArgumentException">
+        /// provider</exception>
         public static IEnumerable<DbParameter> ToSqlDbParameters( this DataRow dataRow, Provider provider )
         {
-            if( !Enum.IsDefined( typeof( Provider ), provider ) )
-            {
-                throw new InvalidEnumArgumentException( nameof( provider ), (int)provider,
-                    typeof( Provider ) );
-            }
-
-            if( dataRow?.ItemArray?.Length > 0
-                && Enum.IsDefined( typeof( Provider ), provider ) )
+            if( Verify.Row( dataRow )
+               && Enum.IsDefined( typeof( Provider ), provider ) )
             {
                 try
                 {
@@ -243,22 +239,22 @@ namespace BudgetExecution
         /// <summary>
         /// Gets the field.
         /// </summary>
-        /// <param name="datarow">The datarow.</param>
+        /// <param name="dataRow">The data row.</param>
         /// <param name="field">The field.</param>
         /// <returns></returns>
-        public static string GetField( this DataRow datarow, Field field )
+        public static string GetField( this DataRow dataRow, Field field )
         {
-            if( datarow != null
+            if( Verify.Row( dataRow )
                 && Enum.IsDefined( typeof( Field ), field ) )
             {
-                var _columns = datarow.Table?.GetColumnNames();
+                var _columns = dataRow.Table?.GetColumnNames();
 
                 if( _columns?.Any() == true
                     && _columns.Contains( $"{field}" ) )
                 {
                     try
                     {
-                        return datarow[ $"{field}" ].ToString();
+                        return dataRow[ $"{field}" ].ToString();
                     }
                     catch( Exception ex )
                     {
@@ -279,7 +275,7 @@ namespace BudgetExecution
         /// <returns></returns>
         public static double GetNumeric( this DataRow dataRow, Numeric numeric )
         {
-            if( dataRow != null & Enum.IsDefined( typeof( Numeric ), numeric ) )
+            if( Verify.Row( dataRow ) & Enum.IsDefined( typeof( Numeric ), numeric ) )
             {
                 var _columns = dataRow.Table?.GetColumnNames();
 
@@ -309,7 +305,8 @@ namespace BudgetExecution
         /// <returns></returns>
         public static DateTime GetDate( this DataRow dataRow, Field field )
         {
-            if( dataRow != null & Enum.IsDefined( typeof( Field ), field ) )
+            if( Verify.Row( dataRow ) 
+               && Enum.IsDefined( typeof( Field ), field ) )
             {
                 var _columns = dataRow.Table?.GetColumnNames();
 
@@ -340,7 +337,7 @@ namespace BudgetExecution
         /// </returns>
         public static bool HasNumeric( this DataRow dataRow )
         {
-            if( dataRow != null )
+            if( Verify.Row( dataRow ) )
             {
                 try
                 {

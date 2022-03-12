@@ -1,6 +1,7 @@
 C:\Users\terry\source\repos\BudgetExtensions\bin\Debug\BudgetExtensions.dll
 C:\Users\terry\source\repos\BudgetExtensions\bin\Debug\BudgetExtensions.pdb
 C:\Users\terry\source\repos\BudgetExtensions\bin\Debug\BudgetEnumerations.dll
+C:\Users\terry\source\repos\BudgetExtensions\bin\Debug\BudgetStatic.dll
 C:\Users\terry\source\repos\BudgetExtensions\bin\Debug\EPPlus.dll
 C:\Users\terry\source\repos\BudgetExtensions\bin\Debug\Syncfusion.Shared.Base.dll
 C:\Users\terry\source\repos\BudgetExtensions\bin\Debug\System.Data.SqlClient.dll
