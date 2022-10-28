@@ -12,7 +12,7 @@ namespace BudgetExecution
     using System.IO;
     using System.Runtime.Serialization;
     using System.Runtime.Serialization.Formatters.Binary;
-    using System.Web.Script.Serialization;
+    using System.Web;
 
     /// <summary>
     /// 
@@ -164,21 +164,27 @@ namespace BudgetExecution
 
             return default( string );
         }
-
+        
         /// <summary>
-        ///     A T extension method that serialize java script.
+        /// An object extension method that serialize an object to binary.
         /// </summary>
         /// <typeparam name="T">Generic type parameter.</typeparam>
         /// <param name="type">The @type to act on.</param>
-        /// <returns>A string.</returns>
-        public static string SerializeJavaScript<T>( this T type )
+        /// <returns>
+        /// A string.
+        /// </returns>
+        public static string JavaScriptSerialize<T>( this T type )
         {
-            if ( type != null )
+            if( type != null )
             {
                 try
                 {
-                    var _serializer = new JavaScriptSerializer();
-                    return _serializer.Serialize( type );
+                    var _encoding = Encoding.Default;
+                    var _serializer = new DataContractJsonSerializer( typeof( T ) );
+                    using var _stream = new MemoryStream( );
+                    _serializer.WriteObject( _stream, type );
+                    var json = _encoding.GetString( _stream.ToArray( ) );
+                    return json;
                 }
                 catch( Exception ex )
                 {

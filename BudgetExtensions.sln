@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30309.148
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extensions", "Extensions.csproj", "{77BFDEC9-2043-4D15-8D63-184A10BDBB3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BudgetExtensions", "BudgetExtensions.csproj", "{2217A83A-DB28-4314-B530-471E90EF672C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{77BFDEC9-2043-4D15-8D63-184A10BDBB3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{77BFDEC9-2043-4D15-8D63-184A10BDBB3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{77BFDEC9-2043-4D15-8D63-184A10BDBB3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{77BFDEC9-2043-4D15-8D63-184A10BDBB3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2217A83A-DB28-4314-B530-471E90EF672C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2217A83A-DB28-4314-B530-471E90EF672C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2217A83A-DB28-4314-B530-471E90EF672C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2217A83A-DB28-4314-B530-471E90EF672C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

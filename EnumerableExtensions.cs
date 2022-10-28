@@ -26,13 +26,14 @@ namespace BudgetExecution
         /// </returns>
         public static bool HasNumeric( this IEnumerable<DataRow> dataRow )
         {
-            if( dataRow?.Any() == true )
+            if( dataRow?.Any( ) == true )
             {
                 try
                 {
-                    var _row = dataRow?.First();
-                    var _dictionary = _row?.ToDictionary();
-                    var _array = _dictionary?.Keys.ToArray();
+                    var _row = dataRow?.First( );
+                    var _dictionary = _row?.ToDictionary( );
+                    var _array = _dictionary?.Keys?.ToArray( );
+
                     var _names = Enum.GetNames( typeof( Numeric ) );
 
                     if( _array != null )
@@ -74,14 +75,13 @@ namespace BudgetExecution
                     var _row = dataRow?.First();
                     var _dict = _row?.ToDictionary();
                     var _key = _dict?.Keys.ToArray();
-                    var _names = Enum.GetNames( typeof( PrimaryKey ) );
 
                     if( _key != null )
                     {
                         foreach( var k in _key )
                         {
                             if( !string.IsNullOrEmpty( k )
-                                && _names?.Contains( k ) == true )
+                                && _key[ 0 ].EndsWith( "Id" ) )
                             {
                                 return true;
                             }
@@ -118,13 +118,13 @@ namespace BudgetExecution
                     {
                         if( _row?.ItemArray[ 0 ] != null )
                         {
-                            _list?.Add( int.Parse( _row.ItemArray[ 0 ]?.ToString() ) );
+                            _list?.Add( int.Parse( _row.ItemArray[ 0 ]?.ToString( ) ) );
                         }
                     }
 
                     return _list?.Any() == true
-                        ? _list.ToArray()
-                        : default( int[ ] );
+                        ? _list.ToArray( )
+                        : default( IEnumerable<int> );
                 }
                 catch( Exception ex )
                 {

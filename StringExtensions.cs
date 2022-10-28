@@ -15,6 +15,7 @@ namespace BudgetExecution
 
     [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
     [ SuppressMessage( "ReSharper", "MemberCanBeInternal" ) ]
+    [ SuppressMessage( "ReSharper", "ReplaceSubstringWithRangeIndexer" ) ]
     public static class StringExtensions
     {
         /// <summary>
@@ -39,7 +40,7 @@ namespace BudgetExecution
             catch( Exception ex )
             {
                 Fail( ex );
-                return default( string );
+                return string.Empty;
             }
         }
 
@@ -64,16 +65,16 @@ namespace BudgetExecution
 
                     return !string.IsNullOrEmpty( _info.ToTitleCase( text ) )
                         ? _info.ToTitleCase( text )
-                        : default( string );
+                        : string.Empty;
                 }
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default( string );
+                    return string.Empty;
                 }
             }
 
-            return default( string );
+            return string.Empty;
         }
 
         /// <summary>
@@ -97,7 +98,7 @@ namespace BudgetExecution
             catch( Exception ex )
             {
                 Fail( ex );
-                return default( string );
+                return string.Empty;
             }
         }
 
@@ -112,7 +113,8 @@ namespace BudgetExecution
         /// <returns>
         /// The <see cref = "T"/>
         /// </returns>
-        public static T ToEnum<T>( this string text ) where T : struct
+        public static T ToEnum<T>( this string text ) 
+            where T : struct
         {
             try
             {
@@ -148,7 +150,7 @@ namespace BudgetExecution
             catch( Exception ex )
             {
                 Fail( ex );
-                return default( string );
+                return string.Empty;
             }
         }
 
@@ -169,13 +171,13 @@ namespace BudgetExecution
             try
             {
                 return text?.Length > length
-                    ? text.Substring( 0, length )
+                    ? text?.Substring( 0, length )
                     : text;
             }
             catch( Exception ex )
             {
                 Fail( ex );
-                return default( string );
+                return string.Empty;
             }
         }
 
@@ -200,13 +202,13 @@ namespace BudgetExecution
                 }
                 else
                 {
-                    return default( string );
+                    return string.Empty;
                 }
             }
             catch( Exception ex )
             {
                 Fail( ex );
-                return default( string );
+                return string.Empty;
             }
         }
 
