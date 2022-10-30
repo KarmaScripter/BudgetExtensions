@@ -1,5 +1,5 @@
-﻿// <copyright file="{ClassName}.cs" company="Terry D. Eppler">
-// Copyright (c) Eppler. All rights reserved.
+﻿// <copyright file=" <File Name> .cs" company="Terry D. Eppler">
+// Copyright (c) Terry Eppler. All rights reserved.
 // </copyright>
 
 namespace BudgetExecution
@@ -32,8 +32,8 @@ namespace BudgetExecution
             {
                 try
                 {
-                    using var _stream = new MemoryStream();
-                    var _formatter = new BinaryFormatter();
+                    using var _stream = new MemoryStream( );
+                    var _formatter = new BinaryFormatter( );
                     _formatter.Serialize( _stream, type );
                     _stream.Position = 0;
                     return (T)_formatter.Deserialize( _stream );
@@ -41,11 +41,11 @@ namespace BudgetExecution
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default( T );
+                    return default;
                 }
             }
 
-            return default( T );
+            return default;
         }
 
         /// <summary>
@@ -62,19 +62,19 @@ namespace BudgetExecution
                 {
                     var _encoding = Encoding.Default;
                     var _serializer = new DataContractJsonSerializer( typeof( T ) );
-                    using var stream = new MemoryStream();
+                    using var stream = new MemoryStream( );
                     _serializer.WriteObject( stream, type );
-                    var json = _encoding.GetString( stream.ToArray() );
+                    var json = _encoding.GetString( stream.ToArray( ) );
                     return json;
                 }
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default( string );
+                    return default;
                 }
             }
 
-            return default( string );
+            return default;
         }
 
         /// <summary>
@@ -91,19 +91,19 @@ namespace BudgetExecution
             {
                 try
                 {
-                    var _formatter = new BinaryFormatter();
-                    using var _stream = new MemoryStream();
+                    var _formatter = new BinaryFormatter( );
+                    using var _stream = new MemoryStream( );
                     _formatter.Serialize( _stream, type );
-                    return Encoding.Default.GetString( _stream.ToArray() );
+                    return Encoding.Default.GetString( _stream.ToArray( ) );
                 }
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default( string );
+                    return default;
                 }
             }
 
-            return default( string );
+            return default;
         }
 
         /// <summary>
@@ -121,19 +121,19 @@ namespace BudgetExecution
             {
                 try
                 {
-                    var _formatter = new BinaryFormatter();
-                    using var _stream = new MemoryStream();
+                    var _formatter = new BinaryFormatter( );
+                    using var _stream = new MemoryStream( );
                     _formatter.Serialize( _stream, type );
-                    return encoding.GetString( _stream.ToArray() );
+                    return encoding.GetString( _stream.ToArray( ) );
                 }
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default( string );
+                    return default;
                 }
             }
 
-            return default( string );
+            return default;
         }
 
         /// <summary>
@@ -149,22 +149,22 @@ namespace BudgetExecution
             {
                 try
                 {
-                    var _serializer = new XmlSerializer( type.GetType() );
-                    using var _writer = new StringWriter();
+                    var _serializer = new XmlSerializer( type.GetType( ) );
+                    using var _writer = new StringWriter( );
                     _serializer.Serialize( _writer, type );
-                    using var _reader = new StringReader( _writer.GetStringBuilder().ToString() );
-                    return _reader.ReadToEnd();
+                    using var _reader = new StringReader( _writer.GetStringBuilder( ).ToString( ) );
+                    return _reader.ReadToEnd( );
                 }
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default( string );
+                    return default;
                 }
             }
 
-            return default( string );
+            return default;
         }
-        
+
         /// <summary>
         /// An object extension method that serialize an object to binary.
         /// </summary>
@@ -189,11 +189,11 @@ namespace BudgetExecution
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default( string );
+                    return default;
                 }
             }
 
-            return default( string );
+            return default;
         }
 
         /// <summary>
@@ -203,8 +203,8 @@ namespace BudgetExecution
         private static void Fail( Exception ex )
         {
             using var _error = new Error( ex );
-            _error?.SetText();
-            _error?.ShowDialog();
+            _error?.SetText( );
+            _error?.ShowDialog( );
         }
     }
 }

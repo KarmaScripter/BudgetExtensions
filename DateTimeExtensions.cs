@@ -1,5 +1,5 @@
-﻿// <copyright file = "DateTimeExtensions.cs" company = "Terry D. Eppler">
-// Copyright (c) Terry D. Eppler. All rights reserved.
+﻿// <copyright file=" <File Name> .cs" company="Terry D. Eppler">
+// Copyright (c) Terry Eppler. All rights reserved.
 // </copyright>
 
 namespace BudgetExecution
@@ -7,7 +7,7 @@ namespace BudgetExecution
     using System;
     using System.Diagnostics.CodeAnalysis;
 
-    [ SuppressMessage( "ReSharper", "ConvertSwitchStatementToSwitchExpression" )]
+    [ SuppressMessage( "ReSharper", "ConvertSwitchStatementToSwitchExpression" ) ]
     public static class DateTimeExtensions
     {
         /// <summary>
@@ -21,7 +21,7 @@ namespace BudgetExecution
         /// </returns>
         public static bool IsDate( this object date )
         {
-            return DateTime.TryParse( date.ToString(), out _ );
+            return DateTime.TryParse( date.ToString( ), out _ );
         }
 
         /// <summary>
@@ -147,7 +147,7 @@ namespace BudgetExecution
         /// </returns>
         public static bool IsWeekDay( this DateTime dateTime )
         {
-            return dateTime.DayOfWeek != DayOfWeek.Saturday 
+            return dateTime.DayOfWeek != DayOfWeek.Saturday
                 && dateTime.DayOfWeek != DayOfWeek.Sunday;
         }
 
@@ -159,7 +159,7 @@ namespace BudgetExecution
         /// </returns>
         public static bool IsWeekEnd( this DateTime dateTime )
         {
-            return dateTime.DayOfWeek == DayOfWeek.Saturday 
+            return dateTime.DayOfWeek == DayOfWeek.Saturday
                 || dateTime.DayOfWeek == DayOfWeek.Sunday;
         }
 
@@ -184,7 +184,7 @@ namespace BudgetExecution
             {
                 var dt = startDate.AddDays( i );
 
-                if( dt.IsWeekDay() )
+                if( dt.IsWeekDay( ) )
                 {
                     cnt++;
                 }
@@ -213,7 +213,7 @@ namespace BudgetExecution
             {
                 var dt = startDate.AddDays( i );
 
-                if( dt.IsWeekEnd() )
+                if( dt.IsWeekEnd( ) )
                 {
                     cnt++;
                 }
@@ -253,9 +253,10 @@ namespace BudgetExecution
         /// </returns>
         public static double DiffDays( this string dateone, string datetwo )
         {
-            return DateTime.TryParse( dateone, out var dtone ) && DateTime.TryParse( datetwo, out var dttwo )
-                ? dtone.Diff( dttwo ).TotalDays
-                : 0;
+            return DateTime.TryParse( dateone, out var dtone )
+                && DateTime.TryParse( datetwo, out var dttwo )
+                    ? dtone.Diff( dttwo ).TotalDays
+                    : 0;
         }
 
         /// <summary>
@@ -289,9 +290,10 @@ namespace BudgetExecution
         /// </returns>
         public static double DiffHours( this string dateone, string datetwo )
         {
-            return DateTime.TryParse( dateone, out var dtone ) && DateTime.TryParse( datetwo, out var dttwo )
-                ? dtone.Diff( dttwo ).TotalHours
-                : 0;
+            return DateTime.TryParse( dateone, out var dtone )
+                && DateTime.TryParse( datetwo, out var dttwo )
+                    ? dtone.Diff( dttwo ).TotalHours
+                    : 0;
         }
 
         /// <summary>
@@ -325,9 +327,10 @@ namespace BudgetExecution
         /// </returns>
         public static double DiffMinutes( this string dateone, string datetwo )
         {
-            return DateTime.TryParse( dateone, out var dtone ) && DateTime.TryParse( datetwo, out var dttwo )
-                ? dtone.Diff( dttwo ).TotalMinutes
-                : 0;
+            return DateTime.TryParse( dateone, out var dtone )
+                && DateTime.TryParse( datetwo, out var dttwo )
+                    ? dtone.Diff( dttwo ).TotalMinutes
+                    : 0;
         }
 
         /// <summary>
@@ -406,7 +409,6 @@ namespace BudgetExecution
                 case 12 when dateTime.Day == 25 && !_weekend:
                 case 12 when dateTime.Day == 26 && _monday:
                     return true;
-
                 default:
                     return false;
             }

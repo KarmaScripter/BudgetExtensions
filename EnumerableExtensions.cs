@@ -1,5 +1,5 @@
-﻿// <copyright file = "EnumerableExtensions.cs" company = "Terry D. Eppler">
-// Copyright (c) Terry D. Eppler. All rights reserved.
+﻿// <copyright file=" <File Name> .cs" company="Terry D. Eppler">
+// Copyright (c) Terry Eppler. All rights reserved.
 // </copyright>
 
 namespace BudgetExecution
@@ -33,7 +33,6 @@ namespace BudgetExecution
                     var _row = dataRow?.First( );
                     var _dictionary = _row?.ToDictionary( );
                     var _array = _dictionary?.Keys?.ToArray( );
-
                     var _names = Enum.GetNames( typeof( Numeric ) );
 
                     if( _array != null )
@@ -52,7 +51,7 @@ namespace BudgetExecution
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default( bool );
+                    return default;
                 }
             }
 
@@ -68,20 +67,20 @@ namespace BudgetExecution
         /// </returns>
         public static bool HasPrimaryKey( this IEnumerable<DataRow> dataRow )
         {
-            if( dataRow?.Any() == true )
+            if( dataRow?.Any( ) == true )
             {
                 try
                 {
-                    var _row = dataRow?.First();
-                    var _dict = _row?.ToDictionary();
-                    var _key = _dict?.Keys.ToArray();
+                    var _row = dataRow?.First( );
+                    var _dict = _row?.ToDictionary( );
+                    var _key = _dict?.Keys.ToArray( );
 
                     if( _key != null )
                     {
                         foreach( var k in _key )
                         {
                             if( !string.IsNullOrEmpty( k )
-                                && _key[ 0 ].EndsWith( "Id" ) )
+                               && _key[ 0 ].EndsWith( "Id" ) )
                             {
                                 return true;
                             }
@@ -93,7 +92,7 @@ namespace BudgetExecution
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default( bool );
+                    return default;
                 }
             }
 
@@ -107,12 +106,12 @@ namespace BudgetExecution
         /// <returns></returns>
         public static IEnumerable<int> GetPrimaryKeyValues( this IEnumerable<DataRow> dataRow )
         {
-            if( dataRow?.Any() == true
-                && dataRow.HasPrimaryKey() )
+            if( dataRow?.Any( ) == true
+               && dataRow.HasPrimaryKey( ) )
             {
                 try
                 {
-                    var _list = new List<int>();
+                    var _list = new List<int>( );
 
                     foreach( var _row in dataRow )
                     {
@@ -122,18 +121,18 @@ namespace BudgetExecution
                         }
                     }
 
-                    return _list?.Any() == true
+                    return _list?.Any( ) == true
                         ? _list.ToArray( )
                         : default( IEnumerable<int> );
                 }
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default( IEnumerable<int> );
+                    return default;
                 }
             }
 
-            return default( IEnumerable<int> );
+            return default;
         }
 
         /// <summary>
@@ -143,18 +142,18 @@ namespace BudgetExecution
         /// <param name="columnName">The columnName.</param>
         /// <param name="filter">The filter.</param>
         /// <returns></returns>
-        public static IEnumerable<DataRow> Filter( this IEnumerable<DataRow> dataRow, string columnName,
-            string filter )
+        public static IEnumerable<DataRow> Filter( this IEnumerable<DataRow> dataRow,
+            string columnName, string filter )
         {
-            if( dataRow?.Any() == true
-                && !string.IsNullOrEmpty( columnName )
-                && !string.IsNullOrEmpty( filter ) )
+            if( dataRow?.Any( ) == true
+               && !string.IsNullOrEmpty( columnName )
+               && !string.IsNullOrEmpty( filter ) )
             {
                 try
                 {
-                    var _row = dataRow?.First();
-                    var _dictionary = _row.ToDictionary();
-                    var _array = _dictionary.Keys.ToArray();
+                    var _row = dataRow?.First( );
+                    var _dictionary = _row.ToDictionary( );
+                    var _array = _dictionary.Keys.ToArray( );
 
                     if( _array?.Contains( columnName ) == true )
                     {
@@ -162,19 +161,19 @@ namespace BudgetExecution
                             ?.Where( p => p.Field<string>( columnName ).Equals( filter ) )
                             ?.Select( p => p );
 
-                        return _select?.Any() == true
+                        return _select?.Any( ) == true
                             ? _select
-                            : default( IEnumerable<DataRow> );
+                            : default;
                     }
                 }
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default( IEnumerable<DataRow> );
+                    return default;
                 }
             }
 
-            return default( IEnumerable<DataRow> );
+            return default;
         }
 
         /// <summary>
@@ -184,20 +183,17 @@ namespace BudgetExecution
         /// <param name="column">The column.</param>
         /// <param name="filter">The filter.</param>
         /// <returns></returns>
-        public static IEnumerable<DataRow> Filter( this IEnumerable<DataRow> dataRow, DataColumn column,
-            string filter )
+        public static IEnumerable<DataRow> Filter( this IEnumerable<DataRow> dataRow,
+            DataColumn column, string filter )
         {
-            if( dataRow?.Any() == true
-                && column != null
-                && !string.IsNullOrEmpty( filter ) )
+            if( dataRow?.Any( ) == true
+               && column != null
+               && !string.IsNullOrEmpty( filter ) )
             {
                 try
                 {
-                    var _row = dataRow?.First();
-
-                    var _columns = _row
-                        ?.Table
-                        ?.Columns;
+                    var _row = dataRow?.First( );
+                    var _columns = _row?.Table?.Columns;
 
                     if( _columns?.Contains( column?.ColumnName ) == true )
                     {
@@ -205,19 +201,19 @@ namespace BudgetExecution
                             ?.Where( p => p.Field<string>( column.ColumnName ).Equals( filter ) )
                             ?.Select( p => p );
 
-                        return _enumerable?.Any() == true
-                            ? _enumerable.ToArray()
-                            : default( DataRow[ ] );
+                        return _enumerable?.Any( ) == true
+                            ? _enumerable.ToArray( )
+                            : default;
                     }
                 }
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default( IEnumerable<DataRow> );
+                    return default;
                 }
             }
 
-            return default( IEnumerable<DataRow> );
+            return default;
         }
 
         /// <summary>
@@ -238,10 +234,10 @@ namespace BudgetExecution
             TableStyles style = TableStyles.Light1 )
         {
             if( string.IsNullOrEmpty( path )
-                && type?.Any() == true
-                && Enum.IsDefined( typeof( TableStyles ), style ) )
+               && type?.Any( ) == true
+               && Enum.IsDefined( typeof( TableStyles ), style ) )
             {
-                throw new ArgumentException();
+                throw new ArgumentException( );
             }
 
             try
@@ -256,7 +252,7 @@ namespace BudgetExecution
             catch( Exception ex )
             {
                 Fail( ex );
-                return default( ExcelPackage );
+                return default;
             }
         }
 
@@ -270,9 +266,9 @@ namespace BudgetExecution
         /// <returns></returns>
         public static IEnumerable<T> LazySlice<T>( this IEnumerable<T> type, int start, int end )
         {
-            if( type?.Any() == true
-                && start > 0
-                && end > 0 )
+            if( type?.Any( ) == true
+               && start > 0
+               && end > 0 )
             {
                 var _index = 0;
 
@@ -300,8 +296,8 @@ namespace BudgetExecution
         private static void Fail( Exception ex )
         {
             using var _error = new Error( ex );
-            _error?.SetText();
-            _error?.ShowDialog();
+            _error?.SetText( );
+            _error?.ShowDialog( );
         }
     }
 }

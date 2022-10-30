@@ -1,5 +1,5 @@
-﻿// <copyright file = "FileStreamExtensions.cs" company = "Terry D. Eppler">
-// Copyright (c) Terry D. Eppler. All rights reserved.
+﻿// <copyright file=" <File Name> .cs" company="Terry D. Eppler">
+// Copyright (c) Terry Eppler. All rights reserved.
 // </copyright>
 
 namespace BudgetExecution
@@ -27,9 +27,9 @@ namespace BudgetExecution
         {
             if( reader != null )
             {
-                while( reader.ReadLine() != null )
+                while( reader.ReadLine( ) != null )
                 {
-                    yield return reader.ReadLine();
+                    yield return reader.ReadLine( );
                 }
             }
         }
@@ -51,7 +51,7 @@ namespace BudgetExecution
             {
                 try
                 {
-                    foreach( var _line in reader.IterateLines() )
+                    foreach( var _line in reader.IterateLines( ) )
                     {
                         action( _line );
                     }
@@ -83,11 +83,11 @@ namespace BudgetExecution
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default( StreamReader );
+                    return default;
                 }
             }
 
-            return default( StreamReader );
+            return default;
         }
 
         /// <summary>
@@ -114,11 +114,11 @@ namespace BudgetExecution
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default( StreamReader );
+                    return default;
                 }
             }
 
-            return default( StreamReader );
+            return default;
         }
 
         /// <summary>
@@ -141,11 +141,11 @@ namespace BudgetExecution
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default( StreamWriter );
+                    return default;
                 }
             }
 
-            return default( StreamWriter );
+            return default;
         }
 
         /// <summary>
@@ -162,7 +162,7 @@ namespace BudgetExecution
         /// </returns>
         public static StreamWriter GetWriter( this Stream stream, Encoding encoding )
         {
-            if ( stream != null 
+            if ( stream != null
                 && stream.CanWrite )
             {
                 try
@@ -173,11 +173,11 @@ namespace BudgetExecution
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default( StreamWriter );
+                    return default;
                 }
             }
 
-            return default( StreamWriter );
+            return default;
         }
 
         /// <summary>
@@ -213,16 +213,16 @@ namespace BudgetExecution
                 try
                 {
                     using var _reader = stream.GetReader( encoding );
-                    return _reader.ReadToEnd();
+                    return _reader.ReadToEnd( );
                 }
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default( string );
+                    return default;
                 }
             }
 
-            return default( string );
+            return default;
         }
 
         /// <summary>
@@ -246,11 +246,11 @@ namespace BudgetExecution
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default( Stream );
+                    return default;
                 }
             }
 
-            return default( Stream );
+            return default;
         }
 
         /// <summary>
@@ -264,7 +264,7 @@ namespace BudgetExecution
         /// </returns>
         public static Stream SeekEnding( this Stream stream )
         {
-            if ( stream != null 
+            if ( stream != null
                 && stream.CanSeek )
             {
                 try
@@ -275,11 +275,11 @@ namespace BudgetExecution
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default( Stream );
+                    return default;
                 }
             }
 
-            return default( Stream );
+            return default;
         }
 
         /// <summary>
@@ -299,9 +299,9 @@ namespace BudgetExecution
         /// </returns>
         public static Stream CopyTo( this Stream stream, Stream target, int buffer )
         {
-            if ( stream != null 
+            if ( stream != null
                 && target != null
-                && stream.CanRead 
+                && stream.CanRead
                 && target.CanWrite )
             {
                 try
@@ -348,11 +348,11 @@ namespace BudgetExecution
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default( MemoryStream );
+                    return default;
                 }
             }
 
-            return default( MemoryStream );
+            return default;
         }
 
         /// <summary>
@@ -366,21 +366,21 @@ namespace BudgetExecution
         /// </returns>
         public static IEnumerable<byte> ReadAllBytes( this Stream stream )
         {
-            if ( stream != null )
+            if ( stream != Stream.Null )
             {
                 try
                 {
-                    using var _memory = stream.CopyToMemory();
-                    return _memory.ToArray();
+                    using var _memory = stream.CopyToMemory( );
+                    return _memory?.ToArray( );
                 }
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default( IEnumerable<byte> );
+                    return default;
                 }
             }
 
-            return default( IEnumerable<byte> );
+            return default;
         }
 
         /// <summary>
@@ -389,44 +389,43 @@ namespace BudgetExecution
         /// <param name = "stream" >
         /// The stream to read from
         /// </param>
-        /// <param name = "bufsize" >
+        /// <param name = "size" >
         /// The number of bytes to read.
         /// </param>
         /// <returns>
         /// the read byte[]
         /// </returns>
-        public static IEnumerable<byte> ReadFixedbuffersize( this Stream stream, int bufsize )
+        public static IEnumerable<byte> ReadFixedBufferSize( this Stream stream, int size )
         {
-            if ( stream != null )
+            if( stream != Stream.Null
+               && size > 0 )
             {
                 try
                 {
-                    var _buffer = new byte[ bufsize ];
+                    var _buffer = new byte[ size ];
                     var _offset = 0;
 
                     do
                     {
-                        var _read = stream.Read( _buffer, _offset, bufsize - _offset );
+                        var _read = stream.Read( _buffer, _offset, size - _offset );
 
-                        if( _read == 0 )
+                        if( _read > 0 )
                         {
-                            return null;
+                            _offset += _read;
                         }
-
-                        _offset += _read;
                     }
-                    while( _offset < bufsize );
+                    while( _offset < size );
 
                     return _buffer;
                 }
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default( IEnumerable<byte> );
+                    return default;
                 }
             }
 
-            return default( IEnumerable<byte> );
+            return default;
         }
 
         /// <summary>
@@ -440,7 +439,7 @@ namespace BudgetExecution
         /// </param>
         public static void Write( this Stream stream, byte[ ] bytes )
         {
-            if ( stream != null )
+            if( stream != Stream.Null )
             {
                 try
                 {
@@ -460,8 +459,8 @@ namespace BudgetExecution
         private static void Fail( Exception ex )
         {
             using var _error = new Error( ex );
-            _error?.SetText();
-            _error?.ShowDialog();
+            _error?.SetText( );
+            _error?.ShowDialog( );
         }
     }
 }

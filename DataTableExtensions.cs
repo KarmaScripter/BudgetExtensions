@@ -1,6 +1,6 @@
-﻿// // <copyright file = "DataTableExtensions.cs" company = "Terry D. Eppler">
-// // Copyright (c) Terry D. Eppler. All rights reserved.
-// // </copyright>
+﻿// <copyright file=" <File Name> .cs" company="Terry D. Eppler">
+// Copyright (c) Terry Eppler. All rights reserved.
+// </copyright>
 
 namespace BudgetExecution
 {
@@ -36,15 +36,13 @@ namespace BudgetExecution
         {
             try
             {
-                var _xml = new XDocument
-                {
-                    Declaration = new XDeclaration( "1.0", "utf-8", "" )
-                };
-
+                var _xml = new XDocument { Declaration = new XDeclaration( "1.0", "utf-8", "" ) };
                 _xml.Add( new XElement( rootName ) );
+
                 foreach( DataRow _dataRow in dataTable.Rows )
                 {
                     var _element = new XElement( dataTable.TableName );
+
                     foreach( DataColumn col in dataTable.Columns )
                     {
                         var _row = _dataRow?[ col ]?.ToString( )?.Trim( ' ' );
@@ -60,7 +58,7 @@ namespace BudgetExecution
             catch( Exception ex )
             {
                 Fail( ex );
-                return default( XDocument );
+                return default;
             }
         }
 
@@ -86,6 +84,7 @@ namespace BudgetExecution
 
                 var _excel = new ExcelPackage( );
                 var _worksheet = _excel?.Workbook?.Worksheets[ 0 ];
+
                 for( var i = 0; i < dataTable?.Columns?.Count; i++ )
                 {
                     if( _worksheet != null
@@ -143,16 +142,10 @@ namespace BudgetExecution
             {
                 try
                 {
-                    var _connectionString = ConnectionString[ "Excel" ]
-                        .ConnectionString;
-
+                    var _connectionString = ConnectionString[ "Excel" ].ConnectionString;
                     var _sql = "SELECT * FROM [" + sheetName + "$]";
                     using var _adapter = new OleDbDataAdapter( _sql, _connectionString );
-                    var _table = new DataTable
-                    {
-                        TableName = sheetName
-                    };
-
+                    var _table = new DataTable { TableName = sheetName };
                     _adapter?.FillSchema( _table, SchemaType.Source );
                     _adapter.Fill( _table, _table.TableName );
                     return _table;
@@ -160,11 +153,11 @@ namespace BudgetExecution
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default( DataTable );
+                    return default;
                 }
             }
 
-            return default( DataTable );
+            return default;
         }
 
         /// <summary>
@@ -247,6 +240,7 @@ namespace BudgetExecution
                    && dataTable.Columns?.Count > 0 )
                 {
                     var _list = new List<int>( );
+
                     foreach( var _row in dataTable.AsEnumerable( ) )
                     {
                         if( _row?.HasPrimaryKey( ) == true )
@@ -257,15 +251,15 @@ namespace BudgetExecution
 
                     return _list?.Any( ) == true
                         ? _list
-                        : default( List<int> );
+                        : default;
                 }
 
-                return default( IEnumerable<int> );
+                return default;
             }
             catch( Exception ex )
             {
                 Fail( ex );
-                return default( IEnumerable<int> );
+                return default;
             }
         }
 
@@ -285,9 +279,11 @@ namespace BudgetExecution
                 {
                     var _list = new List<int>( );
                     var _criteria = dict.ToCriteria( );
+
                     if( !string.IsNullOrEmpty( _criteria ) )
                     {
                         var _dataRows = dataTable.Select( _criteria );
+
                         if( _dataRows?.Any( ) == true )
                         {
                             foreach( var row in _dataRows )
@@ -302,15 +298,15 @@ namespace BudgetExecution
 
                     return _list?.Any( ) == true
                         ? _list
-                        : default( List<int> );
+                        : default;
                 }
 
-                return default( IEnumerable<int> );
+                return default;
             }
             catch( Exception ex )
             {
                 Fail( ex );
-                return default( IEnumerable<int> );
+                return default;
             }
         }
 
@@ -334,16 +330,16 @@ namespace BudgetExecution
                     var _array = _enumerable as string[ ] ?? _enumerable.ToArray( );
                     return _array.Any( )
                         ? _array
-                        : default( string[ ] );
+                        : default;
                 }
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default( string[ ] );
+                    return default;
                 }
             }
 
-            return default( string[ ] );
+            return default;
         }
 
         /// <summary>
@@ -368,11 +364,11 @@ namespace BudgetExecution
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default( IEnumerable<DataRow> );
+                    return default;
                 }
             }
 
-            return default( IEnumerable<DataRow> );
+            return default;
         }
 
         /// <summary>
@@ -385,6 +381,7 @@ namespace BudgetExecution
             try
             {
                 var _fields = new string[ dataTable.Columns.Count ];
+
                 for( var i = 0; i < dataTable.Columns.Count; i++ )
                 {
                     _fields[ i ] = dataTable.Columns[ i ].ColumnName;
@@ -393,12 +390,12 @@ namespace BudgetExecution
                 var _names = _fields?.OrderBy( f => f.IndexOf( f ) )?.Select( f => f )?.ToArray( );
                 return _names.Any( )
                     ? _names
-                    : default( string[ ] );
+                    : default;
             }
             catch( Exception ex )
             {
                 Fail( ex );
-                return default( string[ ] );
+                return default;
             }
         }
 
@@ -412,6 +409,7 @@ namespace BudgetExecution
             try
             {
                 var _index = new Dictionary<string, int>( );
+
                 for( var i = 0; i < dataTable.Columns.Count; i++ )
                 {
                     _index.Add( dataTable.Columns[ i ].ColumnName, i );
@@ -424,7 +422,7 @@ namespace BudgetExecution
             catch( Exception ex )
             {
                 Fail( ex );
-                return default( IDictionary<string, int> );
+                return default;
             }
         }
 
@@ -440,6 +438,7 @@ namespace BudgetExecution
                 try
                 {
                     var _bindingList = new BindingList<DataRow>( );
+
                     foreach( DataRow row in dataTable.Rows )
                     {
                         _bindingList.Add( row );
@@ -447,16 +446,16 @@ namespace BudgetExecution
 
                     return _bindingList?.Any( ) == true
                         ? _bindingList
-                        : default( BindingList<DataRow> );
+                        : default;
                 }
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default( BindingList<DataRow> );
+                    return default;
                 }
             }
 
-            return default( BindingList<DataRow> );
+            return default;
         }
 
         /// <summary>Fails the specified ex.</summary>

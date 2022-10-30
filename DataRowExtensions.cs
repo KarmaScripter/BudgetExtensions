@@ -1,5 +1,5 @@
-﻿// <copyright file = "DataRowExtensions.cs" company = "Terry D. Eppler">
-// Copyright (c) Terry D. Eppler. All rights reserved.
+﻿// <copyright file=" <File Name> .cs" company="Terry D. Eppler">
+// Copyright (c) Terry Eppler. All rights reserved.
 // </copyright>
 
 namespace BudgetExecution
@@ -31,7 +31,8 @@ namespace BudgetExecution
         /// <returns></returns>
         /// <exception cref="InvalidEnumArgumentException">
         /// provider</exception>
-        public static IEnumerable<DbParameter> ToSqlDbParameters( this DataRow dataRow, Provider provider )
+        public static IEnumerable<DbParameter> ToSqlDbParameters( this DataRow dataRow,
+            Provider provider )
         {
             if( dataRow?.ItemArray?.Length > 0
                && Enum.IsDefined( typeof( Provider ), provider ) )
@@ -47,7 +48,7 @@ namespace BudgetExecution
                         {
                             case Provider.SQLite:
                             {
-                                var _sqlite = new List<SQLiteParameter>();
+                                var _sqlite = new List<SQLiteParameter>( );
 
                                 for( var i = 0; i < _columns?.Count; i++ )
                                 {
@@ -60,14 +61,13 @@ namespace BudgetExecution
                                     _sqlite.Add( _parameter );
                                 }
 
-                                return _sqlite?.Any() == true
+                                return _sqlite?.Any( ) == true
                                     ? _sqlite
-                                    : default( List<SQLiteParameter> );
+                                    : default;
                             }
-
                             case Provider.SqlCe:
                             {
-                                var _sqlce = new List<SqlCeParameter>();
+                                var _sqlce = new List<SqlCeParameter>( );
 
                                 for( var i = 0; i < _columns?.Count; i++ )
                                 {
@@ -80,16 +80,15 @@ namespace BudgetExecution
                                     _sqlce.Add( _parameter );
                                 }
 
-                                return _sqlce?.Any() == true
+                                return _sqlce?.Any( ) == true
                                     ? _sqlce
-                                    : default( List<SqlCeParameter> );
+                                    : default;
                             }
-
                             case Provider.OleDb:
                             case Provider.Excel:
                             case Provider.Access:
                             {
-                                var _oledb = new List<OleDbParameter>();
+                                var _oledb = new List<OleDbParameter>( );
 
                                 for( var i = 0; i < _columns?.Count; i++ )
                                 {
@@ -102,14 +101,13 @@ namespace BudgetExecution
                                     _oledb.Add( parameter );
                                 }
 
-                                return _oledb.Any()
+                                return _oledb.Any( )
                                     ? _oledb
-                                    : default( List<OleDbParameter> );
+                                    : default;
                             }
-
                             case Provider.SqlServer:
                             {
-                                var _sqlserver = new List<SqlParameter>();
+                                var _sqlserver = new List<SqlParameter>( );
 
                                 for( var i = 0; i < _columns?.Count; i++ )
                                 {
@@ -122,23 +120,23 @@ namespace BudgetExecution
                                     _sqlserver.Add( _parameter );
                                 }
 
-                                return _sqlserver?.Any() == true
+                                return _sqlserver?.Any( ) == true
                                     ? _sqlserver
-                                    : default( List<SqlParameter> );
+                                    : default;
                             }
                         }
 
-                        return default( IEnumerable<DbParameter> );
+                        return default;
                     }
                 }
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default( IEnumerable<DbParameter> );
+                    return default;
                 }
             }
 
-            return default( IEnumerable<DbParameter> );
+            return default;
         }
 
         /// <summary>
@@ -152,7 +150,7 @@ namespace BudgetExecution
             {
                 if( dataRow?.ItemArray.Length > 0 )
                 {
-                    var _dictionary = new Dictionary<string, object>();
+                    var _dictionary = new Dictionary<string, object>( );
                     var _table = dataRow?.Table;
                     var _column = _table?.Columns;
                     var _items = dataRow?.ItemArray;
@@ -161,21 +159,22 @@ namespace BudgetExecution
                     {
                         if( !string.IsNullOrEmpty( _column[ i ]?.ColumnName ) )
                         {
-                            _dictionary?.Add( _column[ i ].ColumnName, _items[ i ] ?? default( object ) );
+                            _dictionary?.Add( _column[ i ].ColumnName,
+                                _items[ i ] ?? default( object ) );
                         }
                     }
 
                     return _dictionary?.Keys?.Count > 0
                         ? _dictionary
-                        : default( Dictionary<string, object> );
+                        : default;
                 }
 
-                return default( IDictionary<string, object> );
+                return default;
             }
             catch( Exception ex )
             {
                 Fail( ex );
-                return default( IDictionary<string, object> );
+                return default;
             }
         }
 
@@ -190,7 +189,7 @@ namespace BudgetExecution
             {
                 if( dataRow?.ItemArray.Length > 0 )
                 {
-                    var _sortedlist = new SortedList<string, object>();
+                    var _sortedlist = new SortedList<string, object>( );
                     var _table = dataRow?.Table;
                     var _column = _table?.Columns;
                     var _items = dataRow?.ItemArray;
@@ -199,21 +198,22 @@ namespace BudgetExecution
                     {
                         if( !string.IsNullOrEmpty( _column[ i ]?.ColumnName ) )
                         {
-                            _sortedlist?.Add( _column[ i ].ColumnName, _items[ i ] ?? default( object ) );
+                            _sortedlist?.Add( _column[ i ].ColumnName,
+                                _items[ i ] ?? default( object ) );
                         }
                     }
 
                     return _sortedlist?.Count > 0
                         ? _sortedlist
-                        : default( SortedList<string, object> );
+                        : default;
                 }
 
-                return default( SortedList<string, object> );
+                return default;
             }
             catch( Exception ex )
             {
                 Fail( ex );
-                return default( SortedList<string, object> );
+                return default;
             }
         }
 
@@ -232,7 +232,7 @@ namespace BudgetExecution
             catch( Exception ex )
             {
                 Fail( ex );
-                return default( IEnumerable<byte> );
+                return default;
             }
         }
 
@@ -245,16 +245,16 @@ namespace BudgetExecution
         public static string GetField( this DataRow dataRow, Field field )
         {
             if( dataRow?.ItemArray.Length > 0
-                && Enum.IsDefined( typeof( Field ), field ) )
+               && Enum.IsDefined( typeof( Field ), field ) )
             {
-                var _columns = dataRow.Table?.GetColumnNames();
+                var _columns = dataRow.Table?.GetColumnNames( );
 
-                if( _columns?.Any() == true
-                    && _columns.Contains( $"{ field }" ) )
+                if( _columns?.Any( ) == true
+                   && _columns.Contains( $"{ field }" ) )
                 {
                     try
                     {
-                        return dataRow[ $"{ field }" ].ToString();
+                        return dataRow[ $"{ field }" ].ToString( );
                     }
                     catch( Exception ex )
                     {
@@ -275,21 +275,20 @@ namespace BudgetExecution
         /// <returns></returns>
         public static double GetNumeric( this DataRow dataRow, Numeric numeric )
         {
-            if( dataRow?.ItemArray?.Length > 0 
+            if( dataRow?.ItemArray?.Length > 0
                && Enum.IsDefined( typeof( Numeric ), numeric ) )
             {
-                var _columns = dataRow.Table?.GetColumnNames();
+                var _columns = dataRow.Table?.GetColumnNames( );
 
-                if( _columns?.Any() == true
-                    && _columns.Contains( $"{ numeric }" ) )
+                if( _columns?.Any( ) == true
+                   && _columns.Contains( $"{ numeric }" ) )
                 {
                     try
                     {
-                        return double.Parse( dataRow[ $"{ numeric }" ].ToString() );
+                        return double.Parse( dataRow[ $"{ numeric }" ].ToString( ) );
                     }
                     catch( Exception ex )
                     {
-
                         Fail( ex );
                         return 0.0;
                     }
@@ -307,27 +306,27 @@ namespace BudgetExecution
         /// <returns></returns>
         public static DateTime GetDate( this DataRow dataRow, Field field )
         {
-            if( dataRow?.ItemArray?.Length > 0 
+            if( dataRow?.ItemArray?.Length > 0
                && Enum.IsDefined( typeof( Field ), field ) )
             {
-                var _columns = dataRow.Table?.GetColumnNames();
+                var _columns = dataRow.Table?.GetColumnNames( );
 
                 if( _columns != null
-                    && _columns?.Any() == true & _columns.Contains( $"{field}" ) )
+                   && _columns?.Any( ) == true & _columns.Contains( $"{field}" ) )
                 {
                     try
                     {
-                        return DateTime.Parse( dataRow[ $"{field}" ].ToString() );
+                        return DateTime.Parse( dataRow[ $"{field}" ].ToString( ) );
                     }
                     catch( Exception ex )
                     {
                         Fail( ex );
-                        return default( DateTime );
+                        return default;
                     }
                 }
             }
 
-            return default( DateTime );
+            return default;
         }
 
         /// <summary>
@@ -362,7 +361,7 @@ namespace BudgetExecution
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default( bool );
+                    return default;
                 }
             }
 
@@ -382,8 +381,8 @@ namespace BudgetExecution
             {
                 try
                 {
-                    var _dictionary = row.ToDictionary();
-                    var _key = _dictionary.Keys?.ToArray();
+                    var _dictionary = row.ToDictionary( );
+                    var _key = _dictionary.Keys?.ToArray( );
                     var _names = Enum.GetNames( typeof( PrimaryKey ) );
                     var _count = 0;
 
@@ -420,8 +419,8 @@ namespace BudgetExecution
             {
                 try
                 {
-                    var _dictionary = row.ToDictionary();
-                    var _key = _dictionary.Keys?.ToArray();
+                    var _dictionary = row.ToDictionary( );
+                    var _key = _dictionary.Keys?.ToArray( );
                     var _names = Enum.GetNames( typeof( PrimaryKey ) );
 
                     for( var i = 1; i < _key?.Length; i++ )
@@ -432,24 +431,24 @@ namespace BudgetExecution
                         {
                             return new Dictionary<string, object>
                             {
-                                [ _name ] = int.Parse( _dictionary[ _name ].ToString() )
+                                [ _name ] = int.Parse( _dictionary[ _name ].ToString( ) )
                             };
                         }
 
                         if( !_names.Contains( _name ) )
                         {
-                            return default( IDictionary<string, object> );
+                            return default;
                         }
                     }
                 }
                 catch( Exception ex )
                 {
                     Fail( ex );
-                    return default( IDictionary<string, object> );
+                    return default;
                 }
             }
 
-            return default( IDictionary<string, object> );
+            return default;
         }
 
         /// <summary>
@@ -459,8 +458,8 @@ namespace BudgetExecution
         private static void Fail( Exception ex )
         {
             using var _error = new Error( ex );
-            _error?.SetText();
-            _error?.ShowDialog();
+            _error?.SetText( );
+            _error?.ShowDialog( );
         }
     }
 }

@@ -1,5 +1,5 @@
-﻿// <copyright file = "CollectionExtensions.cs" company = "Terry D. Eppler">
-// Copyright (c) Terry D. Eppler. All rights reserved.
+﻿// <copyright file=" <File Name> .cs" company="Terry D. Eppler">
+// Copyright (c) Terry Eppler. All rights reserved.
 // </copyright>
 
 namespace BudgetExecution
@@ -13,8 +13,8 @@ namespace BudgetExecution
     /// <summary>
     /// 
     /// </summary>
-    [SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" )]
-    [SuppressMessage( "ReSharper", "CompareNonConstrainedGenericWithNull" )]
+    [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
+    [ SuppressMessage( "ReSharper", "CompareNonConstrainedGenericWithNull" ) ]
     public static class CollectionExtensions
     {
         /// <summary>Adds if.</summary>
@@ -23,10 +23,11 @@ namespace BudgetExecution
         /// <param name="predicate">The predicate.</param>
         /// <param name="value">The value.</param>
         /// <returns></returns>
-        public static bool AddIf<T>( this ICollection<T> collection, Func<T, bool> predicate, T value )
+        public static bool AddIf<T>( this ICollection<T> collection, Func<T, bool> predicate,
+            T value )
         {
             if( collection?.Count > 0
-                && predicate( value ) )
+               && predicate( value ) )
             {
                 try
                 {
@@ -50,7 +51,7 @@ namespace BudgetExecution
         public static void AddRange<T>( this ICollection<T> collection, params T[ ] values )
         {
             if( values?.Length > 0
-                && collection?.Any() == true )
+               && collection?.Any( ) == true )
             {
                 try
                 {
@@ -115,8 +116,8 @@ namespace BudgetExecution
         /// <param name="values">The values.</param>
         public static void RemoveRange<T>( this ICollection<T> collection, params T[ ] values )
         {
-            if( collection?.Any() == true
-                && values?.Any() == true )
+            if( collection?.Any( ) == true
+               && values?.Any( ) == true )
             {
                 try
                 {
@@ -138,15 +139,13 @@ namespace BudgetExecution
         /// <param name="predicate">The predicate.</param>
         public static void RemoveWhere<T>( this ICollection<T> collection, Predicate<T> predicate )
         {
-            if( collection?.Any() == true )
+            if( collection?.Any( ) == true )
             {
                 try
                 {
-                    var list = collection
-                        ?.Where( child => predicate( child ) )
-                        ?.ToList();
+                    var list = collection?.Where( child => predicate( child ) )?.ToList( );
 
-                    if( list?.Any() == true )
+                    if( list?.Any( ) == true )
                     {
                         list.ForEach( t => collection.Remove( t ) );
                     }
@@ -181,8 +180,8 @@ namespace BudgetExecution
         private static void Fail( Exception ex )
         {
             using var _error = new Error( ex );
-            _error?.SetText();
-            _error?.ShowDialog();
+            _error?.SetText( );
+            _error?.ShowDialog( );
         }
     }
 }

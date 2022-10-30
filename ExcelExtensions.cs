@@ -1,5 +1,5 @@
-﻿// <copyright file = "ExcelExtensions.cs" company = "Terry D. Eppler">
-// Copyright (c) Terry D. Eppler. All rights reserved.
+﻿// <copyright file=" <File Name> .cs" company="Terry D. Eppler">
+// Copyright (c) Terry Eppler. All rights reserved.
 // </copyright>
 
 namespace BudgetExecution
@@ -17,10 +17,20 @@ namespace BudgetExecution
     /// <summary>
     /// 
     /// </summary>
-    [SuppressMessage( "ReSharper", "CompareNonConstrainedGenericWithNull" )]
+    [ SuppressMessage( "ReSharper", "CompareNonConstrainedGenericWithNull" ) ]
+    [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
     public static class ExcelExtensions
     {
-        /// <summary>Converts to dataset.</summary>
+        /// <summary>
+        /// 
+        /// </summary>
+        public enum InsertMode
+        {
+            /// <summary>The row before</summary>
+            RowBefore, RowAfter, ColumnRight, ColumnLeft
+        }
+
+        /// <summary>Converts to data set.</summary>
         /// <param name="excelPackage">The excelPackage.</param>
         /// <param name="header">if set to <c>true</c> [header].</param>
         /// <returns></returns>
@@ -33,7 +43,7 @@ namespace BudgetExecution
             return ToDataSet( excelPackage, _row );
         }
 
-        /// <summary>Converts to dataset.</summary>
+        /// <summary>Converts to data set.</summary>
         /// <param name="excelPackage">The excelPackage.</param>
         /// <param name="header">The header.</param>
         /// <returns></returns>
@@ -42,49 +52,52 @@ namespace BudgetExecution
         {
             if( header < 0 )
             {
-                throw new ArgumentOutOfRangeException( nameof( header ), header, "Must be 0 or greater." );
+                throw new ArgumentOutOfRangeException( nameof( header ), header,
+                    "Must be 0 or greater." );
             }
 
-            var _result = new DataSet();
+            var _result = new DataSet( );
 
             foreach( var _worksheet in excelPackage.Workbook.Worksheets )
             {
-                var _table = new DataTable
+                if ( _worksheet != null 
+                    && !string.IsNullOrEmpty( _worksheet.Name ) )
                 {
-                    TableName = _worksheet?.Name
-                };
+                    var _table = new DataTable( );
+                    _table.TableName = _worksheet.Name;
+                    var _start = 1;
 
-                var _start = 1;
-
-                if( header > 0 )
-                {
-                    _start = header;
-                }
-
-                var _columns =
-                    from _cell in _worksheet?.Cells[ _start, 1, _start, _worksheet.Dimension.End.Column ] 
-                    select new DataColumn( header > 0
-                        ? _cell?.Value?.ToString()
-                        : $"Column {_cell?.Start?.Column}" );
-
-                _table.Columns.AddRange( _columns?.ToArray() );
-
-                var i = header > 0
-                    ? _start + 1
-                    : _start;
-
-                for( var index = i; index <= _worksheet?.Dimension.End.Row; index++ )
-                {
-                    var _range = _worksheet.Cells[ index, 1, index, _worksheet.Dimension.End.Column ];
-                    var _row = _table.Rows.Add();
-
-                    foreach( var cell in _range )
+                    if( header > 0 )
                     {
-                        _row[ cell.Start.Column - 1 ] = cell.Value;
+                        _start = header;
                     }
-                }
 
-                _result.Tables.Add( _table );
+                    var _columns =
+                        from _cell in _worksheet?.Cells[ _start, 1, _start,
+                            _worksheet.Dimension.End.Column ] select new DataColumn( header > 0
+                            ? _cell?.Value?.ToString( )
+                            : $"Column {_cell?.Start?.Column}" );
+
+                    _table.Columns.AddRange( _columns?.ToArray( ) );
+                    var i = header > 0
+                        ? _start + 1
+                        : _start;
+
+                    for( var index = i; index <= _worksheet?.Dimension.End.Row; index++ )
+                    {
+                        var _range =
+                            _worksheet.Cells[ index, 1, index, _worksheet.Dimension.End.Column ];
+
+                        var _row = _table.Rows.Add( );
+
+                        foreach( var cell in _range )
+                        {
+                            _row[ cell.Start.Column - 1 ] = cell.Value;
+                        }
+                    }
+
+                    _result.Tables.Add( _table );
+                }
             }
 
             return _result;
@@ -94,7 +107,7 @@ namespace BudgetExecution
         /// <param name="worksheet">The worksheet.</param>
         public static void TrimLastEmptyRows( this ExcelWorksheet worksheet )
         {
-            while( worksheet.IsLastRowEmpty() )
+            while( worksheet.IsLastRowEmpty( ) )
             {
                 worksheet.DeleteRow( worksheet.Dimension.End.Row, 1 );
             }
@@ -109,24 +122,15 @@ namespace BudgetExecution
         /// </returns>
         public static bool IsLastRowEmpty( this ExcelWorksheet worksheet )
         {
-            var _empties = new List<bool>();
+            var _empties = new List<bool>( );
 
             for( var index = 1; index <= worksheet.Dimension.End.Column; index++ )
             {
                 var _value = worksheet.Cells[ worksheet.Dimension.End.Row, index ].Value;
-                _empties.Add( string.IsNullOrWhiteSpace( _value?.ToString() ) );
+                _empties.Add( string.IsNullOrWhiteSpace( _value?.ToString( ) ) );
             }
 
             return _empties.All( e => e );
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public enum InsertMode
-        {
-            /// <summary>The row before</summary>
-            RowBefore, RowAfter, ColumnRight, ColumnLeft
         }
 
         /// <summary>Sets the width.</summary>
@@ -136,16 +140,17 @@ namespace BudgetExecution
         {
             var _first = width >= 1.0
                 ? Math.Round( ( Math.Round( 7.0 * ( width - 0.0 ), 0 ) - 5.0 ) / 7.0, 2 )
-                : Math.Round( ( Math.Round( 12.0 * ( width - 0.0 ), 0 ) - Math.Round( 5.0 * width, 0 ) ) / 12.0, 2 );
+                : Math.Round(
+                    ( Math.Round( 12.0 * ( width - 0.0 ), 0 ) - Math.Round( 5.0 * width, 0 ) )
+                    / 12.0, 2 );
 
             var _second = width - _first;
-
             var _third = width >= 1.0
                 ? Math.Round( 7.0 * _second - 0.0, 0 ) / 7.0
                 : Math.Round( 12.0 * _second - 0.0, 0 ) / 12.0 + 0.0;
 
-            column.Width = _first > 0.0 
-                ? width + _third 
+            column.Width = _first > 0.0
+                ? width + _third
                 : 0.0;
         }
 
@@ -227,8 +232,8 @@ namespace BudgetExecution
         private static void Fail( Exception ex )
         {
             using var _error = new Error( ex );
-            _error?.SetText();
-            _error?.ShowDialog();
+            _error?.SetText( );
+            _error?.ShowDialog( );
         }
     }
 }

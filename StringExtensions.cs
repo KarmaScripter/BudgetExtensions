@@ -1,5 +1,5 @@
-﻿// <copyright file = "StringExtensions.cs" company = "Terry D. Eppler">
-// Copyright (c) Terry D. Eppler. All rights reserved.
+﻿// <copyright file=" <File Name> .cs" company="Terry D. Eppler">
+// Copyright (c) Terry Eppler. All rights reserved.
 // </copyright>
 
 namespace BudgetExecution
@@ -35,7 +35,7 @@ namespace BudgetExecution
             {
                 return string.IsNullOrEmpty( text ) || text.Length < 5
                     ? text
-                    : Regex.Replace( text, "([A-Z])", " $1", RegexOptions.Compiled ).Trim();
+                    : Regex.Replace( text, "([A-Z])", " $1", RegexOptions.Compiled ).Trim( );
             }
             catch( Exception ex )
             {
@@ -62,7 +62,6 @@ namespace BudgetExecution
                 {
                     var _culture = Thread.CurrentThread.CurrentCulture;
                     var _info = _culture.TextInfo;
-
                     return !string.IsNullOrEmpty( _info.ToTitleCase( text ) )
                         ? _info.ToTitleCase( text )
                         : string.Empty;
@@ -113,8 +112,7 @@ namespace BudgetExecution
         /// <returns>
         /// The <see cref = "T"/>
         /// </returns>
-        public static T ToEnum<T>( this string text ) 
-            where T : struct
+        public static T ToEnum<T>( this string text ) where T : struct
         {
             try
             {
@@ -123,7 +121,7 @@ namespace BudgetExecution
             catch( Exception ex )
             {
                 Fail( ex );
-                return default( T );
+                return default;
             }
         }
 
@@ -196,7 +194,7 @@ namespace BudgetExecution
             {
                 if( !string.IsNullOrEmpty( text ) )
                 {
-                    var letters = text.ToCharArray();
+                    var letters = text.ToCharArray( );
                     letters[ 0 ] = char.ToUpper( letters[ 0 ] );
                     return new string( letters );
                 }
@@ -230,7 +228,7 @@ namespace BudgetExecution
             catch( Exception ex )
             {
                 Fail( ex );
-                return default( DateTime );
+                return default;
             }
         }
 
@@ -253,7 +251,7 @@ namespace BudgetExecution
             catch( Exception ex )
             {
                 Fail( ex );
-                return default( MemoryStream );
+                return default;
             }
         }
 
@@ -301,12 +299,12 @@ namespace BudgetExecution
             {
                 return !string.IsNullOrEmpty( text )
                     ? new StreamReader( text )
-                    : default( StreamReader );
+                    : default;
             }
             catch( Exception ex )
             {
                 Fail( ex );
-                return default( StreamReader );
+                return default;
             }
         }
 
@@ -322,7 +320,7 @@ namespace BudgetExecution
         public static void WriteToFile( this string text, string file )
         {
             if( !string.IsNullOrEmpty( text )
-                && !string.IsNullOrEmpty( file ) )
+               && !string.IsNullOrEmpty( file ) )
             {
                 try
                 {
@@ -362,14 +360,14 @@ namespace BudgetExecution
         {
             try
             {
-                var _message = new MailMessage();
+                var _message = new MailMessage( );
                 _message.To.Add( recipient );
                 var _address = new MailAddress( sender );
                 _message.From = _address;
                 _message.Subject = subject;
                 _message.Body = body;
                 var _client = new SmtpClient( server );
-                var _credentials = new NetworkCredential();
+                var _credentials = new NetworkCredential( );
                 _client.Credentials = _credentials;
                 _client.Send( _message );
                 return true;
@@ -390,7 +388,7 @@ namespace BudgetExecution
         public static string RemoveSpaces( this string text )
         {
             if( !string.IsNullOrEmpty( text )
-                && text.Contains( " " ) )
+               && text.Contains( " " ) )
             {
                 try
                 {
@@ -413,8 +411,8 @@ namespace BudgetExecution
         private static void Fail( Exception ex )
         {
             using var _error = new Error( ex );
-            _error?.SetText();
-            _error?.ShowDialog();
+            _error?.SetText( );
+            _error?.ShowDialog( );
         }
     }
 }
