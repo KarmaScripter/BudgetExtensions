@@ -1,2 +1,2 @@
 # BudgetExtensions
-Extension methods for use in the Budget Execution tool.
+Extension methods used in the Budget Execution tool.
